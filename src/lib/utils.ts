@@ -10,8 +10,8 @@ export function vars(values: Record<`--${string}`, string | number>): CSSPropert
   return values as CSSProperties;
 }
 
-/** The accent colours in the order lists cycle through them. */
-export const hues: readonly Hue[] = ["blue", "mint", "sun", "coral"];
+/** The main accent colours, in the order lists cycle through them (mint is only used sparingly). */
+export const hues: readonly Hue[] = ["blue", "violet", "sun"];
 
 export function prefersReducedMotion(): boolean {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;

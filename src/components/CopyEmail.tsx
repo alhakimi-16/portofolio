@@ -8,7 +8,7 @@ import { cn, prefersReducedMotion, vars } from "@/lib/utils";
 type Piece = { dx: number; dy: number; rot: number; color: string; width: number; height: number; round: boolean };
 type Burst = { id: number; pieces: Piece[] };
 
-const colors = ["var(--blue)", "var(--mint)", "var(--sun)", "var(--coral)"];
+const colors = ["var(--blue)", "var(--violet)", "var(--sun)", "var(--blue)", "var(--violet)", "var(--mint)"];
 
 function makePieces(): Piece[] {
   return Array.from({ length: 22 }, (_, i) => {

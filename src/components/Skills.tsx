@@ -11,7 +11,7 @@ export function Skills({ content, t }: { content: SiteContent; t: Dictionary }) 
   ];
 
   return (
-    <Section id="skills" nav="skills" hue="sun" {...t.sections.skills}>
+    <Section id="skills" nav="skills" hue="blue" {...t.sections.skills}>
       <div className="grid gap-12 lg:grid-cols-2 lg:gap-10">
         {groups.map((group, g) => (
           <div key={group.label}>

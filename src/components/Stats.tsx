@@ -19,13 +19,7 @@ export function Stats({ stats, locale }: { stats: SiteContent["stats"]; locale: 
             <span aria-hidden className="absolute -top-8 -right-8 size-24 rounded-full bg-hue/15" />
             <dt className="relative mt-2 text-sm leading-snug">{stat.label}</dt>
             <dd className="relative font-display text-[2.5rem] leading-none font-extrabold tracking-tight text-hue-ink tabular-nums sm:text-5xl">
-              <CountUp
-                value={stat.value}
-                decimals={stat.decimals}
-                suffix={stat.suffix}
-                ordinal={stat.ordinal}
-                locale={locale}
-              />
+              <CountUp value={stat.value} decimals={stat.decimals} suffix={stat.suffix} locale={locale} />
             </dd>
           </div>
         ))}

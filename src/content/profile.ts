@@ -1,20 +1,21 @@
 /**
  * ─────────────────────────────────────────────────────────────────────────────
  *  ALL CONTENT OF THE SITE LIVES IN THIS FILE.
- *  Source: Lebenslauf (CV), October 2026. German texts follow the CV;
- *  English texts are translations of them.
+ *  Sources: my CV (October 2026) and my own notes. Every text exists in
+ *  English (`en`) and German (`de`).
  *
- *  • Every text exists in English (`en`) and German (`de`).
- *  • In the about text, ==words== get a coloured marker highlight.
- *  • Update the semester (about text + stats) when it changes.
+ *  • In the about text, ==words== get a coloured marker highlight and {age}
+ *    is replaced with `person.age`.
+ *  • Update `person.age` after each birthday (it is also one of the numbers).
  * ─────────────────────────────────────────────────────────────────────────────
  */
-import type { Award, Hue, IconName, L, Language, Role, Skill, Stat, Stop } from "./types";
+import type { Hue, IconName, L, Language, Role, Skill, Stat, Stop } from "./types";
 
 export const person = {
   firstName: "Mugahed",
   lastName: "Al-Hakimi",
   initials: "MA",
+  age: 21,
   headline: { en: "Business Informatics Student", de: "Student der Wirtschaftsinformatik" } satisfies L,
   school: "HAW Hamburg",
   intro: {
@@ -31,14 +32,14 @@ export const person = {
 /** "Hello" in the four languages I speak; the hero cycles through them. */
 export const greetings: { text: string; lang: string; dir?: "rtl"; hue: Hue }[] = [
   { text: "Hallo", lang: "de", hue: "blue" },
-  { text: "Hello", lang: "en", hue: "mint" },
+  { text: "Hello", lang: "en", hue: "violet" },
   { text: "مرحبا", lang: "ar", dir: "rtl", hue: "sun" },
-  { text: "Merhaba", lang: "tr", hue: "coral" },
+  { text: "Merhaba", lang: "tr", hue: "mint" },
 ];
 
 /** Little labels floating around the portrait. */
 export const stickers: { text: L; hue: Hue }[] = [
-  { text: { en: "Java", de: "Java" }, hue: "coral" },
+  { text: { en: "Java", de: "Java" }, hue: "violet" },
   { text: { en: "SQL", de: "SQL" }, hue: "blue" },
   { text: { en: "GDPR", de: "DSGVO" }, hue: "mint" },
   { text: { en: "4 languages", de: "4 Sprachen" }, hue: "sun" },
@@ -46,43 +47,28 @@ export const stickers: { text: L; hue: Hue }[] = [
 
 /** Keywords on the scrolling ribbon below the hero. */
 export const marquee: { text: L; hue: Hue }[] = [
-  { text: { en: "Java", de: "Java" }, hue: "coral" },
+  { text: { en: "Java", de: "Java" }, hue: "violet" },
   { text: { en: "SQL", de: "SQL" }, hue: "blue" },
-  { text: { en: "Data quality", de: "Datenqualität" }, hue: "mint" },
-  { text: { en: "GDPR", de: "DSGVO" }, hue: "sun" },
-  { text: { en: "Business administration", de: "BWL" }, hue: "coral" },
-  { text: { en: "Critical thinking", de: "Kritisches Denken" }, hue: "blue" },
-  { text: { en: "Compliance", de: "Compliance" }, hue: "mint" },
-  { text: { en: "Microsoft Office", de: "Microsoft Office" }, hue: "sun" },
+  { text: { en: "Information systems", de: "Informationssysteme" }, hue: "sun" },
+  { text: { en: "Data quality", de: "Datenqualität" }, hue: "violet" },
+  { text: { en: "GDPR", de: "DSGVO" }, hue: "mint" },
+  { text: { en: "Business administration", de: "BWL" }, hue: "blue" },
+  { text: { en: "Financial reports", de: "Finanzberichte" }, hue: "sun" },
+  { text: { en: "Teamwork", de: "Teamarbeit" }, hue: "violet" },
+  { text: { en: "Time management", de: "Zeitmanagement" }, hue: "blue" },
 ];
 
+/** The numbers below the hero; they count up when they appear. */
 export const stats: Stat[] = [
-  {
-    value: 97.25,
-    decimals: 2,
-    suffix: { en: "%", de: " %" },
-    label: { en: "High school result, 2nd in my year", de: "High-School-Ergebnis, 2. Platz im Jahrgang" },
-    hue: "sun",
-  },
-  {
-    value: 1.6,
-    decimals: 1,
-    label: { en: "Final grade at the Studienkolleg", de: "Abschlussnote am Studienkolleg" },
-    hue: "coral",
-  },
-  { value: 4, decimals: 0, label: { en: "Languages", de: "Sprachen" }, hue: "mint" },
-  {
-    value: 3,
-    decimals: 0,
-    ordinal: true,
-    label: { en: "Semester, B.Sc. Business Informatics", de: "Semester B.Sc. Wirtschaftsinformatik" },
-    hue: "blue",
-  },
+  { value: person.age, label: { en: "Years old", de: "Jahre alt" }, hue: "blue" },
+  { value: 3, label: { en: "Countries I've lived in", de: "Länder, in denen ich gelebt habe" }, hue: "sun" },
+  { value: 4, label: { en: "Languages I speak", de: "Sprachen, die ich spreche" }, hue: "violet" },
+  { value: 2, label: { en: "Roles alongside my studies", de: "Tätigkeiten neben dem Studium" }, hue: "blue" },
 ];
 
 export const about: L = {
-  en: "Motivated Business Informatics student (3rd semester) with practical experience in handling ==sensitive data== and a keen ==eye for detail==. Combines a solid foundation in ==programming (Java, SQL)== and ==business administration== with first work experience in ==data verification and compliance== at Nect GmbH. Looking for a ==working student position== to apply theoretical knowledge in practice and continue to develop professionally.",
-  de: "Motivierter Student der Wirtschaftsinformatik (3. Semester) mit praktischer Erfahrung im Umgang mit ==sensiblen Daten== und einem ausgeprägten ==Blick fürs Detail==. Kombiniert fundierte Grundlagen in ==Programmierung (Java, SQL)== und ==Betriebswirtschaftslehre== mit erster Berufserfahrung im Bereich ==Datenprüfung und Compliance== bei Nect GmbH. Sucht eine ==Werkstudentenstelle==, um theoretisches Wissen praktisch anzuwenden und sich fachlich weiterzuentwickeln.",
+  en: "I'm Mugahed, a {age}-year-old from ==Yemen==. So far I've lived in three countries with three very different cultures: Yemen, ==Malaysia== and ==Germany==. Today I study ==Business Informatics== at HAW Hamburg, right where business and IT meet. Alongside my studies I check and maintain customer data as a working student at Nect, where ==accuracy and care with sensitive data== count every day, and I volunteer as finance officer for the VJSD, the association of Yemeni students in Germany. My next step: a ==working student position== where I can put what I learn into practice.",
+  de: "Ich bin Mugahed, {age} Jahre alt und komme aus dem ==Jemen==. Bisher habe ich in drei Ländern mit drei ganz unterschiedlichen Kulturen gelebt: im Jemen, in ==Malaysia== und in ==Deutschland==. Heute studiere ich ==Wirtschaftsinformatik== an der HAW Hamburg, genau dort, wo BWL und IT zusammenkommen. Neben dem Studium prüfe und pflege ich als Werkstudent bei Nect Kundendaten, wo es jeden Tag auf ==Genauigkeit und einen sorgfältigen Umgang mit sensiblen Daten== ankommt, und engagiere mich ehrenamtlich als Finanzverantwortlicher beim VJSD (Verein jemenitischer Studierende Deutschland). Mein nächster Schritt: eine ==Werkstudentenstelle==, in der ich Gelerntes in der Praxis anwenden kann.",
 };
 
 /** Quick facts next to the about text. */
@@ -98,53 +84,43 @@ export const facts: { label: L; value: L; icon: IconName }[] = [
     icon: "briefcase",
   },
   {
+    label: { en: "Volunteering", de: "Ehrenamt" },
+    value: { en: "Finance officer · VJSD", de: "Finanzverantwortlicher · VJSD" },
+    icon: "handshake",
+  },
+  {
     label: { en: "Looking for", de: "Gesucht" },
     value: { en: "A working student position", de: "Eine Werkstudentenstelle" },
     icon: "search",
   },
-  {
-    label: { en: "Languages", de: "Sprachen" },
-    value: { en: "Arabic, German, English, Turkish", de: "Arabisch, Deutsch, Englisch, Türkisch" },
-    icon: "globe",
-  },
 ];
 
-/** My path so far, oldest first. */
+/** Three countries, three cultures, in the order I lived in them. */
 export const path: Stop[] = [
   {
-    period: { en: "2019 – 2023", de: "2019 – 2023" },
-    place: { en: "Putrajaya, Malaysia", de: "Putrajaya, Malaysia" },
-    title: { en: "IMAS – The International Modern Arabic School", de: "IMAS – The International Modern Arabic School" },
+    label: { en: "Where I'm from", de: "Herkunft" },
+    title: { en: "Yemen", de: "Jemen" },
     detail: {
-      en: "High school · grade 1.1 (97.25%) · excellence award, 2nd place in my year",
-      de: "Gymnasium · Note 1,1 (97,25 %) · Exzellenzpreis, 2. Platz im Jahrgang",
+      en: "My home country and my roots. Arabic is my native language.",
+      de: "Mein Heimatland und meine Wurzeln. Arabisch ist meine Muttersprache.",
     },
     hue: "sun",
   },
   {
-    period: { en: "2023 – 2024", de: "2023 – 2024" },
-    place: { en: "Kuala Lumpur, Malaysia", de: "Kuala Lumpur, Malaysia" },
-    title: { en: "Goethe-Institut", de: "Goethe-Institut" },
-    detail: { en: "German language course, A1 to B2", de: "Deutschsprachiger Kurs, A1 bis B2" },
-    hue: "mint",
-  },
-  {
-    period: { en: "2024 – 2025", de: "2024 – 2025" },
-    place: { en: "Hannover", de: "Hannover" },
-    title: { en: "Studienkolleg · Leibniz University Hannover", de: "Studienkolleg · Leibniz Universität Hannover" },
+    label: { en: "A new culture", de: "Eine neue Kultur" },
+    title: { en: "Malaysia", de: "Malaysia" },
     detail: {
-      en: "Final grade 1.6 · preparation for university studies in Germany",
-      de: "Abschlussnote 1,6 · Vorbereitung auf ein Hochschulstudium in Deutschland",
+      en: "Southeast Asia: a whole new culture, in a country where many cultures meet.",
+      de: "Südostasien: eine ganz neue Kultur, in einem Land, in dem viele Kulturen aufeinandertreffen.",
     },
-    hue: "coral",
+    hue: "violet",
   },
   {
-    period: { en: "Since Oct 2025", de: "Seit 10/2025" },
-    place: { en: "Hamburg", de: "Hamburg" },
-    title: { en: "B.Sc. Business Informatics · HAW Hamburg", de: "B.Sc. Wirtschaftsinformatik · HAW Hamburg" },
+    label: { en: "Today", de: "Heute" },
+    title: { en: "Germany", de: "Deutschland" },
     detail: {
-      en: "Focus so far: Java, SQL, business administration, fundamentals of business informatics, statistics",
-      de: "Schwerpunkte bisher: Java, SQL, BWL, Grundlagen der Wirtschaftsinformatik, Statistik",
+      en: "Business Informatics at HAW Hamburg, my job at Nect and volunteering for the VJSD.",
+      de: "Wirtschaftsinformatik an der HAW Hamburg, mein Job bei Nect und mein Ehrenamt beim VJSD.",
     },
     hue: "blue",
   },
@@ -153,8 +129,8 @@ export const path: Stop[] = [
 export const experience: Role[] = [
   {
     title: { en: "Working Student, Data Maintenance", de: "Werkstudent, Datenpflege" },
-    company: "Nect GmbH",
-    location: "Hamburg",
+    org: "Nect GmbH",
+    orgDetail: { en: "Hamburg", de: "Hamburg" },
     period: { en: "Since 2025", de: "Seit 2025" },
     bullets: {
       en: [
@@ -171,14 +147,44 @@ export const experience: Role[] = [
       ],
     },
     tags: { en: ["Data quality", "GDPR", "Compliance"], de: ["Datenqualität", "DSGVO", "Compliance"] },
+    art: "id-scan",
+  },
+  {
+    title: { en: "Finance Officer", de: "Finanzverantwortlicher" },
+    org: "VJSD",
+    orgDetail: {
+      en: "Verein jemenitischer Studierende Deutschland",
+      de: "Verein jemenitischer Studierende Deutschland",
+    },
+    kind: { en: "Volunteer", de: "Ehrenamtlich" },
+    period: { en: "Currently", de: "Aktuell" },
+    bullets: {
+      en: [
+        "Organising the association's finances and preparing reports and updates on them, using what I have learned in business administration and information systems",
+        "Working closely with the team, which pushes me out of my comfort zone and strengthens my teamwork",
+        "Taking responsibility for finishing tasks as requested and on time, where good time management plays a big role",
+      ],
+      de: [
+        "Organisation der Vereinsfinanzen sowie Erstellung von Berichten und Updates zur finanziellen Lage, mit meinem Wissen aus BWL und Informationssystemen",
+        "Enge Zusammenarbeit im Team, die mich aus meiner Komfortzone holt und meine Teamfähigkeit stärkt",
+        "Verantwortung dafür, Aufgaben wie vereinbart und fristgerecht zu erledigen, wobei gutes Zeitmanagement eine große Rolle spielt",
+      ],
+    },
+    tags: {
+      en: ["Finance", "Reporting", "Teamwork", "Time management"],
+      de: ["Finanzen", "Berichtswesen", "Teamarbeit", "Zeitmanagement"],
+    },
+    art: "report",
   },
 ];
 
 export const skills: { technical: Skill[]; personal: Skill[] } = {
   technical: [
-    { name: { en: "SQL", de: "SQL" }, note: { en: "basic", de: "Grundkenntnisse" }, icon: "database" },
-    { name: { en: "Java", de: "Java" }, note: { en: "basic", de: "Grundkenntnisse" }, icon: "cup" },
+    { name: { en: "SQL", de: "SQL" }, icon: "database" },
+    { name: { en: "Java", de: "Java" }, icon: "cup" },
     { name: { en: "Business administration", de: "Betriebswirtschaftslehre (BWL)" }, icon: "chart" },
+    { name: { en: "Information systems", de: "Informationssysteme" }, icon: "network" },
+    { name: { en: "Data verification & GDPR", de: "Datenprüfung & DSGVO" }, icon: "shield" },
     {
       name: { en: "Microsoft Office", de: "Microsoft Office" },
       note: { en: "Word, Excel, PowerPoint", de: "Word, Excel, PowerPoint" },
@@ -186,6 +192,8 @@ export const skills: { technical: Skill[]; personal: Skill[] } = {
     },
   ],
   personal: [
+    { name: { en: "Teamwork", de: "Teamfähigkeit" }, icon: "users" },
+    { name: { en: "Time management", de: "Zeitmanagement" }, icon: "clock" },
     { name: { en: "Leadership", de: "Führungsfähigkeit" }, icon: "flag" },
     { name: { en: "Critical thinking and problem solving", de: "Kritisches Denken und Problemlösung" }, icon: "bulb" },
     { name: { en: "Organisational skills", de: "Organisatorische Fähigkeiten" }, icon: "checklist" },
@@ -217,7 +225,7 @@ export const languages: Language[] = [
     value: 0.85,
     hello: "Hello",
     lang: "en",
-    hue: "mint",
+    hue: "violet",
   },
   {
     name: { en: "Turkish", de: "Türkisch" },
@@ -225,35 +233,6 @@ export const languages: Language[] = [
     value: 0.2,
     hello: "Merhaba",
     lang: "tr",
-    hue: "coral",
-  },
-];
-
-export const awards: Award[] = [
-  {
-    name: { en: "High school excellence award", de: "Exzellenzpreis der High School" },
-    issuer: { en: "2nd place in my year · IMAS, Putrajaya", de: "2. Platz im Jahrgang · IMAS, Putrajaya" },
-    icon: "medal",
-    hue: "sun",
-  },
-  {
-    name: { en: "German language course (A1–B2)", de: "Deutschsprachiger Kurs (A1–B2)" },
-    issuer: { en: "Goethe-Institut, Kuala Lumpur", de: "Goethe-Institut, Kuala Lumpur" },
-    period: "2023 – 2024",
-    icon: "speech",
-    hue: "blue",
-  },
-  {
-    name: { en: "Certificate of participation", de: "Teilnahmezertifikat" },
-    issuer: { en: "Kangaroo Math Competition, Kuala Lumpur", de: "Kangaroo Math Competition, Kuala Lumpur" },
-    period: "2019 – 2020",
-    icon: "sigma",
     hue: "mint",
-  },
-  {
-    name: { en: "First aid course, certificate of attendance", de: "Teilnahmebescheinigung Erste-Hilfe-Kurs" },
-    issuer: { en: "IMAS Malaysia", de: "IMAS Malaysia" },
-    icon: "aid",
-    hue: "coral",
   },
 ];

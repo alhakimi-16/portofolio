@@ -111,7 +111,7 @@ export function Header({
       <div
         ref={progressRef}
         aria-hidden
-        className="absolute inset-x-0 top-0 h-[3px] origin-left scale-x-(--progress) bg-[linear-gradient(90deg,var(--blue),var(--mint),var(--sun),var(--coral))] [--progress:0]"
+        className="absolute inset-x-0 top-0 h-[3px] origin-left scale-x-(--progress) bg-[linear-gradient(90deg,var(--blue),var(--violet),var(--sun))] [--progress:0]"
       />
       <div className="mx-auto max-w-6xl px-3 pt-3 sm:px-5">
         <div

@@ -5,7 +5,8 @@ export function IdScan({ scan, verified }: { scan: string; verified: string }) {
   return (
     <div
       aria-hidden
-      className="relative flex min-h-64 flex-col items-center justify-center gap-10 overflow-hidden bg-hue/10 [background-image:radial-gradient(color-mix(in_srgb,var(--hue)_40%,transparent)_1.2px,transparent_1.4px)] [background-size:18px_18px] p-10"
+      data-hue="blue"
+      className="relative flex h-full min-h-64 flex-col items-center justify-center gap-10 overflow-hidden bg-hue/10 [background-image:radial-gradient(color-mix(in_srgb,var(--hue)_40%,transparent)_1.2px,transparent_1.4px)] [background-size:18px_18px] p-10"
     >
       <div className="relative w-56 -rotate-3 rounded-2xl border border-line bg-surface p-4 shadow-[var(--shadow)]">
         <div className="flex items-center justify-between">
@@ -33,7 +34,7 @@ export function IdScan({ scan, verified }: { scan: string; verified: string }) {
         />
         <div
           data-hue="mint"
-          className="absolute -right-6 -bottom-4 flex -rotate-8 animate-[stamp_5.6s_ease-out_infinite] items-center gap-1.5 rounded-xl border-[3px] border-hue bg-surface px-3 py-1 font-display text-sm font-extrabold tracking-[0.08em] text-hue-ink uppercase"
+          className="absolute -right-6 -bottom-4 flex rotate-(--tilt) animate-[stamp_5.6s_ease-out_infinite] items-center gap-1.5 rounded-xl border-[3px] border-hue bg-surface px-3 py-1 font-display text-sm font-extrabold tracking-[0.08em] text-hue-ink uppercase [--tilt:-8deg]"
         >
           <Check className="size-4" strokeWidth={3.2} />
           {verified}

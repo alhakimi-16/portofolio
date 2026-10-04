@@ -24,11 +24,10 @@ const en = {
   },
   sections: {
     about: { eyebrow: "About me", title: "A quick *hello*" },
-    path: { eyebrow: "My path", title: "From Malaysia to *Hamburg*" },
-    experience: { eyebrow: "Experience", title: "Where I *work*" },
+    path: { eyebrow: "My path", title: "Three countries, three *cultures*" },
+    experience: { eyebrow: "Experience", title: "Work & *volunteering*" },
     skills: { eyebrow: "Skills", title: "What I *bring*" },
     languages: { eyebrow: "Languages", title: "Four ways to say *hello*" },
-    awards: { eyebrow: "Certificates & awards", title: "Things I'm *proud of*" },
     contact: { eyebrow: "Contact", title: "Let's *talk*" },
   },
   skills: {
@@ -38,6 +37,8 @@ const en = {
   experience: {
     scan: "ID check",
     verified: "Verified",
+    report: "Financial report",
+    onTime: "On time",
   },
   contact: {
     text: "I'm looking for a working student position. The easiest way to reach me is by email.",
@@ -86,11 +87,10 @@ const de: Dictionary = {
   },
   sections: {
     about: { eyebrow: "Über mich", title: "Kurz *vorgestellt*" },
-    path: { eyebrow: "Mein Weg", title: "Von Malaysia nach *Hamburg*" },
-    experience: { eyebrow: "Berufserfahrung", title: "Wo ich *arbeite*" },
+    path: { eyebrow: "Mein Weg", title: "Drei Länder, drei *Kulturen*" },
+    experience: { eyebrow: "Erfahrung", title: "Arbeit & *Ehrenamt*" },
     skills: { eyebrow: "Kenntnisse", title: "Was ich *mitbringe*" },
     languages: { eyebrow: "Sprachen", title: "Vier Arten, *Hallo* zu sagen" },
-    awards: { eyebrow: "Auszeichnungen & Zertifikate", title: "Worauf ich *stolz* bin" },
     contact: { eyebrow: "Kontakt", title: "Lassen Sie uns *sprechen*" },
   },
   skills: {
@@ -100,6 +100,8 @@ const de: Dictionary = {
   experience: {
     scan: "Ausweisprüfung",
     verified: "Geprüft",
+    report: "Finanzbericht",
+    onTime: "Pünktlich",
   },
   contact: {
     text: "Ich suche eine Werkstudentenstelle. Am einfachsten erreichen Sie mich per E-Mail.",

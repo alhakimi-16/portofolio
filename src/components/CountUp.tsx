@@ -10,23 +10,20 @@ export function CountUp({
   value,
   decimals,
   suffix,
-  ordinal,
   locale,
 }: {
   value: number;
   decimals: number;
   suffix: string;
-  ordinal: boolean;
   locale: Locale;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const options = { locale, decimals, suffix, ordinal };
-  const final = formatStat(value, options);
+  const final = formatStat(value, { locale, decimals, suffix });
 
   useEffect(() => {
     const el = ref.current;
     if (!el || prefersReducedMotion()) return;
-    const format = (n: number) => formatStat(n, { locale, decimals, suffix, ordinal });
+    const format = (n: number) => formatStat(n, { locale, decimals, suffix });
     let frame = 0;
     el.textContent = format(0);
     const observer = new IntersectionObserver(
@@ -49,7 +46,7 @@ export function CountUp({
       cancelAnimationFrame(frame);
       el.textContent = format(value);
     };
-  }, [value, decimals, suffix, ordinal, locale]);
+  }, [value, decimals, suffix, locale]);
 
   return (
     <>

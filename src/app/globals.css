@@ -13,8 +13,9 @@
 }
 
 /* Layout: one column. A colourful hero, then sections that alternate cards and lists.
-   Palette: cool white paper and navy ink, with four friendly accents (blue, mint,
-   coral, sun) that each section picks one of. Light by default, navy at night. */
+   Palette: cool white paper and navy ink with three accents (blue, yellow "sun" and
+   light purple "violet") and a little pastel green ("mint"). Light by default, navy at night.
+   Each accent has a light shade for fills and a deeper "ink" shade for text. */
 :root {
   --bg: #f6f7fb;
   --surface: #ffffff;
@@ -22,16 +23,16 @@
   --muted: #535d77;
   --line: #e2e6f0;
   --blue: #3a5bf7;
-  --mint: #12b386;
-  --coral: #f2545b;
-  --sun: #f7a823;
+  --violet: #a78bfa;
+  --sun: #f9c22e;
+  --mint: #86d8b1;
   --blue-ink: #2643c4;
-  --mint-ink: #0a7656;
-  --coral-ink: #c0363e;
-  --sun-ink: #925c00;
+  --violet-ink: #6a45d4;
+  --sun-ink: #865b00;
+  --mint-ink: #1b7650;
   --panel: #121a33;
-  /* the rainbow name: deep enough to stay readable on the light background */
-  --grad: #3a5bf7, #0e956e, #b8760c, #d9454c, #3a5bf7;
+  /* the gradient in my name: deep enough to stay readable on the light background */
+  --grad: #3a5bf7, #7650e0, #3a5bf7;
   --shadow: 0 1px 2px rgb(18 26 51 / 0.06), 0 8px 24px -12px rgb(18 26 51 / 0.18);
   --ease: cubic-bezier(0.2, 0.75, 0.2, 1);
   color-scheme: light;
@@ -45,15 +46,15 @@
     --muted: #a3acc6;
     --line: #242d4f;
     --blue: #7c95ff;
-    --mint: #3ddca8;
-    --coral: #ff7f86;
-    --sun: #ffc24d;
-    --blue-ink: #aebcff;
-    --mint-ink: #82edc9;
-    --coral-ink: #ffb0b5;
-    --sun-ink: #ffd98f;
+    --violet: #b9a3ff;
+    --sun: #ffd23f;
+    --mint: #8fe0b9;
+    --blue-ink: #b4c2ff;
+    --violet-ink: #d8cbff;
+    --sun-ink: #ffe28a;
+    --mint-ink: #b9f0d6;
     --panel: #18214a;
-    --grad: #7c95ff, #3ddca8, #ffc24d, #ff7f86, #7c95ff;
+    --grad: #8fa4ff, #c3b1ff, #8fa4ff;
     --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 32px -14px rgb(0 0 0 / 0.6);
     color-scheme: dark;
   }
@@ -66,15 +67,15 @@
   --muted: #a3acc6;
   --line: #242d4f;
   --blue: #7c95ff;
-  --mint: #3ddca8;
-  --coral: #ff7f86;
-  --sun: #ffc24d;
-  --blue-ink: #aebcff;
-  --mint-ink: #82edc9;
-  --coral-ink: #ffb0b5;
-  --sun-ink: #ffd98f;
+  --violet: #b9a3ff;
+  --sun: #ffd23f;
+  --mint: #8fe0b9;
+  --blue-ink: #b4c2ff;
+  --violet-ink: #d8cbff;
+  --sun-ink: #ffe28a;
+  --mint-ink: #b9f0d6;
   --panel: #18214a;
-  --grad: #7c95ff, #3ddca8, #ffc24d, #ff7f86, #7c95ff;
+  --grad: #8fa4ff, #c3b1ff, #8fa4ff;
   --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 32px -14px rgb(0 0 0 / 0.6);
   color-scheme: dark;
 }
@@ -88,9 +89,9 @@
   --hue: var(--mint);
   --hue-ink: var(--mint-ink);
 }
-[data-hue="coral"] {
-  --hue: var(--coral);
-  --hue-ink: var(--coral-ink);
+[data-hue="violet"] {
+  --hue: var(--violet);
+  --hue-ink: var(--violet-ink);
 }
 [data-hue="sun"] {
   --hue: var(--sun);
@@ -104,9 +105,9 @@
   --color-muted: var(--muted);
   --color-line: var(--line);
   --color-blue: var(--blue);
-  --color-mint: var(--mint);
-  --color-coral: var(--coral);
+  --color-violet: var(--violet);
   --color-sun: var(--sun);
+  --color-mint: var(--mint);
   --color-hue: var(--hue);
   --color-hue-ink: var(--hue-ink);
   --color-panel: var(--panel);
@@ -344,21 +345,34 @@ html[data-motion] [data-reveal]:not([data-shown]) .level {
 @keyframes stamp {
   0%,
   45% {
-    transform: scale(0) rotate(-20deg);
+    scale: 0;
+    rotate: calc(var(--tilt, 0deg) - 12deg);
     opacity: 0;
   }
   55% {
-    transform: scale(1.18) rotate(-8deg);
+    scale: 1.18;
+    rotate: var(--tilt, 0deg);
     opacity: 1;
   }
   62%,
   90% {
-    transform: scale(1) rotate(-8deg);
+    scale: 1;
     opacity: 1;
   }
   100% {
-    transform: scale(0.9) rotate(-8deg);
+    scale: 0.9;
     opacity: 0;
+  }
+}
+
+/* bars of the little finance chart rising and falling */
+@keyframes bars {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(0.55);
   }
 }
 

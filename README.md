@@ -1,12 +1,13 @@
 # Mugahed Al-Hakimi · Portfolio
 
 Personal website in **English and German** (`/en`, `/de`), with light and dark mode. A clean one-page
-layout with four accent colours and playful details:
+layout in blue, yellow and light purple (plus a little pastel green), with playful details:
 
 - a "Hello!" that cycles through the four languages I speak, a colour ring with floating stickers;
-- numbers from the CV that count up, a keyword ribbon, marker highlights in the about text;
-- "My path" as a timeline with a little plane that travels along as you scroll;
-- an ID card being scanned and stamped "verified" (a nod to my job at Nect);
+- numbers that count up, a keyword ribbon, marker highlights in the about text;
+- "My path": Yemen, Malaysia and Germany on a timeline with a little plane that travels along as you scroll;
+- an ID card being scanned and stamped "verified" (my job at Nect) and a finance report stamped "on time"
+  (my volunteer role at the VJSD);
 - confetti when the email address is copied.
 
 All motion is switched off for visitors who ask their system for reduced motion, and every piece of
@@ -36,14 +37,13 @@ Open <http://localhost:3000>. It redirects to `/en` or `/de` based on the browse
 ## Edit the content
 
 **All content lives in [`src/content/profile.ts`](src/content/profile.ts)**: profile text, numbers,
-stickers, the keyword ribbon, my path, experience, skills, languages and certificates. Every text exists
-in English (`en`) and German (`de`). Labels such as section headings are in
+stickers, the keyword ribbon, my path, experience, skills and languages. Every text exists in English
+(`en`) and German (`de`). Labels such as section headings are in
 [`src/i18n/ui.ts`](src/i18n/ui.ts); there, `*word*` in a heading gets the coloured, underlined style.
 
 - **Photo:** put a square portrait in `public/`, e.g. `public/photo.jpg`, and set `photo: "/photo.jpg"`.
   Until then the initials are shown.
-- **Semester:** the profile text and the numbers (`stats`) mention the current semester; update both
-  when it changes.
+- **Age:** update `person.age` after each birthday; the about text and the numbers use it.
 
 ## Deploy on Vercel
 

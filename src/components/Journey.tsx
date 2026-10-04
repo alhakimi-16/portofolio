@@ -61,7 +61,7 @@ export function Journey({ children }: { children: React.ReactNode }) {
       />
       <div
         aria-hidden
-        className="absolute top-(--start) left-6 h-(--length) w-1 -translate-x-1/2 rounded-full bg-[linear-gradient(var(--sun),var(--mint),var(--coral),var(--blue))] [clip-path:inset(0_0_calc((1-var(--p))*100%)_0)] md:left-1/2"
+        className="absolute top-(--start) left-6 h-(--length) w-1 -translate-x-1/2 rounded-full bg-[linear-gradient(var(--sun),var(--violet),var(--blue))] [clip-path:inset(0_0_calc((1-var(--p))*100%)_0)] md:left-1/2"
       />
       <div
         aria-hidden

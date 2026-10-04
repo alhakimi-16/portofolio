@@ -1,8 +1,12 @@
 import type { SiteContent } from "@/content";
 import type { Dictionary } from "@/i18n/ui";
+import type { Hue } from "@/content/types";
 import { hues, vars } from "@/lib/utils";
 import { Icon } from "./Icon";
 import { Section } from "./Section";
+
+/** Marker colours in order: the three countries match their colours in "My path". */
+const markers: Hue[] = ["sun", "violet", "blue"];
 
 /** Turns "==phrase==" into a marker highlight that sweeps in when the text appears. */
 function Highlights({ text }: { text: string }) {
@@ -11,7 +15,12 @@ function Highlights({ text }: { text: string }) {
     if (!part.startsWith("==")) return part;
     const k = n++;
     return (
-      <mark key={i} className="marker" data-hue={hues[k % hues.length]} style={vars({ "--d": `${450 + k * 200}ms` })}>
+      <mark
+        key={i}
+        className="marker"
+        data-hue={markers[k % markers.length]}
+        style={vars({ "--d": `${450 + k * 200}ms` })}
+      >
         {part.slice(2, -2)}
       </mark>
     );

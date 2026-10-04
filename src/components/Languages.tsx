@@ -5,7 +5,7 @@ import { Section } from "./Section";
 
 export function Languages({ content, t }: { content: SiteContent; t: Dictionary }) {
   return (
-    <Section id="languages" nav="skills" hue="mint" className="pt-4 sm:pt-8" {...t.sections.languages}>
+    <Section id="languages" nav="skills" hue="sun" className="pt-4 sm:pt-8" {...t.sections.languages}>
       <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {content.languages.map((language, i) => (
           <li key={language.lang} data-reveal data-hue={language.hue} style={vars({ "--d": `${i * 90}ms` })}>

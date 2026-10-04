@@ -3,7 +3,6 @@ import type { Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/ui";
 import { navIds, siteUrl } from "@/lib/site";
 import { About } from "./About";
-import { Awards } from "./Awards";
 import { Contact } from "./Contact";
 import { Experience } from "./Experience";
 import { Footer } from "./Footer";
@@ -17,7 +16,7 @@ import { Skills } from "./Skills";
 import { Stats } from "./Stats";
 
 /** Colour of each header link (matches the section). */
-const navHues = { about: "blue", path: "mint", experience: "coral", skills: "sun", contact: "blue" } as const;
+const navHues = { about: "blue", path: "sun", experience: "violet", skills: "blue", contact: "violet" } as const;
 
 /** The whole page for one language (shared by the site and the in-chat preview). */
 export function HomePage({ locale }: { locale: Locale }) {
@@ -63,7 +62,6 @@ export function HomePage({ locale }: { locale: Locale }) {
         <Experience content={content} t={t} />
         <Skills content={content} t={t} />
         <Languages content={content} t={t} />
-        <Awards content={content} t={t} />
         <Contact content={content} t={t} />
       </main>
       <Footer name={person.name} t={t} />

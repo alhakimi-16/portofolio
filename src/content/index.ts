@@ -4,6 +4,19 @@ import * as data from "./profile";
 /** Keeps a " · " separator on the line before it, so a wrapped line never starts with a dot. */
 const keepDots = (text: string) => text.replaceAll(" · ", "\u00a0· ");
 
+/**
+ * Long German words get optional hyphens (\u00ad), so in narrow boxes they break at a
+ * sensible point ("Betriebs-wirtschaftslehre") instead of anywhere. Invisible otherwise.
+ */
+const breakPoints: [string, string][] = [
+  ["Betriebswirtschaftslehre", "Betriebs\u00adwirtschafts\u00adlehre"],
+  ["Informationssysteme", "Informations\u00adsysteme"],
+  ["Finanzverantwortlicher", "Finanz\u00adverantwortlicher"],
+  ["Wirtschaftsinformatik", "Wirtschafts\u00adinformatik"],
+  ["Werkstudentenstelle", "Werkstudenten\u00adstelle"],
+];
+const soft = (text: string) => breakPoints.reduce((out, [word, split]) => out.replaceAll(word, split), text);
+
 /** All content of the site, resolved to one language. */
 export function getContent(locale: Locale) {
   const { person } = data;
@@ -27,41 +40,41 @@ export function getContent(locale: Locale) {
     marquee: data.marquee.map((item) => ({ text: item.text[locale], hue: item.hue })),
     stats: data.stats.map((stat) => ({
       value: stat.value,
-      decimals: stat.decimals,
+      decimals: stat.decimals ?? 0,
       suffix: stat.suffix?.[locale] ?? "",
-      ordinal: stat.ordinal ?? false,
       label: stat.label[locale],
       hue: stat.hue,
     })),
-    about: data.about[locale],
+    about: data.about[locale].replaceAll("{age}", String(person.age)),
     facts: data.facts.map((fact) => ({
       label: fact.label[locale],
-      value: keepDots(fact.value[locale]),
+      value: soft(keepDots(fact.value[locale])),
       icon: fact.icon,
     })),
     path: data.path.map((stop) => ({
-      period: stop.period[locale],
-      place: stop.place[locale],
-      title: keepDots(stop.title[locale]),
-      detail: keepDots(stop.detail[locale]),
+      label: stop.label[locale],
+      title: stop.title[locale],
+      detail: soft(stop.detail[locale]),
       hue: stop.hue,
     })),
     experience: data.experience.map((role) => ({
-      title: role.title[locale],
-      company: role.company,
-      location: role.location,
+      title: soft(role.title[locale]),
+      org: role.org,
+      orgDetail: role.orgDetail?.[locale],
+      kind: role.kind?.[locale],
       period: role.period[locale],
       bullets: role.bullets[locale],
       tags: role.tags?.[locale] ?? [],
+      art: role.art,
     })),
     skills: {
       technical: data.skills.technical.map((skill) => ({
-        name: skill.name[locale],
+        name: soft(skill.name[locale]),
         note: skill.note?.[locale],
         icon: skill.icon,
       })),
       personal: data.skills.personal.map((skill) => ({
-        name: skill.name[locale],
+        name: soft(skill.name[locale]),
         note: skill.note?.[locale],
         icon: skill.icon,
       })),
@@ -74,13 +87,6 @@ export function getContent(locale: Locale) {
       lang: language.lang,
       dir: language.dir,
       hue: language.hue,
-    })),
-    awards: data.awards.map((award) => ({
-      name: award.name[locale],
-      issuer: keepDots(award.issuer[locale]),
-      period: award.period,
-      icon: award.icon,
-      hue: award.hue,
     })),
   };
 }

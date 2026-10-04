@@ -52,7 +52,7 @@ export function Portrait({
     <div ref={ref} className="relative mx-auto aspect-square w-full max-w-[19rem] [--mx:0] [--my:0] sm:max-w-[23rem]">
       <div
         aria-hidden
-        className="absolute inset-[7%] animate-[spin_16s_linear_infinite] rounded-full bg-[conic-gradient(from_20deg,var(--blue),var(--mint),var(--sun),var(--coral),var(--blue))]"
+        className="absolute inset-[7%] animate-[spin_16s_linear_infinite] rounded-full bg-[conic-gradient(from_20deg,var(--blue),var(--violet),var(--sun),var(--blue))]"
       />
       <div aria-hidden className="absolute inset-[9.5%] rounded-full bg-bg" />
       <div className="absolute inset-[12%] overflow-hidden rounded-full bg-surface shadow-[var(--shadow)]">

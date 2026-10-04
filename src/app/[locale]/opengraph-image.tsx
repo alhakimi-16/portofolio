@@ -16,9 +16,10 @@ export function generateStaticParams() {
 
 const font = (file: string) => readFile(join(process.cwd(), "node_modules/@fontsource", file));
 
-const colors = { blue: "#3a5bf7", mint: "#12b386", sun: "#f7a823", coral: "#f2545b" };
-const inks = { blue: "#2643c4", mint: "#0a7656", sun: "#925c00", coral: "#c0363e" };
-const tints = { blue: "#e3e8fd", mint: "#dcf3ec", sun: "#fdf0d9", coral: "#fde3e4" };
+// the light-mode accent colours from globals.css
+const colors = { blue: "#3a5bf7", violet: "#a78bfa", sun: "#f9c22e", mint: "#86d8b1" };
+const inks = { blue: "#2643c4", violet: "#6a45d4", sun: "#865b00", mint: "#1b7650" };
+const tints = { blue: "#e3e8fd", violet: "#efe9fe", sun: "#fef6db", mint: "#e7f7ef" };
 
 export default async function Image({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -58,7 +59,7 @@ export default async function Image({ params }: { params: Promise<{ locale: stri
             fontWeight: 600,
           }}
         >
-          <div style={{ width: 14, height: 14, borderRadius: 14, background: colors.mint }} />
+          <div style={{ width: 14, height: 14, borderRadius: 14, background: "#3dbf86" }} />
           {person.availability}
         </div>
         <div
@@ -91,7 +92,7 @@ export default async function Image({ params }: { params: Promise<{ locale: stri
             height: 340,
             borderRadius: 340,
             display: "flex",
-            backgroundImage: `linear-gradient(135deg, ${colors.blue}, ${colors.mint} 35%, ${colors.sun} 65%, ${colors.coral})`,
+            backgroundImage: `linear-gradient(135deg, ${colors.blue}, ${colors.violet} 50%, ${colors.sun})`,
           }}
         />
         <div
