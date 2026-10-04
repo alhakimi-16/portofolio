@@ -35,15 +35,7 @@ export const greetings: { text: string; lang: string; dir?: "rtl"; hue: Hue }[] 
   { text: "Merhaba", lang: "tr", hue: "mint" },
 ];
 
-/** Little labels floating around the portrait. */
-export const stickers: { text: L; hue: Hue }[] = [
-  { text: { en: "Java", de: "Java" }, hue: "violet" },
-  { text: { en: "SQL", de: "SQL" }, hue: "blue" },
-  { text: { en: "GDPR", de: "DSGVO" }, hue: "mint" },
-  { text: { en: "Excel", de: "Excel" }, hue: "sun" },
-];
-
-/** Keywords on the scrolling ribbon below the hero. */
+/** Keywords listed below the three highlights. */
 export const marquee: { text: L; hue: Hue }[] = [
   { text: { en: "Java", de: "Java" }, hue: "violet" },
   { text: { en: "SQL", de: "SQL" }, hue: "blue" },

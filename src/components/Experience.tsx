@@ -1,69 +1,53 @@
-import { Check } from "lucide-react";
 import type { SiteContent } from "@/content";
 import type { Dictionary } from "@/i18n/ui";
-import { Formula } from "./Formula";
-import { SheetSection } from "./SheetSection";
+import { Chapter, Pulse } from "./Chapter";
 
 export function Experience({ content, t }: { content: SiteContent; t: Dictionary }) {
   return (
-    <SheetSection id="experience" nav="experience" hue="violet" {...t.sections.experience}>
-      {content.experience.map((role) => (
-        <article
-          key={`${role.org}-${role.title}`}
-          data-range
-          className="range col-span-12 lg:col-span-10 lg:col-start-2"
-        >
-          <header className="flex flex-wrap items-start justify-between gap-3 border-b border-line bg-head px-5 py-4 sm:px-6">
-            <div className="min-w-0">
-              <h3 className="display text-[1.625rem] leading-tight text-ink sm:text-[1.875rem]">{role.title}</h3>
-              <p className="mt-0.5 text-sm">
-                <span className="font-semibold text-ink">{role.org}</span>
-                {role.orgDetail && <span className="text-muted">&nbsp;· {role.orgDetail}</span>}
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-1.5 font-mono text-xs">
-              {role.kind && <span className="border border-line bg-paper px-2 py-1 text-ink">{role.kind}</span>}
-              <span className="inline-flex items-center gap-2 bg-fill-green px-2 py-1 text-ink-green">
-                <span aria-hidden className="relative flex size-2">
-                  <span className="absolute inset-0 animate-[ping_1.8s_cubic-bezier(0,0,0.2,1)_infinite] rounded-full bg-sel" />
-                  <span className="relative size-2 rounded-full bg-sel" />
-                </span>
+    <Chapter id="experience" {...t.sections.experience}>
+      <ol className="border-t border-ink">
+        {content.experience.map((role) => (
+          <li
+            key={`${role.org}-${role.title}`}
+            data-reveal
+            className="grid gap-x-8 gap-y-5 border-b border-rule py-10 md:grid-cols-[10rem_minmax(0,1fr)] lg:py-12"
+          >
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 md:flex-col md:items-start">
+              <p className="inline-flex items-center gap-2.5 label text-ink">
+                <Pulse />
                 {role.period}
-              </span>
+              </p>
+              {role.kind && <p className="label text-violet-ink">{role.kind}</p>}
             </div>
-          </header>
-
-          <ul>
-            {role.bullets.map((bullet) => (
-              <li key={bullet} className="flex gap-3 border-b border-line px-5 py-3 leading-relaxed sm:px-6">
-                <span aria-hidden className="mt-1 grid size-4 shrink-0 place-items-center bg-fill-green text-ink-green">
-                  <Check className="size-3" strokeWidth={3} />
-                </span>
-                <span className="text-muted">{bullet}</span>
-              </li>
-            ))}
-          </ul>
-
-          <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-3 sm:px-6">
-            <p aria-hidden className="min-w-0 font-mono text-xs text-muted">
-              <span className="italic">fx</span>{" "}
-              <Formula text={role.art === "id-scan" ? t.checks.verify : t.checks.report} />{" "}
-              <span className="ml-1 bg-fill-green px-1.5 py-0.5 whitespace-nowrap text-ink-green">
-                ✓ {role.art === "id-scan" ? t.experience.verified : t.experience.onTime}
-              </span>
-            </p>
-            {role.tags.length > 0 && (
-              <ul className="flex flex-wrap gap-1.5">
-                {role.tags.map((tag) => (
-                  <li key={tag} className="border border-line px-2 py-0.5 font-mono text-xs text-ink">
-                    {tag}
+            <div className="min-w-0">
+              <h3 className="font-sans text-[clamp(1.5rem,2.4vw,2rem)] leading-[1.15] font-bold text-ink">
+                {role.title}
+              </h3>
+              <p className="mt-2 font-serif text-lg text-muted italic">
+                {role.org}
+                {role.orgDetail && <>&nbsp;· {role.orgDetail}</>}
+              </p>
+              <ul className="mt-6 space-y-3">
+                {role.bullets.map((bullet) => (
+                  <li key={bullet} className="flex gap-4 leading-[1.7] text-ink">
+                    <span aria-hidden className="mt-[0.85em] h-px w-4 shrink-0 bg-blue" />
+                    <span>{bullet}</span>
                   </li>
                 ))}
               </ul>
-            )}
-          </div>
-        </article>
-      ))}
-    </SheetSection>
+              {role.tags.length > 0 && (
+                <ul className="mt-7 flex flex-wrap gap-2">
+                  {role.tags.map((tag) => (
+                    <li key={tag} className="border border-rule px-2.5 py-1 label text-muted">
+                      {tag}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </li>
+        ))}
+      </ol>
+    </Chapter>
   );
 }

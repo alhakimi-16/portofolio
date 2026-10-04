@@ -1,47 +1,68 @@
 import type { SiteContent } from "@/content";
 import type { Dictionary } from "@/i18n/ui";
-import { SheetSection } from "./SheetSection";
-import { SkillsTable } from "./SkillsTable";
+import { vars } from "@/lib/utils";
+import { Chapter } from "./Chapter";
+
+const listTitle = "label text-muted";
+const list = "mt-4 border-t border-ink";
+const row = "group border-b border-rule py-4";
+const name = "sweep font-sans text-[1.0625rem] font-semibold text-ink";
 
 export function Skills({ content, t }: { content: SiteContent; t: Dictionary }) {
-  const rows = [
-    ...content.skills.technical.map((skill) => ({ ...skill, group: "technical" as const })),
-    ...content.skills.personal.map((skill) => ({ ...skill, group: "personal" as const })),
-  ];
+  const { technical, personal } = content.skills;
 
   return (
-    <SheetSection id="skills" nav="skills" hue="blue" {...t.sections.skills}>
-      <SkillsTable rows={rows} labels={{ ...t.tables, technical: t.skills.technical, personal: t.skills.personal }} />
-      <div data-range className="range col-span-12 self-start lg:col-span-3 lg:col-start-9">
-        <table className="w-full text-left text-sm">
-          <caption className="border-b border-line bg-head px-4 py-2.5 text-left cell-label">
-            {t.skills.languages}
-          </caption>
-          <thead>
-            <tr className="border-b border-line">
-              <th scope="col" className="px-4 py-2 cell-label">
-                {t.tables.language}
-              </th>
-              <th scope="col" className="px-4 py-2 cell-label">
-                {t.tables.level}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {content.languages.map((language) => (
-              <tr key={language.name} className="border-b border-line last:border-b-0">
-                <td className="px-4 py-2.5 font-semibold text-ink">
-                  <span className="flex items-center gap-2">
-                    <span aria-hidden data-hue={language.hue} className="size-2.5 shrink-0 bg-hue ring-1 ring-line" />
-                    {language.name}
-                  </span>
-                </td>
-                <td className="px-4 py-2.5 text-muted">{language.level}</td>
-              </tr>
+    <Chapter id="skills" {...t.sections.skills}>
+      <div className="grid gap-14 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] lg:gap-12">
+        <div data-reveal>
+          <h3 className={listTitle}>{t.skills.technical}</h3>
+          <ul className={list}>
+            {technical.map((skill) => (
+              <li
+                key={skill.name}
+                className={`${row} grid gap-x-6 gap-y-1 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] sm:items-baseline`}
+              >
+                <span>
+                  <span className={name}>{skill.name}</span>
+                </span>
+                {skill.note && <span className="font-serif text-muted italic sm:text-right">{skill.note}</span>}
+              </li>
             ))}
-          </tbody>
-        </table>
+          </ul>
+        </div>
+
+        <div className="flex flex-col gap-14">
+          <div data-reveal style={vars({ "--d": "120ms" })}>
+            <h3 className={listTitle}>{t.skills.personal}</h3>
+            <ul className={list}>
+              {personal.map((skill) => (
+                <li key={skill.name} className={row}>
+                  <span className={name}>{skill.name}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div data-reveal style={vars({ "--d": "240ms" })}>
+            <h3 className={listTitle}>{t.skills.languages}</h3>
+            <ul className={list}>
+              {content.languages.map((language) => (
+                <li
+                  key={language.name}
+                  data-hue={language.hue}
+                  className={`${row} flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1`}
+                >
+                  <span className="flex items-center gap-2.5">
+                    <span aria-hidden className="size-2 shrink-0 bg-hue" />
+                    <span className={name}>{language.name}</span>
+                  </span>
+                  <span className="font-serif text-muted italic">{language.level}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
-    </SheetSection>
+    </Chapter>
   );
 }

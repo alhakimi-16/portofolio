@@ -36,7 +36,6 @@ export function getContent(locale: Locale) {
     },
     // the visitor's own language first
     greetings: [...data.greetings].sort((a, b) => Number(b.lang === locale) - Number(a.lang === locale)),
-    stickers: data.stickers.map((sticker) => ({ text: sticker.text[locale], hue: sticker.hue })),
     marquee: data.marquee.map((item) => ({ text: item.text[locale], hue: item.hue })),
     atAGlance: data.atAGlance.map((item) => ({
       value: soft(item.value[locale]),

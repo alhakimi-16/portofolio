@@ -1,87 +1,81 @@
-import { ArrowUpRight, Mail } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import type { SiteContent } from "@/content";
 import type { Dictionary } from "@/i18n/ui";
+import { vars } from "@/lib/utils";
+import { Chapter } from "./Chapter";
 import { CopyEmail } from "./CopyEmail";
 import { LinkedInIcon } from "./Icon";
-import { Emphasis } from "./SheetSection";
+
+const entry =
+  "grid gap-x-8 gap-y-3 border-b border-rule py-6 sm:grid-cols-[8rem_minmax(0,1fr)] sm:items-baseline lg:py-8";
 
 export function Contact({ content, t }: { content: SiteContent; t: Dictionary }) {
   const { person } = content;
-  const { eyebrow, title } = t.sections.contact;
   const [local, domain] = person.email.split("@");
   const linkedinText = person.linkedin.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
   const [linkedinHost, linkedinPath] = linkedinText.split("/in/");
 
   return (
-    <section
-      id="contact"
-      data-sheet="contact"
-      aria-labelledby="contact-title"
-      className="grid grid-cols-12 px-4 py-14 sm:px-6 lg:px-0 lg:py-20"
-    >
-      <div data-range className="range col-span-12 lg:col-span-10 lg:col-start-2">
-        <div className="p-6 sm:p-10">
-          <p className="cell-label">{eyebrow}</p>
-          <h2 id="contact-title" className="mt-2 display text-[2.75rem] leading-none text-ink sm:text-[4rem]">
-            <Emphasis text={title} hue="mint" />
-          </h2>
-          <p className="mt-4 max-w-xl text-lg leading-relaxed text-muted">{t.contact.text}</p>
-        </div>
+    <Chapter id="contact" {...t.sections.contact} titleClassName="text-[clamp(3rem,10.5vw,8.5rem)] leading-[0.9]">
+      <p
+        data-reveal
+        className="max-w-[36ch] font-serif text-[clamp(1.25rem,2vw,1.625rem)] leading-[1.4] text-ink"
+        style={vars({ "--d": "100ms" })}
+      >
+        {t.contact.text}
+      </p>
 
-        {/* on phones each label sits above its value */}
-        <table className="w-full border-t border-line text-left text-sm max-sm:block">
-          <tbody className="max-sm:block">
-            <tr className="border-b border-line max-sm:block">
-              <th scope="row" className="bg-head px-4 py-2.5 align-top cell-label max-sm:block sm:w-32 sm:px-6 sm:py-4">
-                {t.tables.email}
-              </th>
-              <td className="px-4 py-4 max-sm:block sm:px-6">
-                <p className="font-mono text-base text-ink select-all sm:text-lg">
-                  {local}@<wbr />
-                  {domain}
-                </p>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  <CopyEmail email={person.email} label={t.contact.copy} doneLabel={t.contact.copied} />
-                  <a
-                    href={`mailto:${person.email}`}
-                    className="inline-flex items-center gap-2 bg-sel px-3.5 py-2 text-sm font-semibold text-on-sel transition-colors hover:bg-sel-ink"
-                  >
-                    <Mail aria-hidden className="size-4" />
-                    {t.contact.write}
-                  </a>
-                </div>
-              </td>
-            </tr>
-            <tr className="max-sm:block">
-              <th scope="row" className="bg-head px-4 py-2.5 align-top cell-label max-sm:block sm:px-6 sm:py-4">
-                {t.contact.linkedin}
-              </th>
-              <td className="px-4 py-4 max-sm:block sm:px-6">
-                <a
-                  href={person.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex max-w-full items-center gap-2 font-mono text-sel-ink underline underline-offset-4 hover:no-underline"
-                >
-                  <LinkedInIcon className="size-4 shrink-0" />
-                  <span className="min-w-0 [overflow-wrap:anywhere]">
-                    {linkedinPath ? (
-                      <>
-                        {linkedinHost}/in/
-                        <wbr />
-                        {linkedinPath}
-                      </>
-                    ) : (
-                      linkedinText
-                    )}
-                  </span>
-                  <ArrowUpRight aria-hidden className="size-4 shrink-0" />
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
+      <dl className="mt-12 border-t border-ink lg:mt-16">
+        <div data-reveal className={entry}>
+          <dt className="label text-muted">{t.contact.email}</dt>
+          <dd className="min-w-0">
+            <a
+              href={`mailto:${person.email}`}
+              className="group inline-flex max-w-full items-baseline gap-3 font-serif text-[clamp(1.375rem,4.2vw,3rem)] leading-tight text-ink"
+            >
+              <span className="min-w-0 link-line">
+                {local}@<wbr />
+                {domain}
+              </span>
+              <ArrowUpRight
+                aria-hidden
+                className="size-[0.6em] shrink-0 self-center text-blue-ink transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+              />
+            </a>
+            <div className="mt-5">
+              <CopyEmail email={person.email} label={t.contact.copy} doneLabel={t.contact.copied} />
+            </div>
+          </dd>
+        </div>
+        <div data-reveal className={entry} style={vars({ "--d": "120ms" })}>
+          <dt className="label text-muted">{t.contact.linkedin}</dt>
+          <dd className="min-w-0">
+            <a
+              href={person.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex max-w-full items-center gap-3 font-serif text-[clamp(1.125rem,1.8vw,1.5rem)] leading-snug text-ink"
+            >
+              <LinkedInIcon className="size-[0.9em] shrink-0 text-blue-ink" />
+              <span className="min-w-0 link-line [overflow-wrap:anywhere]">
+                {linkedinPath ? (
+                  <>
+                    {linkedinHost}/in/
+                    <wbr />
+                    <span className="min-[360px]:whitespace-nowrap">{linkedinPath}</span>
+                  </>
+                ) : (
+                  linkedinText
+                )}
+              </span>
+              <ArrowUpRight
+                aria-hidden
+                className="size-[0.8em] shrink-0 text-blue-ink transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+              />
+            </a>
+          </dd>
+        </div>
+      </dl>
+    </Chapter>
   );
 }

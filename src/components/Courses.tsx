@@ -1,86 +1,65 @@
 import { ArrowUpRight } from "lucide-react";
 import type { SiteContent } from "@/content";
 import type { Dictionary } from "@/i18n/ui";
-import { SheetSection } from "./SheetSection";
+import { Chapter, Pulse } from "./Chapter";
 
 export function Courses({ content, t }: { content: SiteContent; t: Dictionary }) {
   const { courses } = content;
 
   return (
-    <SheetSection id="courses" nav="courses" hue="blue" className="lg:pt-6" {...t.sections.courses}>
-      <div data-range className="range col-span-12 lg:col-span-10 lg:col-start-2">
-        <table className="w-full text-left text-sm">
-          <thead>
-            <tr className="border-b border-line bg-head">
-              <th scope="col" className="px-4 py-2 cell-label">
-                {t.tables.course}
-              </th>
-              <th scope="col" className="hidden px-4 py-2 cell-label sm:table-cell">
-                {t.tables.provider}
-              </th>
-              <th scope="col" className="hidden px-4 py-2 cell-label sm:table-cell">
-                {t.tables.year}
-              </th>
-              <th scope="col" className="px-4 py-2 text-right cell-label">
-                {t.courses.certificate}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {courses.length === 0 ? (
-              <tr>
-                <td colSpan={4} className="px-4 py-6">
-                  <p className="font-semibold text-ink">{t.courses.soonTitle}</p>
-                  <p className="mt-0.5 text-muted">{t.courses.soonText}</p>
-                </td>
-              </tr>
-            ) : (
-              courses.map((course) => (
-                <tr key={course.title} className="border-b border-line last:border-b-0">
-                  <td className="px-4 py-3 align-top">
-                    <p className="font-semibold text-ink">{course.title}</p>
-                    <p className="text-xs text-muted sm:hidden">
-                      {course.provider}
-                      {course.year && <>&nbsp;· {course.year}</>}
-                    </p>
-                    {(course.topics.length > 0 || course.inProgress) && (
-                      <ul className="mt-1.5 flex flex-wrap gap-1">
-                        {course.inProgress && (
-                          <li className="bg-fill-green px-1.5 py-0.5 font-mono text-[0.6875rem] text-ink-green">
-                            {t.courses.inProgress}
-                          </li>
-                        )}
-                        {course.topics.map((topic) => (
-                          <li key={topic} className="bg-head px-1.5 py-0.5 font-mono text-[0.6875rem] text-head-ink">
-                            {topic}
-                          </li>
-                        ))}
-                      </ul>
+    <Chapter id="courses" {...t.sections.courses}>
+      {courses.length === 0 ? (
+        <div data-reveal className="max-w-2xl">
+          <p className="font-serif text-[clamp(1.625rem,2.8vw,2.25rem)] leading-tight text-ink italic">
+            {t.courses.soonTitle}
+          </p>
+          <p className="mt-3 leading-[1.7] text-muted">{t.courses.soonText}</p>
+        </div>
+      ) : (
+        <ul className="border-t border-ink">
+          {courses.map((course) => (
+            <li
+              key={course.title}
+              data-reveal
+              className="grid gap-x-8 gap-y-3 border-b border-rule py-6 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-baseline"
+            >
+              <div className="min-w-0">
+                <h3 className="font-sans text-xl leading-snug font-semibold text-ink">{course.title}</h3>
+                <p className="mt-1 font-serif text-muted italic">
+                  {course.provider}
+                  {course.year && <>&nbsp;· {course.year}</>}
+                </p>
+                {(course.topics.length > 0 || course.inProgress) && (
+                  <ul className="mt-3 flex flex-wrap gap-2">
+                    {course.inProgress && (
+                      <li className="inline-flex items-center gap-2 border border-mint px-2.5 py-1 label text-mint-ink">
+                        <Pulse />
+                        {t.courses.inProgress}
+                      </li>
                     )}
-                  </td>
-                  <td className="hidden px-4 py-3 align-top text-muted sm:table-cell">{course.provider}</td>
-                  <td className="hidden px-4 py-3 align-top text-muted tabular-nums sm:table-cell">{course.year}</td>
-                  <td className="px-4 py-3 text-right align-top">
-                    {course.certificate ? (
-                      <a
-                        href={course.certificate}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 font-semibold text-sel-ink underline underline-offset-4 hover:no-underline"
-                      >
-                        {t.courses.certificate}
-                        <ArrowUpRight aria-hidden className="size-3.5" />
-                      </a>
-                    ) : (
-                      <span className="text-muted">–</span>
-                    )}
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      </div>
-    </SheetSection>
+                    {course.topics.map((topic) => (
+                      <li key={topic} className="border border-rule px-2.5 py-1 label text-muted">
+                        {topic}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+              {course.certificate && (
+                <a
+                  href={course.certificate}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-1.5 justify-self-start py-1 label text-ink"
+                >
+                  <span className="link-line pb-1">{t.courses.certificate}</span>
+                  <ArrowUpRight aria-hidden className="size-4 text-blue-ink" />
+                </a>
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
+    </Chapter>
   );
 }

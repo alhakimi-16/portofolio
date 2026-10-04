@@ -23,7 +23,7 @@ export function ThemeToggle({ label }: { label: string }) {
       onClick={toggle}
       aria-label={label}
       title={label}
-      className="grid size-8 place-items-center border border-transparent text-ink transition-colors hover:border-line hover:bg-paper"
+      className="grid size-9 place-items-center text-ink transition-colors hover:text-blue-ink"
     >
       <Moon aria-hidden className="size-4 dark:hidden" />
       <Sun aria-hidden className="hidden size-4 dark:block" />

@@ -1,35 +1,39 @@
 import type { SiteContent } from "@/content";
 import type { Dictionary } from "@/i18n/ui";
-import { Icon } from "./Icon";
-import { Highlights, SheetSection } from "./SheetSection";
+import { vars } from "@/lib/utils";
+import { Chapter, Marked } from "./Chapter";
 
 export function About({ content, t }: { content: SiteContent; t: Dictionary }) {
   const { lead, chapters } = content.about;
 
   return (
-    <SheetSection id="about" nav="about" hue="mint" {...t.sections.about}>
+    <Chapter id="about" {...t.sections.about}>
       <p
-        data-range
-        className="range col-span-12 p-6 text-xl leading-snug font-medium text-ink sm:p-8 sm:text-2xl lg:col-span-10 lg:col-start-2"
+        data-reveal
+        className="max-w-[30ch] font-serif text-[clamp(1.5rem,3vw,2.5rem)] leading-[1.25] text-ink"
+        style={vars({ "--d": "100ms" })}
       >
-        <Highlights text={lead} hue="mint" />
+        <Marked text={lead} />
       </p>
-      <div data-range className="range col-span-12 grid lg:col-span-10 lg:col-start-2 lg:grid-cols-3">
-        {chapters.map((chapter) => (
+      <div className="mt-14 grid gap-10 md:grid-cols-3 md:gap-8 lg:mt-20">
+        {chapters.map((chapter, i) => (
           <article
             key={chapter.title}
-            className="flex flex-col border-t border-line first:border-t-0 lg:border-t-0 lg:border-l lg:first:border-l-0"
+            data-reveal
+            data-hue={chapter.hue}
+            style={vars({ "--d": `${i * 140}ms` })}
+            className="border-t border-rule pt-5"
           >
-            <h3 className="flex items-center gap-2 border-b border-line bg-head px-5 py-2.5 cell-label">
-              <Icon name={chapter.icon} className="size-3.5" />
+            <h3 className="flex items-center gap-2.5 label text-ink">
+              <span aria-hidden className="size-2 shrink-0 bg-hue" />
               {chapter.title}
             </h3>
-            <p className="p-5 leading-relaxed text-muted sm:p-6">
-              <Highlights text={chapter.text} hue={chapter.hue} />
+            <p className="mt-4 leading-[1.7] text-muted">
+              <Marked text={chapter.text} />
             </p>
           </article>
         ))}
       </div>
-    </SheetSection>
+    </Chapter>
   );
 }

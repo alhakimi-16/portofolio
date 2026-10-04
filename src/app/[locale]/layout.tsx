@@ -46,8 +46,8 @@ export async function generateMetadata({ params }: LayoutProps<"/[locale]">): Pr
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#eef1ec" },
-    { media: "(prefers-color-scheme: dark)", color: "#171b18" },
+    { media: "(prefers-color-scheme: light)", color: "#fcfcfe" },
+    { media: "(prefers-color-scheme: dark)", color: "#111020" },
   ],
 };
 
@@ -56,7 +56,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
   if (!hasLocale(locale)) notFound();
 
   return (
-    // The boot script sets data-theme / data-motion on <html> before React hydrates.
+    // The boot script sets data-theme on <html> before React hydrates.
     <html lang={locale} className={fontVariables} suppressHydrationWarning>
       <head>
         <InlineScript html={bootScript} />

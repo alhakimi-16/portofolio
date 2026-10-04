@@ -1,18 +1,28 @@
 # Mugahed Al-Hakimi · Portfolio
 
-Personal website in **English and German** (`/en`, `/de`), with light and dark mode, designed like a
-spreadsheet workbook (a nod to Business Informatics):
+Personal website in **English and German** (`/en`, `/de`), with light and dark mode, laid out like a
+magazine:
 
-- a toolbar with a formula bar: the formula changes with the part of the page you are reading;
-- column letters A–L and row numbers around a 12-column sheet; content sits in "cell ranges", and the
-  range under the pointer is selected, with its address in the name box;
-- sheet tabs along the bottom for the sections; skills as a filterable table; highlights as cell fills.
+- the name set very large across the full width, a thin rule, the introduction and a numbered contents
+  list;
+- each section opens like a chapter: a rule, its number and label in a narrow column that stays in view,
+  and a large title with one word in serif italic;
+- four colours used sparingly: blue for structure and links, a yellow highlighter for key phrases, light
+  purple for the italic words, and a little pastel green for "available now".
 
-All motion is switched off for visitors who ask their system for reduced motion, and every piece of
-content is visible without JavaScript.
+Motion is calm and never hides anything: sections settle in as they scroll into view, rules draw
+themselves, the highlighter sweeps over key phrases, and "Hello" changes language. All motion is switched
+off for visitors who ask their system for reduced motion, and every piece of content is visible without
+JavaScript.
 
-**Earlier design:** the colourful version (blue, yellow, light purple) is kept as a draft on the branch
-`draft/colourful` (tag `draft-colourful`). To look at it again: `git checkout draft/colourful`.
+**Earlier designs** are kept as drafts, each on its own branch (and tag):
+
+| Design                                         | Branch            | Tag               |
+| ---------------------------------------------- | ----------------- | ----------------- |
+| Colourful (blue, yellow, light purple)         | `draft/colourful` | `draft-colourful` |
+| Spreadsheet workbook (formula bar, sheet tabs) | `draft/workbook`  | `draft-workbook`  |
+
+To look at one again: `git checkout draft/workbook` (and `git checkout -` to come back).
 
 ## Run it locally
 
@@ -38,14 +48,17 @@ Open <http://localhost:3000>. It redirects to `/en` or `/de` based on the browse
 ## Edit the content
 
 **All content lives in [`src/content/profile.ts`](src/content/profile.ts)**: profile text, highlights,
-stickers, the keyword ribbon, experience, skills, languages, projects and online courses. Every text
-exists in English (`en`) and German (`de`). Labels such as section headings are in
-[`src/i18n/ui.ts`](src/i18n/ui.ts); there, `*word*` in a heading gets the coloured, underlined style.
+keywords, experience, skills, languages, projects and online courses. Every text exists in English
+(`en`) and German (`de`); `==phrase==` in the about texts gets the yellow highlighter. Labels such as
+section headings are in [`src/i18n/ui.ts`](src/i18n/ui.ts); there, `*word*` in a heading is set in serif
+italic.
 
-- **Photo:** put a square portrait in `public/`, e.g. `public/photo.jpg`, and set `photo: "/photo.jpg"`.
-  Until then the initials are shown.
+- **Photo:** put a portrait in `public/`, e.g. `public/photo.jpg`, and set `photo: "/photo.jpg"`. It
+  appears above the contents list (portrait format, 4:5, works best). Without a photo the page simply
+  leaves it out.
 - **Projects and online courses:** add entries to `projects` and `courses` at the end of `profile.ts`
-  (there is an example above each list). While a list is empty, the site shows an "in progress" card.
+  (there is an example above each list). While a list is empty, the site shows a short "coming soon"
+  note.
 
 ## Deploy on Vercel
 
@@ -61,6 +74,7 @@ notice can stay short.
 
 ## Tech
 
-Next.js 16 (static pages) · React 19 · TypeScript · Tailwind CSS 4 · Lucide icons. Fonts: IBM Plex Sans
-(its width axis gives the narrow headings) and IBM Plex Mono, self-hosted via `next/font`. Animations are
-plain CSS plus a few small client components; no animation library.
+Next.js 16 (static pages) · React 19 · TypeScript · Tailwind CSS 4 · Lucide icons. Fonts: Archivo
+(its width axis, stretched wide, gives the large uppercase type) and Source Serif 4 for reading,
+self-hosted via `next/font`. Animations are plain CSS plus a few small client components; no animation
+library.

@@ -12,169 +12,141 @@
   }
 }
 
-/* Layout: the portfolio as a workbook. A toolbar and formula bar on top, column letters A–L over
-   a 12-column sheet of cells, row numbers on the left, sheet tabs at the bottom. Content blocks
-   are merged cell ranges; the one under the pointer is selected (green outline, fill handle).
-   Highlights work like conditional formatting: soft cell fills. */
+/* Layout: an editorial page. A very large name, thin rules, a numbered contents list, then
+   chapters in a magazine grid: a narrow column for the number and label, a wide one for the text.
+   Type: Archivo (stretched wide, uppercase) for display, Source Serif 4 for reading, italics for
+   emphasis. Colour is used sparingly: blue accents, a yellow highlighter, light purple italics,
+   a touch of pastel green for "open to work". */
 :root {
-  --canvas: #e9ece7; /* the window around the sheet */
-  --paper: #fcfdfb; /* cells */
-  --grid: #e1e5de; /* gridlines */
-  --line: #c8cec5; /* borders of filled ranges */
-  --head: #eef1ec; /* toolbar, column letters, row numbers */
-  --head-ink: #636b61;
-  --ink: #121612;
-  --muted: #535b52;
-  --sel: #0f7b58; /* selection, primary buttons */
-  --sel-ink: #0b6347;
-  --on-sel: #ffffff;
-  --note: #d4532f; /* comment markers */
-  --fill-yellow: #fdeeb0;
-  --ink-yellow: #6b5000;
-  --fill-green: #d4efe0;
-  --ink-green: #0b5b41;
-  --fill-blue: #dae5ff;
-  --ink-blue: #2645b5;
-  --fill-rose: #fde0d6;
-  --ink-rose: #9b3415;
-  --shadow: 0 1px 0 rgb(18 22 18 / 0.04), 0 10px 30px -18px rgb(18 22 18 / 0.25);
+  --paper: #fcfcfe;
+  --soft: #f4f3fa;
+  --ink: #16152b;
+  --muted: #5d5c74;
+  --rule: #dedde8;
+  --blue: #3a5bf7;
+  --blue-ink: #2643c4;
+  --violet: #a78bfa;
+  --violet-ink: #7353e0;
+  --sun: #f9c22e;
+  --sun-ink: #865b00;
+  --mint: #86d8b1;
+  --mint-ink: #1b7650;
+  --mark: color-mix(in srgb, var(--sun) 55%, transparent);
+  --ease: cubic-bezier(0.22, 0.7, 0.2, 1);
   color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --canvas: #090b0a;
-    --paper: #121513;
-    --grid: #1f2420;
-    --line: #2f3630;
-    --head: #171b18;
-    --head-ink: #8f988e;
-    --ink: #e8ece7;
-    --muted: #a0a99f;
-    --sel: #34c58f;
-    --sel-ink: #5fe0ad;
-    --on-sel: #06130d;
-    --note: #ff7d5c;
-    --fill-yellow: #3a3212;
-    --ink-yellow: #ffe08a;
-    --fill-green: #123326;
-    --ink-green: #93ecc4;
-    --fill-blue: #19233f;
-    --ink-blue: #b9c9ff;
-    --fill-rose: #3a1d16;
-    --ink-rose: #ffb59f;
-    --shadow: 0 1px 0 rgb(0 0 0 / 0.3), 0 14px 34px -18px rgb(0 0 0 / 0.7);
+    --paper: #111020;
+    --soft: #1a1930;
+    --ink: #ecebf6;
+    --muted: #a5a4bb;
+    --rule: #2b2a45;
+    --blue: #8ea2ff;
+    --blue-ink: #b4c2ff;
+    --violet: #c4b5fd;
+    --violet-ink: #d8cbff;
+    --sun: #ffd23f;
+    --sun-ink: #ffe28a;
+    --mint: #8fe0b9;
+    --mint-ink: #b9f0d6;
+    --mark: color-mix(in srgb, var(--sun) 32%, transparent);
     color-scheme: dark;
   }
 }
 
 :root[data-theme="dark"] {
-  --canvas: #090b0a;
-  --paper: #121513;
-  --grid: #1f2420;
-  --line: #2f3630;
-  --head: #171b18;
-  --head-ink: #8f988e;
-  --ink: #e8ece7;
-  --muted: #a0a99f;
-  --sel: #34c58f;
-  --sel-ink: #5fe0ad;
-  --on-sel: #06130d;
-  --note: #ff7d5c;
-  --fill-yellow: #3a3212;
-  --ink-yellow: #ffe08a;
-  --fill-green: #123326;
-  --ink-green: #93ecc4;
-  --fill-blue: #19233f;
-  --ink-blue: #b9c9ff;
-  --fill-rose: #3a1d16;
-  --ink-rose: #ffb59f;
-  --shadow: 0 1px 0 rgb(0 0 0 / 0.3), 0 14px 34px -18px rgb(0 0 0 / 0.7);
+  --paper: #111020;
+  --soft: #1a1930;
+  --ink: #ecebf6;
+  --muted: #a5a4bb;
+  --rule: #2b2a45;
+  --blue: #8ea2ff;
+  --blue-ink: #b4c2ff;
+  --violet: #c4b5fd;
+  --violet-ink: #d8cbff;
+  --sun: #ffd23f;
+  --sun-ink: #ffe28a;
+  --mint: #8fe0b9;
+  --mint-ink: #b9f0d6;
+  --mark: color-mix(in srgb, var(--sun) 32%, transparent);
   color-scheme: dark;
 }
 
-/* Content colours (blue / sun / mint / violet in profile.ts) become cell fills. */
+/* Content colours from profile.ts */
 [data-hue="blue"] {
-  --hue: var(--fill-blue);
-  --hue-ink: var(--ink-blue);
+  --hue: var(--blue);
+  --hue-ink: var(--blue-ink);
 }
 [data-hue="sun"] {
-  --hue: var(--fill-yellow);
-  --hue-ink: var(--ink-yellow);
-}
-[data-hue="mint"] {
-  --hue: var(--fill-green);
-  --hue-ink: var(--ink-green);
+  --hue: var(--sun);
+  --hue-ink: var(--sun-ink);
 }
 [data-hue="violet"] {
-  --hue: var(--fill-rose);
-  --hue-ink: var(--ink-rose);
+  --hue: var(--violet);
+  --hue-ink: var(--violet-ink);
+}
+[data-hue="mint"] {
+  --hue: var(--mint);
+  --hue-ink: var(--mint-ink);
 }
 
 @theme inline {
-  --color-canvas: var(--canvas);
   --color-paper: var(--paper);
-  --color-grid: var(--grid);
-  --color-line: var(--line);
-  --color-head: var(--head);
-  --color-head-ink: var(--head-ink);
+  --color-soft: var(--soft);
   --color-ink: var(--ink);
   --color-muted: var(--muted);
-  --color-sel: var(--sel);
-  --color-sel-ink: var(--sel-ink);
-  --color-on-sel: var(--on-sel);
-  --color-note: var(--note);
+  --color-rule: var(--rule);
+  --color-blue: var(--blue);
+  --color-blue-ink: var(--blue-ink);
+  --color-violet: var(--violet);
+  --color-violet-ink: var(--violet-ink);
+  --color-sun: var(--sun);
+  --color-mint: var(--mint);
+  --color-mint-ink: var(--mint-ink);
   --color-hue: var(--hue);
   --color-hue-ink: var(--hue-ink);
-  --color-fill-green: var(--fill-green);
-  --color-ink-green: var(--ink-green);
-  --color-ink-yellow: var(--ink-yellow);
-  --font-sans: var(--font-plex-sans), "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-plex-mono), "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+  --font-sans: var(--font-archivo), "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-serif: var(--font-source-serif), "Source Serif 4", Georgia, "Times New Roman", serif;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 6.5rem;
+    scroll-padding-top: 5rem;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
-  @media (min-width: 64rem) {
-    html {
-      scroll-padding-top: 8rem;
-    }
-  }
-
   body {
-    background: var(--canvas);
+    background: var(--paper);
     color: var(--ink);
-    font-family: var(--font-plex-sans), "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
-    font-size: 1rem;
-    line-height: 1.6;
+    font-family: var(--font-source-serif), "Source Serif 4", Georgia, "Times New Roman", serif;
+    font-size: 1.0625rem;
+    line-height: 1.65;
     overflow-x: clip;
   }
 
   ::selection {
-    background: var(--fill-green);
-    color: var(--ink-green);
+    background: var(--mark);
+    color: var(--ink);
   }
 
   :focus-visible {
-    outline: 2px solid var(--sel);
-    outline-offset: 2px;
+    outline: 2px solid var(--blue);
+    outline-offset: 3px;
   }
 
   h1,
   h2,
   h3 {
+    font-family: var(--font-archivo), "Archivo", "Helvetica Neue", Arial, sans-serif;
     text-wrap: balance;
   }
 
   p,
-  li,
-  td {
+  li {
     text-wrap: pretty;
   }
 
@@ -182,132 +154,183 @@
   h3,
   p,
   li,
-  td {
+  dd {
     hyphens: auto;
     overflow-wrap: break-word;
   }
 
   [lang="ar"] {
-    font-family: "IBM Plex Sans Arabic", "Noto Sans Arabic", "Geeza Pro", "Segoe UI", Tahoma, sans-serif;
+    font-family: "Noto Naskh Arabic", "Noto Sans Arabic", "Geeza Pro", "Segoe UI", Tahoma, serif;
   }
 }
 
-/* the display style: Plex Sans narrowed on its width axis */
+/* the big uppercase type: Archivo stretched wide */
 @utility display {
-  font-family: var(--font-plex-sans), "IBM Plex Sans Condensed", "Arial Narrow", sans-serif;
-  font-stretch: 78%;
-  font-weight: 700;
-  letter-spacing: -0.015em;
-}
-
-/* the sheet: paper with gridlines that match the 12 columns and 40px rows */
-@utility sheet {
-  background-color: var(--paper);
-  background-image:
-    linear-gradient(to right, var(--grid) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
-  background-size: calc(100% / 4) 40px;
-
-  @media (min-width: 64rem) {
-    background-size: calc(100% / 12) 40px;
-  }
-}
-
-/* a merged cell range: opaque, bordered; selected = green outline with the fill handle */
-@utility range {
-  position: relative;
-  background: var(--paper);
-  box-shadow: inset 0 0 0 1px var(--line);
-
-  &[data-selected] {
-    box-shadow:
-      inset 0 0 0 2px var(--sel),
-      var(--shadow);
-    z-index: 2;
-  }
-
-  &[data-selected]::after {
-    content: "";
-    position: absolute;
-    right: -4px;
-    bottom: -4px;
-    width: 8px;
-    height: 8px;
-    background: var(--sel);
-    box-shadow: 0 0 0 1.5px var(--paper);
-  }
-}
-
-/* small uppercase labels in header cells */
-@utility cell-label {
-  font-family: var(--font-plex-mono), "IBM Plex Mono", ui-monospace, monospace;
-  font-size: 0.6875rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
+  font-family: var(--font-archivo), "Archivo", "Arial Black", sans-serif;
+  font-weight: 800;
+  font-stretch: 115%;
   text-transform: uppercase;
-  color: var(--head-ink);
+  letter-spacing: -0.02em;
 }
 
-/* the little comment marker in a cell's top-right corner */
-@utility note {
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    border-style: solid;
-    border-width: 0 9px 9px 0;
-    border-color: transparent var(--note) transparent transparent;
+/* small uppercase labels */
+@utility label {
+  font-family: var(--font-archivo), "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* links with an underline that grows from the left */
+@utility link-line {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 100% 1px;
+  transition: background-size 0.4s var(--ease);
+  text-decoration: none;
+
+  &:hover {
+    background-size: 100% 2px;
   }
 }
 
-/* highlighted phrases look like conditionally formatted cells */
-.fill {
-  background: var(--hue);
-  color: var(--hue-ink);
-  padding: 0 0.2em;
-  border-radius: 2px;
+/* title words in *stars* are set in serif italic */
+.emph {
+  font-family: var(--font-source-serif), "Source Serif 4", Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-stretch: 100%;
+  text-transform: none;
+  letter-spacing: -0.015em;
+  color: var(--violet-ink);
+}
+
+/* ───────────────────────── Motion ─────────────────────────
+   Calm and few, and nothing waits hidden: every element is in place at rest. Parts that
+   scroll into view from below settle in once ([data-enter], set by SiteEffects): text rises
+   a little, rules draw themselves, the highlighter sweeps over key phrases. */
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+
+@keyframes draw {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes highlight {
+  from {
+    background-size: 0% 0.5em;
+  }
+}
+
+[data-reveal][data-enter] {
+  animation: reveal 0.9s var(--ease) both;
+  animation-delay: var(--d, 0ms);
+}
+
+[data-reveal="rule"] {
+  transform-origin: left;
+}
+
+[data-reveal="rule"][data-enter] {
+  animation: draw 1.4s var(--ease) both;
+  animation-delay: var(--d, 0ms);
+}
+
+/* yellow highlighter over key phrases ("==phrase==" in profile.ts) */
+.marker {
+  background-color: transparent;
+  background-image: linear-gradient(var(--mark), var(--mark));
+  background-position: 0 88%;
+  background-repeat: no-repeat;
+  background-size: 100% 0.5em;
+  color: var(--ink);
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 }
 
-@keyframes blink {
-  50% {
-    opacity: 0;
+[data-enter] .marker {
+  animation: highlight 1.1s var(--ease) both;
+  animation-delay: calc(var(--d, 0ms) + 450ms);
+}
+
+/* the same highlighter sweeping in on hover (links and list rows marked .group) */
+.sweep {
+  background-image: linear-gradient(var(--mark), var(--mark));
+  background-position: 0 88%;
+  background-repeat: no-repeat;
+  background-size: 0% 0.45em;
+  transition: background-size 0.5s var(--ease);
+}
+
+.group:hover .sweep,
+.group:focus-visible .sweep {
+  background-size: 100% 0.45em;
+}
+
+/* reading progress under the header, driven by the scroll position (where supported) */
+.progress {
+  display: none;
+}
+
+@supports (animation-timeline: scroll()) {
+  .progress {
+    display: block;
+    transform-origin: left;
+    animation: grow linear both;
+    animation-timeline: scroll(root);
   }
 }
 
-@keyframes ticker {
+@keyframes grow {
+  from {
+    transform: scaleX(0);
+  }
   to {
-    transform: translateX(-100%);
+    transform: scaleX(1);
   }
 }
 
-@keyframes calc {
-  0% {
-    width: 4%;
-  }
-  70% {
-    width: 92%;
-  }
-  85%,
-  100% {
-    width: 100%;
+@keyframes greet-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.4em);
+    filter: blur(4px);
   }
 }
 
 @keyframes ping {
   75%,
   100% {
-    transform: scale(2.2);
+    transform: scale(2.4);
     opacity: 0;
   }
 }
 
-@keyframes formula-in {
-  from {
-    opacity: 0;
-    transform: translateY(4px);
+/* an indeterminate line: fills from the left, empties to the right */
+@keyframes progress {
+  0% {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  48% {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  52% {
+    transform: scaleX(1);
+    transform-origin: right;
+  }
+  100% {
+    transform: scaleX(0);
+    transform-origin: right;
   }
 }
 
@@ -321,5 +344,9 @@
   *::after {
     animation: none !important;
     transition: none !important;
+  }
+
+  .progress {
+    display: none !important;
   }
 }

@@ -19,205 +19,121 @@ const font = (file: string) => readFile(join(process.cwd(), "node_modules/@fonts
 
 // light theme colours from globals.css
 const c = {
-  paper: "#fcfdfb",
-  grid: "#e1e5de",
-  line: "#c8cec5",
-  head: "#eef1ec",
-  headInk: "#636b61",
-  ink: "#121612",
-  muted: "#535b52",
-  sel: "#0f7b58",
-  selInk: "#0b6347",
-  fillGreen: "#d4efe0",
-  inkGreen: "#0b5b41",
-  inkYellow: "#6b5000",
+  paper: "#fcfcfe",
+  ink: "#16152b",
+  muted: "#5d5c74",
+  rule: "#dedde8",
+  blue: "#3a5bf7",
+  blueInk: "#2643c4",
+  violet: "#a78bfa",
+  violetInk: "#7353e0",
+  sun: "#f9c22e",
+  mint: "#86d8b1",
+  mark: "rgba(249, 194, 46, 0.55)",
 };
 
-const COLUMNS = "ABCDEFGHIJKL".split("");
+const label = { fontFamily: "Archivo Semi", fontSize: 20, letterSpacing: 2.8, textTransform: "uppercase" } as const;
 
 export default async function Image({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const lang = hasLocale(locale) ? locale : "en";
-  const { person } = getContent(lang);
+  const content = getContent(lang);
+  const { person } = content;
   const t = getDictionary(lang);
-  const [condensed, condensedSemi, mono] = await Promise.all([
-    font("ibm-plex-sans-condensed/files/ibm-plex-sans-condensed-latin-700-normal.woff"),
-    font("ibm-plex-sans-condensed/files/ibm-plex-sans-condensed-latin-600-normal.woff"),
-    font("ibm-plex-mono/files/ibm-plex-mono-latin-500-normal.woff"),
+  const greeting = content.greetings.find((word) => word.lang === lang) ?? content.greetings[0];
+  const [display, semi, serif, serifItalic] = await Promise.all([
+    font("archivo/files/archivo-latin-800-normal.woff"),
+    font("archivo/files/archivo-latin-600-normal.woff"),
+    font("source-serif-4/files/source-serif-4-latin-400-normal.woff"),
+    font("source-serif-4/files/source-serif-4-latin-400-italic.woff"),
   ]);
-  const formula = t.formulas.top;
-  const [fn, ...rest] = formula.split("(");
 
   return new ImageResponse(
-    <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", background: c.paper }}>
-      {/* formula bar */}
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        padding: "56px 64px",
+        background: c.paper,
+        color: c.ink,
+      }}
+    >
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", ...label }}>
+        <span style={{ color: c.muted }}>{t.hero.portfolio}</span>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <div style={{ width: 14, height: 14, borderRadius: 14, background: c.mint, marginRight: 14 }} />
+          {person.availability}
+        </div>
+      </div>
+
       <div
         style={{
           display: "flex",
-          height: 64,
-          borderBottom: `2px solid ${c.line}`,
-          background: c.head,
-          fontFamily: "Plex Mono",
-          fontSize: 26,
-          color: c.ink,
+          marginTop: 44,
+          fontFamily: "Serif Italic",
+          fontStyle: "italic",
+          fontSize: 44,
+          lineHeight: 1,
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            width: 150,
-            paddingLeft: 24,
-            borderRight: `2px solid ${c.line}`,
-            background: c.paper,
-          }}
-        >
-          B2:G5
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            width: 64,
-            justifyContent: "center",
-            borderRight: `2px solid ${c.line}`,
-            color: c.muted,
-          }}
-        >
-          fx
-        </div>
-        <div style={{ display: "flex", alignItems: "center", paddingLeft: 24, background: c.paper, flex: 1 }}>
-          <span style={{ color: c.selInk }}>{fn}</span>
-          <span style={{ color: c.inkYellow }}>{`(${rest.join("(")}`}</span>
-        </div>
+        <span style={{ color: c.violetInk }}>{`${greeting?.text ?? "Hello"}!`}</span>
+        <span style={{ color: c.muted, marginLeft: 14 }}>{t.hero.iam}</span>
       </div>
-      {/* column letters */}
-      <div style={{ display: "flex", height: 34, background: c.head, borderBottom: `2px solid ${c.line}` }}>
-        {COLUMNS.map((letter) => (
-          <div
-            key={letter}
-            style={{
-              display: "flex",
-              flex: 1,
-              alignItems: "center",
-              justifyContent: "center",
-              borderRight: `1px solid ${c.line}`,
-              fontFamily: "Plex Mono",
-              fontSize: 18,
-              color: letter >= "B" && letter <= "G" ? c.inkGreen : c.headInk,
-              background: letter >= "B" && letter <= "G" ? c.fillGreen : c.head,
-            }}
-          >
-            {letter}
-          </div>
-        ))}
-      </div>
-      {/* the sheet */}
+
       <div
         style={{
-          position: "relative",
           display: "flex",
-          flex: 1,
-          backgroundImage: `linear-gradient(to right, ${c.grid} 1px, transparent 1px), linear-gradient(to bottom, ${c.grid} 1px, transparent 1px)`,
-          backgroundSize: "100px 52px",
+          flexDirection: "column",
+          marginTop: 18,
+          fontFamily: "Archivo",
+          fontSize: 148,
+          lineHeight: 0.9,
+          letterSpacing: -3,
+          textTransform: "uppercase",
         }}
       >
-        <div
-          style={{
-            position: "absolute",
-            left: 100,
-            top: 52,
-            width: 600,
-            height: 416,
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            padding: "0 40px",
-            background: c.paper,
-            border: `4px solid ${c.sel}`,
-          }}
-        >
-          <div
+        <span>{person.firstName}</span>
+        <span style={{ letterSpacing: -2.4 }}>{person.lastName}</span>
+      </div>
+
+      <div style={{ display: "flex", height: 2, background: c.ink, marginTop: 30 }} />
+
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginTop: 26,
+          fontFamily: "Serif",
+          fontSize: 36,
+        }}
+      >
+        <div style={{ display: "flex" }}>
+          <span
             style={{
-              display: "flex",
-              fontFamily: "Plex Condensed",
-              fontSize: 108,
-              lineHeight: 0.92,
-              color: c.ink,
-              flexDirection: "column",
+              backgroundImage: `linear-gradient(transparent 58%, ${c.mark} 58%, ${c.mark} 94%, transparent 94%)`,
             }}
           >
-            <span>{person.firstName}</span>
-            <span>{person.lastName}</span>
-          </div>
-          <div
-            style={{ display: "flex", marginTop: 26, fontFamily: "Plex Condensed Semi", fontSize: 32, color: c.muted }}
-          >
-            {`${person.headline} · ${person.school}`}
-          </div>
-          <div
-            style={{
-              display: "flex",
-              alignSelf: "flex-start",
-              marginTop: 22,
-              padding: "6px 14px",
-              background: c.fillGreen,
-              color: c.inkGreen,
-              fontFamily: "Plex Mono",
-              fontSize: 20,
-            }}
-          >
-            <div
-              style={{
-                width: 12,
-                height: 12,
-                borderRadius: 12,
-                background: c.sel,
-                marginRight: 12,
-                alignSelf: "center",
-              }}
-            />
-            {person.availability}
-          </div>
-          <div
-            style={{
-              position: "absolute",
-              right: -10,
-              bottom: -10,
-              width: 16,
-              height: 16,
-              background: c.sel,
-              border: `3px solid ${c.paper}`,
-            }}
-          />
+            {person.headline}
+          </span>
+          <span style={{ color: c.muted, marginLeft: 14 }}>{`· ${person.school}`}</span>
         </div>
-        <div
-          style={{
-            position: "absolute",
-            left: 800,
-            top: 104,
-            width: 300,
-            height: 300,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            border: `2px solid ${c.sel}`,
-            backgroundColor: c.paper,
-            fontFamily: "Plex Condensed",
-            fontSize: 132,
-            color: c.ink,
-          }}
-        >
-          {person.initials}
+        <div style={{ display: "flex" }}>
+          {[c.blue, c.sun, c.violet, c.mint].map((colour) => (
+            <div key={colour} style={{ width: 18, height: 18, background: colour, marginLeft: 10 }} />
+          ))}
         </div>
       </div>
     </div>,
     {
       ...size,
       fonts: [
-        { name: "Plex Condensed", data: condensed, weight: 700, style: "normal" },
-        { name: "Plex Condensed Semi", data: condensedSemi, weight: 600, style: "normal" },
-        { name: "Plex Mono", data: mono, weight: 500, style: "normal" },
+        { name: "Archivo", data: display, weight: 800, style: "normal" },
+        { name: "Archivo Semi", data: semi, weight: 600, style: "normal" },
+        { name: "Serif", data: serif, weight: 400, style: "normal" },
+        { name: "Serif Italic", data: serifItalic, weight: 400, style: "italic" },
       ],
     },
   );

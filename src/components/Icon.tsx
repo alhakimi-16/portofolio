@@ -55,12 +55,3 @@ export function LinkedInIcon({ className = "size-5" }: { className?: string }) {
     </svg>
   );
 }
-
-/** A four-pointed sparkle, used as a separator. */
-export function Sparkle({ className = "size-5" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden>
-      <path d="M12 0c.7 6.3 5.7 11.3 12 12-6.3.7-11.3 5.7-12 12-.7-6.3-5.7-11.3-12-12C6.3 11.3 11.3 6.3 12 0Z" />
-    </svg>
-  );
-}

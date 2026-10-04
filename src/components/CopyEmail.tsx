@@ -35,11 +35,15 @@ export function CopyEmail({
       onClick={() => void copy()}
       data-copied={copied || undefined}
       className={cn(
-        "inline-flex items-center gap-2 border border-line bg-paper px-3.5 py-2 text-sm font-semibold text-ink transition-colors hover:border-sel hover:text-sel-ink data-copied:border-sel data-copied:bg-fill-green data-copied:text-ink-green",
+        "inline-flex items-center gap-2 border border-rule px-3.5 py-2.5 label text-ink transition-colors hover:border-ink data-copied:border-mint data-copied:text-mint-ink",
         className,
       )}
     >
-      {copied ? <Check aria-hidden className="size-4" strokeWidth={2.6} /> : <Copy aria-hidden className="size-4" />}
+      {copied ? (
+        <Check aria-hidden className="size-3.5" strokeWidth={2.6} />
+      ) : (
+        <Copy aria-hidden className="size-3.5" />
+      )}
       <span aria-live="polite">{copied ? doneLabel : label}</span>
     </button>
   );
