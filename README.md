@@ -4,8 +4,8 @@ Personal website in **English and German** (`/en`, `/de`), with light and dark m
 layout in blue, yellow and light purple (plus a little pastel green), with playful details:
 
 - a "Hello!" that cycles through four languages, a colour ring with floating stickers;
-- numbers that count up, a keyword ribbon, marker highlights and "passport stamps" for the three
-  countries I have lived in;
+- three highlights below the hero, a keyword ribbon, marker highlights and "passport stamps" for the
+  three countries I have lived in;
 - the focus sections: skills, projects and online courses;
 - an ID card being scanned and stamped "verified" (my job at Nect) and a finance report stamped "on time"
   (my volunteer role at the VJSD);
@@ -37,7 +37,7 @@ Open <http://localhost:3000>. It redirects to `/en` or `/de` based on the browse
 
 ## Edit the content
 
-**All content lives in [`src/content/profile.ts`](src/content/profile.ts)**: profile text, numbers,
+**All content lives in [`src/content/profile.ts`](src/content/profile.ts)**: profile text, highlights,
 stickers, the keyword ribbon, experience, skills, languages, projects and online courses. Every text
 exists in English (`en`) and German (`de`). Labels such as section headings are in
 [`src/i18n/ui.ts`](src/i18n/ui.ts); there, `*word*` in a heading gets the coloured, underlined style.
@@ -46,7 +46,7 @@ exists in English (`en`) and German (`de`). Labels such as section headings are 
   Until then the initials are shown.
 - **Projects and online courses:** add entries to `projects` and `courses` at the end of `profile.ts`
   (there is an example above each list). While a list is empty, the site shows an "in progress" card.
-- **Age:** update `person.age` after each birthday; the about text and the numbers use it.
+- **Age:** update `person.age` after each birthday; the about text uses it.
 
 ## Deploy on Vercel
 

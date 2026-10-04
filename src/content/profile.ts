@@ -6,11 +6,11 @@
  *
  *  • In the about texts, ==words== get a coloured marker highlight and {age}
  *    is replaced with `person.age`.
- *  • Update `person.age` after each birthday (it is also one of the numbers).
+ *  • Update `person.age` after each birthday.
  *  • Projects and online courses: add them at the end of this file.
  * ─────────────────────────────────────────────────────────────────────────────
  */
-import type { Country, Course, Hue, IconName, L, Language, Project, Role, Skill, Stat } from "./types";
+import type { Country, Course, Glance, Hue, IconName, L, Language, Project, Role, Skill } from "./types";
 
 export const person = {
   firstName: "Mugahed",
@@ -60,16 +60,27 @@ export const marquee: { text: L; hue: Hue }[] = [
   { text: { en: "Time management", de: "Zeitmanagement" }, hue: "sun" },
 ];
 
-/** The numbers below the hero; they count up when they appear. */
-export const stats: Stat[] = [
-  { value: person.age, label: { en: "Years old", de: "Jahre alt" }, hue: "blue" },
-  { value: 3, label: { en: "Countries I've lived in", de: "Länder, in denen ich gelebt habe" }, hue: "sun" },
+/** The three highlights below the hero. */
+export const atAGlance: Glance[] = [
   {
-    value: 3,
-    label: { en: "Languages, with Turkish on the way", de: "Sprachen, Türkisch ist in Arbeit" },
+    value: { en: "Business Informatics", de: "Wirtschaftsinformatik" },
+    label: { en: "Student · HAW Hamburg", de: "Student · HAW Hamburg" },
+    icon: "cap",
+    hue: "blue",
+  },
+  {
+    value: { en: "{n} languages", de: "{n} Sprachen" },
+    count: 4,
+    label: { en: "Arabic, German, English, Turkish", de: "Arabisch, Deutsch, Englisch, Türkisch" },
+    icon: "languages",
+    hue: "sun",
+  },
+  {
+    value: { en: "Data maintenance", de: "Datenpflege" },
+    label: { en: "Working student · Nect GmbH", de: "Werkstudent · Nect GmbH" },
+    icon: "database",
     hue: "violet",
   },
-  { value: 2, label: { en: "Roles alongside my studies", de: "Tätigkeiten neben dem Studium" }, hue: "blue" },
 ];
 
 /** "Über mich": a short intro, the three countries as passport stamps, then the rest. */

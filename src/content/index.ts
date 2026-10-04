@@ -38,12 +38,12 @@ export function getContent(locale: Locale) {
     greetings: [...data.greetings].sort((a, b) => Number(b.lang === locale) - Number(a.lang === locale)),
     stickers: data.stickers.map((sticker) => ({ text: sticker.text[locale], hue: sticker.hue })),
     marquee: data.marquee.map((item) => ({ text: item.text[locale], hue: item.hue })),
-    stats: data.stats.map((stat) => ({
-      value: stat.value,
-      decimals: stat.decimals ?? 0,
-      suffix: stat.suffix?.[locale] ?? "",
-      label: stat.label[locale],
-      hue: stat.hue,
+    atAGlance: data.atAGlance.map((item) => ({
+      value: soft(item.value[locale]),
+      count: item.count,
+      label: keepDots(item.label[locale]),
+      icon: item.icon,
+      hue: item.hue,
     })),
     about: {
       intro: data.about.intro[locale].replaceAll("{age}", String(person.age)),

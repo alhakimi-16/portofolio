@@ -10,6 +10,7 @@ export type Hue = "blue" | "violet" | "sun" | "mint";
 export type IconName =
   | "database"
   | "cup"
+  | "languages"
   | "sigma"
   | "business"
   | "network"
@@ -42,11 +43,13 @@ export interface Role {
   art: "id-scan" | "report";
 }
 
-export interface Stat {
-  value: number;
-  decimals?: number;
-  suffix?: L;
+/** One of the three highlights below the hero. */
+export interface Glance {
+  /** the big text; "{n}" is replaced by `count`, which counts up when it appears */
+  value: L;
+  count?: number;
   label: L;
+  icon: IconName;
   hue: Hue;
 }
 

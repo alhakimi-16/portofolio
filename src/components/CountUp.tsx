@@ -38,7 +38,7 @@ export function CountUp({
         };
         frame = requestAnimationFrame(tick);
       },
-      { rootMargin: "0px 0px -12% 0px" },
+      { threshold: 0.5 },
     );
     observer.observe(el);
     return () => {

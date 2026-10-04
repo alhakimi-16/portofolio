@@ -3,6 +3,7 @@ import type { Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/ui";
 import { navIds, siteUrl } from "@/lib/site";
 import { About } from "./About";
+import { AtAGlance } from "./AtAGlance";
 import { Contact } from "./Contact";
 import { Courses } from "./Courses";
 import { Experience } from "./Experience";
@@ -13,7 +14,6 @@ import { Marquee } from "./Marquee";
 import { Projects } from "./Projects";
 import { SiteEffects } from "./SiteEffects";
 import { Skills } from "./Skills";
-import { Stats } from "./Stats";
 
 /** Colour of each header link (matches the section). */
 const navHues = {
@@ -61,7 +61,7 @@ export function HomePage({ locale }: { locale: Locale }) {
 
       <main id="content">
         <Hero content={content} t={t}>
-          <Stats stats={content.stats} locale={locale} />
+          <AtAGlance items={content.atAGlance} locale={locale} />
         </Hero>
         <Marquee items={content.marquee} />
         <About content={content} t={t} />

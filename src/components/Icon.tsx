@@ -10,6 +10,7 @@ import {
   Flag,
   GraduationCap,
   HeartHandshake,
+  Languages,
   Lightbulb,
   ListChecks,
   Network,
@@ -24,6 +25,7 @@ import type { IconName } from "@/content/types";
 const icons: Record<IconName, LucideIcon> = {
   database: Database,
   cup: Coffee,
+  languages: Languages,
   sigma: Sigma,
   business: BriefcaseBusiness,
   network: Network,
