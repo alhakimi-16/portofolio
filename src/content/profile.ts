@@ -80,17 +80,17 @@ export const atAGlance: Glance[] = [
   },
 ];
 
-/**
- * "Über mich": a short intro (about five lines on a laptop). The facts next to it already
- * list my studies, job and volunteering, so the text is about what drives me.
- * One paragraph per entry.
- */
+/** "Über mich", one paragraph per entry: studies, practice, what shaped me. */
 export const about: L<string[]> = {
   en: [
-    "I'm a ==Business Informatics== student at HAW Hamburg with a passion for ==connecting business and IT==. Living in three countries has taught me to ==adapt quickly and stay calm under pressure==, which I bring to my work at Nect and as a volunteer at the VJSD.",
+    "I study ==Business Informatics== at HAW Hamburg because the ==bridge between business and IT== fascinates me: understanding how organisations work and how technology moves them forward. My studies cover both sides, from Java and SQL to statistics and business administration.",
+    "As a working student at Nect, I handle sensitive customer data every day, where ==accuracy and GDPR compliance== come first. As a volunteer, I organise the VJSD's finances and prepare reports and updates for the team. Since the team relies on them being right and on time, I coordinate closely and plan my time carefully alongside university and work, which has strengthened my ==teamwork and time management==.",
+    "Living in three countries has shaped me just as much: every move brought a new culture and new people. It taught me to ==adapt quickly to new environments== and to stay calm under pressure. Right now I'm building my own projects, learning through online courses and looking for a ==working student position== to bring it all together.",
   ],
   de: [
-    "Ich studiere ==Wirtschaftsinformatik== an der HAW Hamburg und begeistere mich für die ==Verbindung von BWL und IT==. Das Leben in drei Ländern hat mich gelehrt, ==mich schnell auf Neues einzustellen und unter Druck ruhig zu bleiben==. Das bringe ich bei Nect und im Ehrenamt beim VJSD ein.",
+    "Ich studiere ==Wirtschaftsinformatik== an der HAW Hamburg, weil mich die ==Schnittstelle zwischen BWL und IT== begeistert: zu verstehen, wie Unternehmen funktionieren und wie Technologie sie voranbringt. Im Studium lerne ich beide Seiten kennen, von Java und SQL bis zu Statistik und Betriebswirtschaftslehre.",
+    "Als Werkstudent bei Nect arbeite ich täglich mit sensiblen Kundendaten, bei denen ==Genauigkeit und DSGVO-Konformität== an erster Stelle stehen. Ehrenamtlich organisiere ich die Finanzen des VJSD und erstelle Berichte und Updates für das Team. Weil sich das Team darauf verlässt, dass sie korrekt und pünktlich sind, stimme ich mich eng ab und plane meine Zeit neben Studium und Job genau, was meine ==Teamfähigkeit und mein Zeitmanagement== gestärkt hat.",
+    "Genauso geprägt hat mich das Leben in drei Ländern: Jeder Umzug brachte eine neue Kultur und neue Menschen mit sich. So habe ich gelernt, ==mich schnell auf neue Umgebungen einzustellen== und auch unter Druck ruhig zu bleiben. Aktuell arbeite ich an eigenen Projekten, bilde mich mit Online-Kursen weiter und suche eine ==Werkstudentenstelle==, in der ich all das einbringen kann.",
   ],
 };
 
