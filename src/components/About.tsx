@@ -37,35 +37,28 @@ export function About({ content, t }: { content: SiteContent; t: Dictionary }) {
 
   return (
     <Section id="about" nav="about" hue="blue" {...t.sections.about}>
-      <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:gap-16">
-        <div className="grid gap-6 text-lg leading-[1.75] sm:text-xl">
-          {content.about.map((paragraph, i) => (
-            <p key={i} data-reveal>
-              <Highlights text={paragraph} first={firstMark[i]} />
-            </p>
-          ))}
-        </div>
-        <ul className="grid content-start gap-3 sm:grid-cols-2 lg:grid-cols-1">
-          {content.facts.map((fact, i) => (
-            <li
-              key={fact.label}
-              data-reveal
-              data-hue={hues[i % hues.length]}
-              style={vars({ "--d": `${120 + i * 90}ms` })}
-            >
-              <div className="flex h-full items-center gap-4 card p-4 transition-[translate,border-color] duration-300 hover:-translate-y-0.5 hover:border-hue">
-                <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-hue/15 text-hue-ink">
-                  <Icon name={fact.icon} />
-                </span>
-                <div className="min-w-0">
-                  <p className="text-xs font-bold tracking-[0.12em] uppercase">{fact.label}</p>
-                  <p className="leading-snug font-medium text-fg">{fact.value}</p>
-                </div>
-              </div>
-            </li>
-          ))}
-        </ul>
+      <div className="grid max-w-3xl gap-6 text-lg leading-[1.75] sm:text-[1.3125rem]">
+        {content.about.map((paragraph, i) => (
+          <p key={i} data-reveal>
+            <Highlights text={paragraph} first={firstMark[i]} />
+          </p>
+        ))}
       </div>
+      <ul className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {content.facts.map((fact, i) => (
+          <li key={fact.label} data-reveal data-hue={hues[i % hues.length]} style={vars({ "--d": `${i * 90}ms` })}>
+            <div className="flex h-full items-center gap-4 card p-4 transition-[translate,border-color] duration-300 hover:-translate-y-0.5 hover:border-hue lg:flex-col lg:items-start lg:p-5">
+              <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-hue/15 text-hue-ink">
+                <Icon name={fact.icon} />
+              </span>
+              <div className="min-w-0">
+                <p className="text-xs font-bold tracking-[0.12em] uppercase">{fact.label}</p>
+                <p className="leading-snug font-medium text-fg">{fact.value}</p>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
     </Section>
   );
 }

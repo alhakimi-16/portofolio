@@ -80,17 +80,17 @@ export const atAGlance: Glance[] = [
   },
 ];
 
-/** "Über mich", one paragraph per entry. */
+/**
+ * "Über mich": a short intro (about five lines on a laptop). The facts next to it already
+ * list my studies, job and volunteering, so the text is about what drives me.
+ * One paragraph per entry.
+ */
 export const about: L<string[]> = {
   en: [
-    "I study ==Business Informatics== at HAW Hamburg, and what interests me most is the ==bridge between business and IT==: understanding how organisations work and using technology to make them work better. My studies cover programming in Java, databases with SQL, statistics and business administration.",
-    "Alongside university, I gain hands-on experience as a working student in data maintenance at Nect, where ==accuracy and care with sensitive data== are part of every day. As a volunteer, I organise the finances of the VJSD and prepare reports on them, which keeps strengthening my teamwork and time management.",
-    "Having lived in three countries, I ==adapt quickly to new environments== and stay focused under pressure. Right now I'm working on my own projects, learning through online courses and looking for a ==working student position== where I can bring all of this together.",
+    "I'm a ==Business Informatics== student at HAW Hamburg with a passion for ==connecting business and IT==. Living in three countries has taught me to ==adapt quickly and stay calm under pressure==, which I bring to my work at Nect and as a volunteer at the VJSD.",
   ],
   de: [
-    "Ich studiere ==Wirtschaftsinformatik== an der HAW Hamburg. Besonders spannend finde ich die ==Schnittstelle zwischen BWL und IT==: zu verstehen, wie Unternehmen funktionieren, und mit Technologie Lösungen zu finden, die sie voranbringen. Im Studium beschäftige ich mich mit Programmierung in Java, Datenbanken mit SQL, Statistik und Betriebswirtschaftslehre.",
-    "Praktische Erfahrung sammle ich als Werkstudent in der Datenpflege bei Nect, wo ==Genauigkeit und ein sorgfältiger Umgang mit sensiblen Daten== zum Alltag gehören. Ehrenamtlich organisiere ich die Finanzen des VJSD und erstelle Berichte dazu, was meine Teamfähigkeit und mein Zeitmanagement immer weiter stärkt.",
-    "Da ich bereits in drei Ländern gelebt habe, ==finde ich mich schnell in neuen Umgebungen zurecht== und behalte auch unter Druck den Überblick. Aktuell arbeite ich an eigenen Projekten, bilde mich mit Online-Kursen weiter und suche eine ==Werkstudentenstelle==, in der ich all das zusammenbringen kann.",
+    "Ich studiere ==Wirtschaftsinformatik== an der HAW Hamburg und begeistere mich für die ==Verbindung von BWL und IT==. Das Leben in drei Ländern hat mich gelehrt, ==mich schnell auf Neues einzustellen und unter Druck ruhig zu bleiben==. Das bringe ich bei Nect und im Ehrenamt beim VJSD ein.",
   ],
 };
 
