@@ -65,12 +65,6 @@ export interface Language {
   hue: Hue;
 }
 
-/** A country I have lived in (shown as a passport stamp in the about section). */
-export interface Country {
-  name: L;
-  hue: Hue;
-}
-
 export interface Project {
   title: L;
   description: L;

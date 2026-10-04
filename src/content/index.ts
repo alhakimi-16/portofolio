@@ -45,12 +45,7 @@ export function getContent(locale: Locale) {
       icon: item.icon,
       hue: item.hue,
     })),
-    about: {
-      intro: data.about.intro[locale].replaceAll("{age}", String(person.age)),
-      body: data.about.body[locale].replaceAll("{age}", String(person.age)),
-    },
-    countries: data.countries.map((country) => ({ name: country.name[locale], hue: country.hue })),
-    adaptLine: data.adaptLine[locale],
+    about: data.about[locale],
     facts: data.facts.map((fact) => ({
       label: fact.label[locale],
       value: soft(keepDots(fact.value[locale])),

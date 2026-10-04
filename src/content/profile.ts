@@ -4,19 +4,16 @@
  *  Sources: my CV (October 2026) and my own notes. Every text exists in
  *  English (`en`) and German (`de`).
  *
- *  • In the about texts, ==words== get a coloured marker highlight and {age}
- *    is replaced with `person.age`.
- *  • Update `person.age` after each birthday.
+ *  • In the about text, ==words== get a coloured marker highlight.
  *  • Projects and online courses: add them at the end of this file.
  * ─────────────────────────────────────────────────────────────────────────────
  */
-import type { Country, Course, Glance, Hue, IconName, L, Language, Project, Role, Skill } from "./types";
+import type { Course, Glance, Hue, IconName, L, Language, Project, Role, Skill } from "./types";
 
 export const person = {
   firstName: "Mugahed",
   lastName: "Al-Hakimi",
   initials: "MA",
-  age: 21,
   headline: { en: "Business Informatics Student", de: "Student der Wirtschaftsinformatik" } satisfies L,
   school: "HAW Hamburg",
   intro: {
@@ -83,28 +80,18 @@ export const atAGlance: Glance[] = [
   },
 ];
 
-/** "Über mich": a short intro, the three countries as passport stamps, then the rest. */
-export const about: { intro: L; body: L } = {
-  intro: {
-    en: "I'm Mugahed, {age}, from ==Yemen==. I've already lived in ==three countries==, Yemen, Malaysia and Germany, and every move meant a new culture, new people and a new way of doing things.",
-    de: "Ich bin Mugahed, {age}, und komme aus dem ==Jemen==. Gelebt habe ich bereits in ==drei Ländern==, im Jemen, in Malaysia und in Deutschland, und jeder Umzug bedeutete eine neue Kultur, neue Menschen und eine neue Art, Dinge anzugehen.",
-  },
-  body: {
-    en: "Today I study ==Business Informatics== at HAW Hamburg, right where business and IT meet. As a working student at Nect, ==accuracy with sensitive data== is part of every day, and as a volunteer I look after the finances of the VJSD. Alongside that I work on my own ==projects== and keep learning with ==online courses==. Next up: a working student position where I can put all of this into practice.",
-    de: "Heute studiere ich ==Wirtschaftsinformatik== an der HAW Hamburg, genau dort, wo BWL und IT zusammenkommen. Als Werkstudent bei Nect gehört ==Genauigkeit im Umgang mit sensiblen Daten== zu meinem Alltag, und ehrenamtlich kümmere ich mich um die Finanzen des VJSD. Daneben arbeite ich an eigenen ==Projekten== und bilde mich mit ==Online-Kursen== weiter. Als Nächstes: eine Werkstudentenstelle, in der ich all das in der Praxis einsetzen kann.",
-  },
-};
-
-/** Shown as passport stamps, in the order I lived there. */
-export const countries: Country[] = [
-  { name: { en: "Yemen", de: "Jemen" }, hue: "sun" },
-  { name: { en: "Malaysia", de: "Malaysia" }, hue: "violet" },
-  { name: { en: "Germany", de: "Deutschland" }, hue: "blue" },
-];
-
-export const adaptLine: L = {
-  en: "Three countries, three cultures, one constant: I adapt fast.",
-  de: "Drei Länder, drei Kulturen, eine Konstante: Ich passe mich schnell an.",
+/** "Über mich", one paragraph per entry. */
+export const about: L<string[]> = {
+  en: [
+    "I study ==Business Informatics== at HAW Hamburg, and what interests me most is the ==bridge between business and IT==: understanding how organisations work and using technology to make them work better. My studies cover programming in Java, databases with SQL, statistics and business administration.",
+    "Alongside university, I gain hands-on experience as a working student in data maintenance at Nect, where ==accuracy and care with sensitive data== are part of every day. As a volunteer, I organise the finances of the VJSD and prepare reports on them, which keeps strengthening my teamwork and time management.",
+    "Having lived in three countries, I ==adapt quickly to new environments== and stay focused under pressure. Right now I'm working on my own projects, learning through online courses and looking for a ==working student position== where I can bring all of this together.",
+  ],
+  de: [
+    "Ich studiere ==Wirtschaftsinformatik== an der HAW Hamburg. Besonders spannend finde ich die ==Schnittstelle zwischen BWL und IT==: zu verstehen, wie Unternehmen funktionieren, und mit Technologie Lösungen zu finden, die sie voranbringen. Im Studium beschäftige ich mich mit Programmierung in Java, Datenbanken mit SQL, Statistik und Betriebswirtschaftslehre.",
+    "Praktische Erfahrung sammle ich als Werkstudent in der Datenpflege bei Nect, wo ==Genauigkeit und ein sorgfältiger Umgang mit sensiblen Daten== zum Alltag gehören. Ehrenamtlich organisiere ich die Finanzen des VJSD und erstelle Berichte dazu, was meine Teamfähigkeit und mein Zeitmanagement immer weiter stärkt.",
+    "Da ich bereits in drei Ländern gelebt habe, ==finde ich mich schnell in neuen Umgebungen zurecht== und behalte auch unter Druck den Überblick. Aktuell arbeite ich an eigenen Projekten, bilde mich mit Online-Kursen weiter und suche eine ==Werkstudentenstelle==, in der ich all das zusammenbringen kann.",
+  ],
 };
 
 /** Quick facts next to the about text. */

@@ -4,8 +4,7 @@ Personal website in **English and German** (`/en`, `/de`), with light and dark m
 layout in blue, yellow and light purple (plus a little pastel green), with playful details:
 
 - a "Hello!" that cycles through four languages, a colour ring with floating stickers;
-- three highlights below the hero, a keyword ribbon, marker highlights and "passport stamps" for the
-  three countries I have lived in;
+- three highlights below the hero, a keyword ribbon and marker highlights in the about text;
 - the focus sections: skills, projects and online courses;
 - an ID card being scanned and stamped "verified" (my job at Nect) and a finance report stamped "on time"
   (my volunteer role at the VJSD);
@@ -46,7 +45,6 @@ exists in English (`en`) and German (`de`). Labels such as section headings are 
   Until then the initials are shown.
 - **Projects and online courses:** add entries to `projects` and `courses` at the end of `profile.ts`
   (there is an example above each list). While a list is empty, the site shows an "in progress" card.
-- **Age:** update `person.age` after each birthday; the about text uses it.
 
 ## Deploy on Vercel
 
