@@ -1,17 +1,20 @@
-import { Bricolage_Grotesque, Geist } from "next/font/google";
+import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 
 // Fonts are downloaded at build time and served from this site,
 // so visitors' browsers never contact Google (GDPR-friendly).
-export const bricolage = Bricolage_Grotesque({
+// Plex Sans is a variable font with a width axis: narrowed, it is the display face.
+export const plexSans = IBM_Plex_Sans({
   subsets: ["latin"],
-  variable: "--font-bricolage",
+  axes: ["wdth"],
+  variable: "--font-plex-sans",
   display: "swap",
 });
 
-export const geist = Geist({
+export const plexMono = IBM_Plex_Mono({
   subsets: ["latin"],
-  variable: "--font-geist",
+  weight: ["400", "500", "600"],
+  variable: "--font-plex-mono",
   display: "swap",
 });
 
-export const fontVariables = `${bricolage.variable} ${geist.variable}`;
+export const fontVariables = `${plexSans.variable} ${plexMono.variable}`;

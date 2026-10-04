@@ -3,33 +3,26 @@ import type { Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/ui";
 import { navIds, siteUrl } from "@/lib/site";
 import { About } from "./About";
-import { AtAGlance } from "./AtAGlance";
 import { Contact } from "./Contact";
 import { Courses } from "./Courses";
 import { Experience } from "./Experience";
 import { Footer } from "./Footer";
-import { Header } from "./Header";
 import { Hero } from "./Hero";
-import { Marquee } from "./Marquee";
 import { Projects } from "./Projects";
+import { RowGutter } from "./RowGutter";
+import { SheetEffects } from "./SheetEffects";
+import { SheetTabs } from "./SheetTabs";
 import { SiteEffects } from "./SiteEffects";
 import { Skills } from "./Skills";
-
-/** Colour of each header link (matches the section). */
-const navHues = {
-  about: "blue",
-  skills: "violet",
-  projects: "sun",
-  courses: "blue",
-  experience: "violet",
-  contact: "sun",
-} as const;
+import { Ticker } from "./Ticker";
+import { Toolbar } from "./Toolbar";
 
 /** The whole page for one language (shared by the site and the in-chat preview). */
 export function HomePage({ locale }: { locale: Locale }) {
   const t = getDictionary(locale);
   const content = getContent(locale);
   const { person } = content;
+  const file = `${person.firstName.toLowerCase()}-${person.lastName.toLowerCase()}.xlsx`;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -45,33 +38,41 @@ export function HomePage({ locale }: { locale: Locale }) {
   return (
     <>
       <SiteEffects />
+      <SheetEffects />
       <a
         href="#content"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:rounded-full focus:bg-fg focus:px-4 focus:py-2 focus:text-sm focus:text-bg"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:bg-sel focus:px-4 focus:py-2 focus:text-sm focus:text-on-sel"
       >
         {t.header.skip}
       </a>
-      <Header
-        items={navIds.map((id) => ({ id, label: t.nav[id], hue: navHues[id] }))}
+      <Toolbar
         locale={locale}
-        name={person.name}
         initials={person.initials}
-        labels={t.header}
+        file={file}
+        formulas={t.formulas}
+        labels={{ ...t.header, ...t.sheet }}
       />
 
-      <main id="content">
-        <Hero content={content} t={t}>
-          <AtAGlance items={content.atAGlance} locale={locale} />
-        </Hero>
-        <Marquee items={content.marquee} />
-        <About content={content} t={t} />
-        <Skills content={content} t={t} />
-        <Projects content={content} t={t} />
-        <Courses content={content} t={t} />
-        <Experience content={content} t={t} />
-        <Contact content={content} t={t} />
-      </main>
-      <Footer name={person.name} t={t} />
+      <div className="mx-auto max-w-[1240px] pb-11 lg:grid lg:grid-cols-[44px_minmax(0,1fr)] lg:border-x lg:border-line">
+        <RowGutter />
+        <main id="content" className="min-w-0 sheet">
+          <Hero content={content} t={t} locale={locale} />
+          <Ticker items={content.marquee} />
+          <About content={content} t={t} />
+          <Skills content={content} t={t} />
+          <Projects content={content} t={t} />
+          <Courses content={content} t={t} />
+          <Experience content={content} t={t} />
+          <Contact content={content} t={t} />
+          <Footer name={person.name} t={t} />
+        </main>
+      </div>
+
+      <SheetTabs
+        tabs={[{ id: "top", label: t.sheet.start }, ...navIds.map((id) => ({ id, label: t.nav[id] }))]}
+        label={t.sheet.tabs}
+        status={person.availability}
+      />
 
       <script
         type="application/ld+json"

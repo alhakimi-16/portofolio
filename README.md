@@ -1,17 +1,18 @@
 # Mugahed Al-Hakimi · Portfolio
 
-Personal website in **English and German** (`/en`, `/de`), with light and dark mode. A clean one-page
-layout in blue, yellow and light purple (plus a little pastel green), with playful details:
+Personal website in **English and German** (`/en`, `/de`), with light and dark mode, designed like a
+spreadsheet workbook (a nod to Business Informatics):
 
-- a "Hello!" that cycles through four languages, a colour ring with floating stickers;
-- three highlights below the hero, a keyword ribbon and marker highlights in the about text;
-- the focus sections: skills, projects and online courses;
-- an ID card being scanned and stamped "verified" (my job at Nect) and a finance report stamped "on time"
-  (my volunteer role at the VJSD);
-- confetti when the email address is copied.
+- a toolbar with a formula bar: the formula changes with the part of the page you are reading;
+- column letters A–L and row numbers around a 12-column sheet; content sits in "cell ranges", and the
+  range under the pointer is selected, with its address in the name box;
+- sheet tabs along the bottom for the sections; skills as a filterable table; highlights as cell fills.
 
 All motion is switched off for visitors who ask their system for reduced motion, and every piece of
 content is visible without JavaScript.
+
+**Earlier design:** the colourful version (blue, yellow, light purple) is kept as a draft on the branch
+`draft/colourful` (tag `draft-colourful`). To look at it again: `git checkout draft/colourful`.
 
 ## Run it locally
 
@@ -60,6 +61,6 @@ notice can stay short.
 
 ## Tech
 
-Next.js 16 (static pages) · React 19 · TypeScript · Tailwind CSS 4 · Lucide icons. Fonts: Bricolage
-Grotesque and Geist, self-hosted via `next/font`. Animations are plain CSS plus a few small client
-components; no animation library.
+Next.js 16 (static pages) · React 19 · TypeScript · Tailwind CSS 4 · Lucide icons. Fonts: IBM Plex Sans
+(its width axis gives the narrow headings) and IBM Plex Mono, self-hosted via `next/font`. Animations are
+plain CSS plus a few small client components; no animation library.

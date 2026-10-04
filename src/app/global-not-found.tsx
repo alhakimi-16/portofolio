@@ -15,7 +15,7 @@ export default function GlobalNotFound() {
   const en = dictionaries.en.notFound;
   const de = dictionaries.de.notFound;
   const link =
-    "inline-flex items-center gap-2 rounded-full border border-line bg-surface px-5 py-3 font-semibold text-fg transition-colors hover:border-fg";
+    "inline-flex items-center gap-2 border border-line bg-paper px-4 py-2.5 font-semibold text-ink transition-colors hover:border-sel hover:text-sel-ink";
 
   return (
     <html lang="en" className={fontVariables} suppressHydrationWarning>
@@ -24,8 +24,9 @@ export default function GlobalNotFound() {
       </head>
       <body>
         <main className="mx-auto flex min-h-svh max-w-xl flex-col justify-center px-6 py-16">
-          <p className="shimmer-text font-display text-[7rem] leading-none font-extrabold tracking-[-0.05em]">404</p>
-          <h1 className="mt-6 text-4xl font-extrabold tracking-tight">{en.title}</h1>
+          <p className="font-mono text-sm text-muted">=VLOOKUP(&quot;page&quot;, site, 1) → #N/A</p>
+          <p className="mt-4 display text-[7rem] leading-none text-note">#404</p>
+          <h1 className="mt-6 display text-4xl text-ink">{en.title}</h1>
           <p className="mt-1 text-lg" lang="de">
             {de.title}
           </p>

@@ -1,78 +1,86 @@
-import { ArrowUpRight, GraduationCap } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import type { SiteContent } from "@/content";
 import type { Dictionary } from "@/i18n/ui";
-import { hues, vars } from "@/lib/utils";
-import { Section } from "./Section";
+import { SheetSection } from "./SheetSection";
 
 export function Courses({ content, t }: { content: SiteContent; t: Dictionary }) {
   const { courses } = content;
 
   return (
-    <Section id="courses" nav="courses" hue="blue" className="pt-4 sm:pt-8" {...t.sections.courses}>
-      {courses.length === 0 ? (
-        <div data-reveal className="flex flex-col items-start gap-5 card p-6 sm:flex-row sm:items-center sm:p-8">
-          <span className="grid size-16 shrink-0 place-items-center rounded-2xl bg-hue/15 text-hue-ink">
-            <GraduationCap aria-hidden className="size-8 float" />
-          </span>
-          <div>
-            <p className="text-xl font-extrabold tracking-tight text-fg">{t.courses.soonTitle}</p>
-            <p className="mt-1">{t.courses.soonText}</p>
-          </div>
-        </div>
-      ) : (
-        <ul className="grid gap-4 md:grid-cols-2">
-          {courses.map((course, i) => (
-            <li
-              key={course.title}
-              data-reveal
-              data-hue={hues[i % hues.length]}
-              style={vars({ "--d": `${(i % 2) * 90}ms` })}
-            >
-              <article className="flex h-full gap-5 card p-5 transition-[translate,border-color] duration-300 hover:-translate-y-1 hover:border-hue sm:p-6">
-                <span className="grid size-14 shrink-0 place-items-center rounded-2xl bg-hue/15 text-hue-ink">
-                  <GraduationCap aria-hidden className="size-7" />
-                </span>
-                <div className="min-w-0 flex-1">
-                  <p className="text-sm font-semibold">
-                    {course.provider}
-                    {course.year && <span className="tabular-nums">&nbsp;· {course.year}</span>}
-                  </p>
-                  <h3 className="mt-1 text-lg leading-snug font-bold">{course.title}</h3>
-                  {course.topics.length > 0 && (
-                    <ul className="mt-3 flex flex-wrap gap-1.5">
-                      {course.topics.map((topic) => (
-                        <li key={topic} className="rounded-full bg-hue/15 px-2.5 py-0.5 text-xs font-bold text-hue-ink">
-                          {topic}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                  {(course.inProgress || course.certificate) && (
-                    <div className="mt-3 flex flex-wrap items-center gap-3 text-sm font-semibold">
-                      {course.inProgress && (
-                        <span className="rounded-full border border-hue px-2.5 py-0.5 text-hue-ink">
-                          {t.courses.inProgress}
-                        </span>
-                      )}
-                      {course.certificate && (
-                        <a
-                          href={course.certificate}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-fg underline decoration-hue decoration-2 underline-offset-4 hover:text-hue-ink"
-                        >
-                          {t.courses.certificate}
-                          <ArrowUpRight aria-hidden className="size-4" />
-                        </a>
-                      )}
-                    </div>
-                  )}
-                </div>
-              </article>
-            </li>
-          ))}
-        </ul>
-      )}
-    </Section>
+    <SheetSection id="courses" nav="courses" hue="blue" className="lg:pt-6" {...t.sections.courses}>
+      <div data-range className="range col-span-12 lg:col-span-10 lg:col-start-2">
+        <table className="w-full text-left text-sm">
+          <thead>
+            <tr className="border-b border-line bg-head">
+              <th scope="col" className="px-4 py-2 cell-label">
+                {t.tables.course}
+              </th>
+              <th scope="col" className="hidden px-4 py-2 cell-label sm:table-cell">
+                {t.tables.provider}
+              </th>
+              <th scope="col" className="hidden px-4 py-2 cell-label sm:table-cell">
+                {t.tables.year}
+              </th>
+              <th scope="col" className="px-4 py-2 text-right cell-label">
+                {t.courses.certificate}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {courses.length === 0 ? (
+              <tr>
+                <td colSpan={4} className="px-4 py-6">
+                  <p className="font-semibold text-ink">{t.courses.soonTitle}</p>
+                  <p className="mt-0.5 text-muted">{t.courses.soonText}</p>
+                </td>
+              </tr>
+            ) : (
+              courses.map((course) => (
+                <tr key={course.title} className="border-b border-line last:border-b-0">
+                  <td className="px-4 py-3 align-top">
+                    <p className="font-semibold text-ink">{course.title}</p>
+                    <p className="text-xs text-muted sm:hidden">
+                      {course.provider}
+                      {course.year && <>&nbsp;· {course.year}</>}
+                    </p>
+                    {(course.topics.length > 0 || course.inProgress) && (
+                      <ul className="mt-1.5 flex flex-wrap gap-1">
+                        {course.inProgress && (
+                          <li className="bg-fill-green px-1.5 py-0.5 font-mono text-[0.6875rem] text-ink-green">
+                            {t.courses.inProgress}
+                          </li>
+                        )}
+                        {course.topics.map((topic) => (
+                          <li key={topic} className="bg-head px-1.5 py-0.5 font-mono text-[0.6875rem] text-head-ink">
+                            {topic}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </td>
+                  <td className="hidden px-4 py-3 align-top text-muted sm:table-cell">{course.provider}</td>
+                  <td className="hidden px-4 py-3 align-top text-muted tabular-nums sm:table-cell">{course.year}</td>
+                  <td className="px-4 py-3 text-right align-top">
+                    {course.certificate ? (
+                      <a
+                        href={course.certificate}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 font-semibold text-sel-ink underline underline-offset-4 hover:no-underline"
+                      >
+                        {t.courses.certificate}
+                        <ArrowUpRight aria-hidden className="size-3.5" />
+                      </a>
+                    ) : (
+                      <span className="text-muted">–</span>
+                    )}
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
+    </SheetSection>
   );
 }

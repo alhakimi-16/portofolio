@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { localeLabels, locales, type Locale } from "@/i18n/config";
 
-/** EN | DE toggle. Switching keeps the scroll position. */
+/** EN | DE. Switching keeps the scroll position. */
 export function LangSwitch({ locale, label }: { locale: Locale; label: string }) {
   return (
-    <div role="group" aria-label={label} className="flex items-center rounded-full bg-fg/[0.07] p-1 text-xs font-bold">
+    <div role="group" aria-label={label} className="flex items-center border border-line bg-paper font-mono text-xs">
       {locales.map((code) =>
         code === locale ? (
-          <span key={code} aria-current="true" className="rounded-full bg-surface px-2.5 py-1 text-fg shadow-sm">
+          <span key={code} aria-current="true" className="bg-sel px-2 py-1 font-semibold text-on-sel">
             {localeLabels[code].short}
           </span>
         ) : (
@@ -18,7 +18,7 @@ export function LangSwitch({ locale, label }: { locale: Locale; label: string })
             lang={code}
             scroll={false}
             aria-label={localeLabels[code].long}
-            className="rounded-full px-2.5 py-1 text-muted transition-colors hover:text-fg"
+            className="px-2 py-1 text-muted transition-colors hover:text-ink"
           >
             {localeLabels[code].short}
           </Link>

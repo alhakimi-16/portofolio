@@ -3,6 +3,7 @@ import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { getContent } from "@/content";
 import { hasLocale, locales } from "@/i18n/config";
+import { getDictionary } from "@/i18n/ui";
 
 // The preview card shown when the link is shared on LinkedIn, WhatsApp, Slack, …
 export const alt = "Mugahed Al-Hakimi";
@@ -16,142 +17,207 @@ export function generateStaticParams() {
 
 const font = (file: string) => readFile(join(process.cwd(), "node_modules/@fontsource", file));
 
-// the light-mode accent colours from globals.css
-const colors = { blue: "#3a5bf7", violet: "#a78bfa", sun: "#f9c22e", mint: "#86d8b1" };
-const inks = { blue: "#2643c4", violet: "#6a45d4", sun: "#865b00", mint: "#1b7650" };
-const tints = { blue: "#e3e8fd", violet: "#efe9fe", sun: "#fef6db", mint: "#e7f7ef" };
+// light theme colours from globals.css
+const c = {
+  paper: "#fcfdfb",
+  grid: "#e1e5de",
+  line: "#c8cec5",
+  head: "#eef1ec",
+  headInk: "#636b61",
+  ink: "#121612",
+  muted: "#535b52",
+  sel: "#0f7b58",
+  selInk: "#0b6347",
+  fillGreen: "#d4efe0",
+  inkGreen: "#0b5b41",
+  inkYellow: "#6b5000",
+};
+
+const COLUMNS = "ABCDEFGHIJKL".split("");
 
 export default async function Image({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const { person, stickers } = getContent(hasLocale(locale) ? locale : "en");
-  const [display, sans, sansSemi] = await Promise.all([
-    font("bricolage-grotesque/files/bricolage-grotesque-latin-800-normal.woff"),
-    font("geist-sans/files/geist-sans-latin-500-normal.woff"),
-    font("geist-sans/files/geist-sans-latin-600-normal.woff"),
+  const lang = hasLocale(locale) ? locale : "en";
+  const { person } = getContent(lang);
+  const t = getDictionary(lang);
+  const [condensed, condensedSemi, mono] = await Promise.all([
+    font("ibm-plex-sans-condensed/files/ibm-plex-sans-condensed-latin-700-normal.woff"),
+    font("ibm-plex-sans-condensed/files/ibm-plex-sans-condensed-latin-600-normal.woff"),
+    font("ibm-plex-mono/files/ibm-plex-mono-latin-500-normal.woff"),
   ]);
+  const formula = t.formulas.top;
+  const [fn, ...rest] = formula.split("(");
 
   return new ImageResponse(
-    <div
-      style={{
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: "0 88px",
-        background: "#f6f7fb",
-        fontFamily: "Geist",
-        color: "#121a33",
-      }}
-    >
-      <div style={{ display: "flex", flexDirection: "column", maxWidth: 700 }}>
+    <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", background: c.paper }}>
+      {/* formula bar */}
+      <div
+        style={{
+          display: "flex",
+          height: 64,
+          borderBottom: `2px solid ${c.line}`,
+          background: c.head,
+          fontFamily: "Plex Mono",
+          fontSize: 26,
+          color: c.ink,
+        }}
+      >
         <div
           style={{
             display: "flex",
             alignItems: "center",
-            alignSelf: "flex-start",
-            gap: 12,
-            padding: "10px 22px 10px 18px",
-            borderRadius: 999,
-            background: "#ffffff",
-            border: "2px solid #e2e6f0",
-            fontSize: 24,
-            fontWeight: 600,
+            width: 150,
+            paddingLeft: 24,
+            borderRight: `2px solid ${c.line}`,
+            background: c.paper,
           }}
         >
-          <div style={{ width: 14, height: 14, borderRadius: 14, background: "#3dbf86" }} />
-          {person.availability}
+          B2:G5
         </div>
         <div
           style={{
-            marginTop: 34,
-            fontFamily: "Bricolage",
-            fontSize: 96,
-            lineHeight: 0.98,
-            letterSpacing: -3,
             display: "flex",
-            flexDirection: "column",
+            alignItems: "center",
+            width: 64,
+            justifyContent: "center",
+            borderRight: `2px solid ${c.line}`,
+            color: c.muted,
           }}
         >
-          <span>{person.firstName}</span>
-          <span style={{ color: inks.blue }}>{person.lastName}</span>
+          fx
         </div>
-        <div style={{ marginTop: 30, display: "flex", flexDirection: "column", fontSize: 34, color: "#3b4460" }}>
-          <span style={{ fontWeight: 500 }}>{person.headline}</span>
-          <span style={{ marginTop: 4, fontWeight: 600, color: "#121a33" }}>{person.school}</span>
+        <div style={{ display: "flex", alignItems: "center", paddingLeft: 24, background: c.paper, flex: 1 }}>
+          <span style={{ color: c.selInk }}>{fn}</span>
+          <span style={{ color: c.inkYellow }}>{`(${rest.join("(")}`}</span>
         </div>
       </div>
-
-      <div style={{ position: "relative", width: 340, height: 340, display: "flex" }}>
+      {/* column letters */}
+      <div style={{ display: "flex", height: 34, background: c.head, borderBottom: `2px solid ${c.line}` }}>
+        {COLUMNS.map((letter) => (
+          <div
+            key={letter}
+            style={{
+              display: "flex",
+              flex: 1,
+              alignItems: "center",
+              justifyContent: "center",
+              borderRight: `1px solid ${c.line}`,
+              fontFamily: "Plex Mono",
+              fontSize: 18,
+              color: letter >= "B" && letter <= "G" ? c.inkGreen : c.headInk,
+              background: letter >= "B" && letter <= "G" ? c.fillGreen : c.head,
+            }}
+          >
+            {letter}
+          </div>
+        ))}
+      </div>
+      {/* the sheet */}
+      <div
+        style={{
+          position: "relative",
+          display: "flex",
+          flex: 1,
+          backgroundImage: `linear-gradient(to right, ${c.grid} 1px, transparent 1px), linear-gradient(to bottom, ${c.grid} 1px, transparent 1px)`,
+          backgroundSize: "100px 52px",
+        }}
+      >
         <div
           style={{
             position: "absolute",
-            top: 0,
-            left: 0,
-            width: 340,
-            height: 340,
-            borderRadius: 340,
+            left: 100,
+            top: 52,
+            width: 600,
+            height: 416,
             display: "flex",
-            backgroundImage: `linear-gradient(135deg, ${colors.blue}, ${colors.violet} 50%, ${colors.sun})`,
+            flexDirection: "column",
+            justifyContent: "center",
+            padding: "0 40px",
+            background: c.paper,
+            border: `4px solid ${c.sel}`,
           }}
-        />
+        >
+          <div
+            style={{
+              display: "flex",
+              fontFamily: "Plex Condensed",
+              fontSize: 108,
+              lineHeight: 0.92,
+              color: c.ink,
+              flexDirection: "column",
+            }}
+          >
+            <span>{person.firstName}</span>
+            <span>{person.lastName}</span>
+          </div>
+          <div
+            style={{ display: "flex", marginTop: 26, fontFamily: "Plex Condensed Semi", fontSize: 32, color: c.muted }}
+          >
+            {`${person.headline} · ${person.school}`}
+          </div>
+          <div
+            style={{
+              display: "flex",
+              alignSelf: "flex-start",
+              marginTop: 22,
+              padding: "6px 14px",
+              background: c.fillGreen,
+              color: c.inkGreen,
+              fontFamily: "Plex Mono",
+              fontSize: 20,
+            }}
+          >
+            <div
+              style={{
+                width: 12,
+                height: 12,
+                borderRadius: 12,
+                background: c.sel,
+                marginRight: 12,
+                alignSelf: "center",
+              }}
+            />
+            {person.availability}
+          </div>
+          <div
+            style={{
+              position: "absolute",
+              right: -10,
+              bottom: -10,
+              width: 16,
+              height: 16,
+              background: c.sel,
+              border: `3px solid ${c.paper}`,
+            }}
+          />
+        </div>
         <div
           style={{
             position: "absolute",
-            top: 16,
-            left: 16,
-            width: 308,
-            height: 308,
-            borderRadius: 308,
-            background: "#121a33",
-            color: "#ffffff",
+            left: 800,
+            top: 104,
+            width: 300,
+            height: 300,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            fontFamily: "Bricolage",
-            fontSize: 120,
-            letterSpacing: -4,
+            border: `2px solid ${c.sel}`,
+            backgroundColor: c.paper,
+            fontFamily: "Plex Condensed",
+            fontSize: 132,
+            color: c.ink,
           }}
         >
           {person.initials}
         </div>
-        {stickers.slice(0, 3).map((sticker, i) => {
-          const spots = [
-            { top: 6, left: -46, rotate: -8 },
-            { top: 150, right: -54, rotate: 6 },
-            { bottom: 0, left: -10, rotate: 5 },
-          ];
-          const { rotate, ...spot } = spots[i];
-          return (
-            <div
-              key={sticker.text}
-              style={{
-                position: "absolute",
-                ...spot,
-                display: "flex",
-                padding: "8px 18px",
-                borderRadius: 999,
-                border: `3px solid ${colors[sticker.hue]}`,
-                background: tints[sticker.hue],
-                color: inks[sticker.hue],
-                boxShadow: `4px 4px 0 ${colors[sticker.hue]}`,
-                fontFamily: "Bricolage",
-                fontSize: 28,
-                transform: `rotate(${rotate}deg)`,
-              }}
-            >
-              {sticker.text}
-            </div>
-          );
-        })}
       </div>
     </div>,
     {
       ...size,
       fonts: [
-        { name: "Bricolage", data: display, weight: 800, style: "normal" },
-        { name: "Geist", data: sans, weight: 500, style: "normal" },
-        { name: "Geist", data: sansSemi, weight: 600, style: "normal" },
+        { name: "Plex Condensed", data: condensed, weight: 700, style: "normal" },
+        { name: "Plex Condensed Semi", data: condensedSemi, weight: 600, style: "normal" },
+        { name: "Plex Mono", data: mono, weight: 500, style: "normal" },
       ],
     },
   );
