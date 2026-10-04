@@ -26,8 +26,8 @@ export default function GlobalNotFound() {
           <p className="label text-muted">Error</p>
           <p className="mt-4 display text-[clamp(6rem,24vw,12rem)] leading-[0.85] text-ink">404</p>
           <div className="mt-8 h-px bg-ink" />
-          <h1 className="mt-8 font-serif text-4xl text-ink">{en.title}</h1>
-          <p className="mt-1 font-serif text-2xl text-violet-ink italic" lang="de">
+          <h1 className="mt-8 text-4xl font-light text-ink">{en.title}</h1>
+          <p className="mt-1 text-2xl font-light text-violet-ink italic" lang="de">
             {de.title}
           </p>
           <p className="mt-6 text-muted">

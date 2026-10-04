@@ -1,16 +1,45 @@
+import { Fragment } from "react";
 import { navIds, type NavId } from "@/lib/site";
-import { cn, pad, wrap } from "@/lib/utils";
+import { cn, pad, vars, wrap } from "@/lib/utils";
 
-/** "*word*" in a title is set in serif italic. */
-export function Emphasis({ text }: { text: string }) {
-  return text.split(/(\*[^*]+\*)/).map((part, i) =>
-    part.startsWith("*") && part.endsWith("*") ? (
-      <em key={i} className="emph">
-        {part.slice(1, -1)}
-      </em>
-    ) : (
-      part
-    ),
+/** A title word by word, so the words can come into focus one after another; "*word*" is set in light italic. */
+function Title({ text }: { text: string }) {
+  return text.split(" ").map((word, i) => {
+    const emphasis = word.startsWith("*") && word.endsWith("*");
+    return (
+      <Fragment key={i}>
+        {i > 0 && " "}
+        {emphasis ? (
+          <em className="word emph" style={vars({ "--w": i })}>
+            {word.slice(1, -1)}
+          </em>
+        ) : (
+          <span className="word" style={vars({ "--w": i })}>
+            {word}
+          </span>
+        )}
+      </Fragment>
+    );
+  });
+}
+
+/** The chapter number; on its way into view the last digit rolls up from 0. */
+function ChapterNumber({ value }: { value: number }) {
+  const digits = pad(value);
+  const last = Number(digits.slice(-1));
+  return (
+    <p aria-hidden className="flex display text-[1.75rem] leading-none text-blue tabular-nums lg:text-[3.25rem]">
+      {digits.slice(0, -1)}
+      <span className="inline-block h-[1em] overflow-hidden">
+        <span className="roll block" style={vars({ "--n": last })}>
+          {Array.from({ length: last + 1 }, (_, digit) => (
+            <span key={digit} className="block h-[1em]">
+              {digit}
+            </span>
+          ))}
+        </span>
+      </span>
+    </p>
   );
 }
 
@@ -59,22 +88,25 @@ export function Chapter({
     <section id={id} aria-labelledby={`${id}-title`} className={cn(wrap, "py-16 sm:py-20 lg:py-28")}>
       <div aria-hidden data-reveal="rule" className="h-px bg-ink" />
       <div className="grid lg:grid-cols-12 lg:gap-x-8">
-        <div className="flex items-baseline gap-4 pt-4 lg:sticky lg:top-24 lg:col-span-3 lg:block lg:self-start lg:pt-6">
-          <p aria-hidden className="display text-[1.75rem] leading-none text-blue tabular-nums lg:text-[3.25rem]">
-            {pad(navIds.indexOf(id) + 1)}
+        <div
+          data-reveal="group"
+          className="flex items-baseline gap-4 pt-4 lg:sticky lg:top-24 lg:col-span-3 lg:block lg:self-start lg:pt-6"
+        >
+          <ChapterNumber value={navIds.indexOf(id) + 1} />
+          <p className="stagger label text-muted lg:mt-4" style={vars({ "--d": "300ms" })}>
+            {eyebrow}
           </p>
-          <p className="label text-muted lg:mt-4">{eyebrow}</p>
         </div>
         <div className="min-w-0 lg:col-span-9">
           <h2
             id={`${id}-title`}
-            data-reveal
+            data-reveal="group"
             className={cn(
               "pt-5 display text-[clamp(2.5rem,7.2vw,5.5rem)] leading-[0.94] text-ink lg:pt-6",
               titleClassName,
             )}
           >
-            <Emphasis text={title} />
+            <Title text={title} />
           </h2>
           <div className="mt-10 sm:mt-12 lg:mt-16">{children}</div>
         </div>

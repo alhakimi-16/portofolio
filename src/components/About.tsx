@@ -10,7 +10,7 @@ export function About({ content, t }: { content: SiteContent; t: Dictionary }) {
     <Chapter id="about" {...t.sections.about}>
       <p
         data-reveal
-        className="max-w-[30ch] font-serif text-[clamp(1.5rem,3vw,2.5rem)] leading-[1.25] text-ink"
+        className="max-w-[30ch] text-[clamp(1.5rem,3vw,2.5rem)] leading-[1.25] font-light tracking-[-0.015em] text-ink"
         style={vars({ "--d": "100ms" })}
       >
         <Marked text={lead} />
@@ -25,7 +25,7 @@ export function About({ content, t }: { content: SiteContent; t: Dictionary }) {
             className="border-t border-rule pt-5"
           >
             <h3 className="flex items-center gap-2.5 label text-ink">
-              <span aria-hidden className="size-2 shrink-0 bg-hue" />
+              <span aria-hidden className="pop size-2 shrink-0 bg-hue" />
               {chapter.title}
             </h3>
             <p className="mt-4 leading-[1.7] text-muted">

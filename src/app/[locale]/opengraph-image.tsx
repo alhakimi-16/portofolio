@@ -41,11 +41,11 @@ export default async function Image({ params }: { params: Promise<{ locale: stri
   const { person } = content;
   const t = getDictionary(lang);
   const greeting = content.greetings.find((word) => word.lang === lang) ?? content.greetings[0];
-  const [display, semi, serif, serifItalic] = await Promise.all([
+  const [display, semi, light, lightItalic] = await Promise.all([
     font("archivo/files/archivo-latin-800-normal.woff"),
     font("archivo/files/archivo-latin-600-normal.woff"),
-    font("source-serif-4/files/source-serif-4-latin-400-normal.woff"),
-    font("source-serif-4/files/source-serif-4-latin-400-italic.woff"),
+    font("archivo/files/archivo-latin-300-normal.woff"),
+    font("archivo/files/archivo-latin-300-italic.woff"),
   ]);
 
   return new ImageResponse(
@@ -72,8 +72,9 @@ export default async function Image({ params }: { params: Promise<{ locale: stri
         style={{
           display: "flex",
           marginTop: 44,
-          fontFamily: "Serif Italic",
+          fontFamily: "Archivo Light Italic",
           fontStyle: "italic",
+          fontWeight: 300,
           fontSize: 44,
           lineHeight: 1,
         }}
@@ -106,7 +107,8 @@ export default async function Image({ params }: { params: Promise<{ locale: stri
           justifyContent: "space-between",
           alignItems: "center",
           marginTop: 26,
-          fontFamily: "Serif",
+          fontFamily: "Archivo Light",
+          fontWeight: 300,
           fontSize: 36,
         }}
       >
@@ -132,8 +134,8 @@ export default async function Image({ params }: { params: Promise<{ locale: stri
       fonts: [
         { name: "Archivo", data: display, weight: 800, style: "normal" },
         { name: "Archivo Semi", data: semi, weight: 600, style: "normal" },
-        { name: "Serif", data: serif, weight: 400, style: "normal" },
-        { name: "Serif Italic", data: serifItalic, weight: 400, style: "italic" },
+        { name: "Archivo Light", data: light, weight: 300, style: "normal" },
+        { name: "Archivo Light Italic", data: lightItalic, weight: 300, style: "italic" },
       ],
     },
   );

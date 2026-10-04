@@ -6,12 +6,14 @@ magazine:
 - the name set very large across the full width, a thin rule, the introduction and a numbered contents
   list;
 - each section opens like a chapter: a rule, its number and label in a narrow column that stays in view,
-  and a large title with one word in serif italic;
+  and a large title with one word in light italic;
 - four colours used sparingly: blue for structure and links, a yellow highlighter for key phrases, light
   purple for the italic words, and a little pastel green for "available now".
 
-Motion is calm and never hides anything: sections settle in as they scroll into view, rules draw
-themselves, the highlighter sweeps over key phrases, and "Hello" changes language. All motion is switched
+Motion is calm and never hides anything: sections settle in as they scroll into view, chapter numbers
+roll up, rules draw themselves, the highlighter sweeps over key phrases and "Hello" changes language. In
+"Work & volunteering" a timeline draws itself while you scroll, and each role has a small line drawing
+that animates (an ID card being scanned and checked; a financial report coming together on time). All motion is switched
 off for visitors who ask their system for reduced motion, and every piece of content is visible without
 JavaScript.
 
@@ -50,7 +52,7 @@ Open <http://localhost:3000>. It redirects to `/en` or `/de` based on the browse
 **All content lives in [`src/content/profile.ts`](src/content/profile.ts)**: profile text, highlights,
 keywords, experience, skills, languages, projects and online courses. Every text exists in English
 (`en`) and German (`de`); `==phrase==` in the about texts gets the yellow highlighter. Labels such as
-section headings are in [`src/i18n/ui.ts`](src/i18n/ui.ts); there, `*word*` in a heading is set in serif
+section headings are in [`src/i18n/ui.ts`](src/i18n/ui.ts); there, `*word*` in a heading is set in light
 italic.
 
 - **Photo:** put a portrait in `public/`, e.g. `public/photo.jpg`, and set `photo: "/photo.jpg"`. It
@@ -74,7 +76,7 @@ notice can stay short.
 
 ## Tech
 
-Next.js 16 (static pages) · React 19 · TypeScript · Tailwind CSS 4 · Lucide icons. Fonts: Archivo
-(its width axis, stretched wide, gives the large uppercase type) and Source Serif 4 for reading,
-self-hosted via `next/font`. Animations are plain CSS plus a few small client components; no animation
-library.
+Next.js 16 (static pages) · React 19 · TypeScript · Tailwind CSS 4 · Lucide icons. One font family,
+Archivo, self-hosted via `next/font`: its width axis stretched wide gives the large uppercase type,
+lighter weights and its italic carry the rest. Animations are plain CSS plus a few small client
+components; no animation library.

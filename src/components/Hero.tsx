@@ -49,7 +49,7 @@ export function Hero({
           </p>
         </div>
 
-        <p className="mt-10 font-serif text-[clamp(1.5rem,3.4cqi,2.5rem)] leading-none italic sm:mt-14">
+        <p className="mt-10 text-[clamp(1.5rem,3.4cqi,2.5rem)] leading-none font-light tracking-[-0.01em] italic sm:mt-14">
           <span className="text-violet-ink">
             <Greeting words={content.greetings} />
           </span>{" "}
@@ -76,7 +76,7 @@ export function Hero({
         <div className="md:col-span-6 lg:col-span-7">
           <p
             data-reveal
-            className="max-w-[32ch] font-serif text-[clamp(1.375rem,2.5vw,2.125rem)] leading-[1.3] text-ink"
+            className="max-w-[32ch] text-[clamp(1.375rem,2.5vw,2.125rem)] leading-[1.3] font-light tracking-[-0.01em] text-ink"
             style={vars({ "--d": "350ms" })}
           >
             {person.intro}
@@ -122,7 +122,7 @@ export function Hero({
                 <li key={item.id} className="border-b border-rule">
                   <a href={`#${item.id}`} className="group flex items-baseline gap-4 py-3">
                     <span className="label text-blue-ink tabular-nums">{pad(i + 1)}</span>
-                    <span className="sweep font-serif text-xl text-ink">{item.label}</span>
+                    <span className="sweep text-xl text-ink">{item.label}</span>
                     <ArrowDownRight
                       aria-hidden
                       className="ml-auto size-4 self-center text-muted transition-[translate,color] duration-300 group-hover:translate-x-0.5 group-hover:translate-y-0.5 group-hover:text-ink"
@@ -144,8 +144,8 @@ export function Hero({
             style={vars({ "--d": `${i * 120}ms` })}
             className="border-rule py-6 not-first:border-t sm:px-6 sm:py-8 sm:not-first:border-t-0 sm:not-first:border-l sm:first:pl-0 sm:last:pr-0"
           >
-            <span aria-hidden className="block h-1 w-10 bg-hue" />
-            <p className="mt-5 font-serif text-[clamp(1.75rem,3vw,2.5rem)] leading-[1.1] text-ink">
+            <span aria-hidden className="draw-x block h-1 w-10 bg-hue" />
+            <p className="mt-5 text-[clamp(1.75rem,3vw,2.5rem)] leading-[1.1] font-light tracking-[-0.02em] text-ink">
               <Value text={item.value} count={item.count} locale={locale} />
             </p>
             <p className="mt-3 label text-muted">{item.label}</p>
@@ -157,7 +157,7 @@ export function Hero({
         <p id="keywords-title" className="shrink-0 label text-muted">
           {t.hero.keywords}
         </p>
-        <ul aria-labelledby="keywords-title" className="flex flex-wrap gap-x-3 gap-y-1 font-serif text-muted italic">
+        <ul aria-labelledby="keywords-title" className="flex flex-wrap gap-x-3 gap-y-1 text-muted italic">
           {content.marquee.map((keyword, i) => (
             <li key={keyword.text}>
               {keyword.text}

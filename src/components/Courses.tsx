@@ -10,7 +10,7 @@ export function Courses({ content, t }: { content: SiteContent; t: Dictionary })
     <Chapter id="courses" {...t.sections.courses}>
       {courses.length === 0 ? (
         <div data-reveal className="max-w-2xl">
-          <p className="font-serif text-[clamp(1.625rem,2.8vw,2.25rem)] leading-tight text-ink italic">
+          <p className="text-[clamp(1.625rem,2.8vw,2.25rem)] leading-tight font-light tracking-[-0.01em] text-ink italic">
             {t.courses.soonTitle}
           </p>
           <p className="mt-3 leading-[1.7] text-muted">{t.courses.soonText}</p>
@@ -25,7 +25,7 @@ export function Courses({ content, t }: { content: SiteContent; t: Dictionary })
             >
               <div className="min-w-0">
                 <h3 className="font-sans text-xl leading-snug font-semibold text-ink">{course.title}</h3>
-                <p className="mt-1 font-serif text-muted italic">
+                <p className="mt-1 text-muted italic">
                   {course.provider}
                   {course.year && <>&nbsp;· {course.year}</>}
                 </p>

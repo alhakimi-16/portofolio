@@ -19,7 +19,7 @@ export function Contact({ content, t }: { content: SiteContent; t: Dictionary })
     <Chapter id="contact" {...t.sections.contact} titleClassName="text-[clamp(3rem,10.5vw,8.5rem)] leading-[0.9]">
       <p
         data-reveal
-        className="max-w-[36ch] font-serif text-[clamp(1.25rem,2vw,1.625rem)] leading-[1.4] text-ink"
+        className="max-w-[36ch] text-[clamp(1.25rem,2vw,1.625rem)] leading-[1.4] font-light text-ink"
         style={vars({ "--d": "100ms" })}
       >
         {t.contact.text}
@@ -31,7 +31,7 @@ export function Contact({ content, t }: { content: SiteContent; t: Dictionary })
           <dd className="min-w-0">
             <a
               href={`mailto:${person.email}`}
-              className="group inline-flex max-w-full items-baseline gap-3 font-serif text-[clamp(1.375rem,4.2vw,3rem)] leading-tight text-ink"
+              className="group inline-flex max-w-full items-baseline gap-3 text-[clamp(1.375rem,4.2vw,3rem)] leading-tight font-light tracking-[-0.02em] text-ink"
             >
               <span className="min-w-0 link-line">
                 {local}@<wbr />
@@ -54,7 +54,7 @@ export function Contact({ content, t }: { content: SiteContent; t: Dictionary })
               href={person.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex max-w-full items-center gap-3 font-serif text-[clamp(1.125rem,1.8vw,1.5rem)] leading-snug text-ink"
+              className="group inline-flex max-w-full items-center gap-3 text-[clamp(1.125rem,1.8vw,1.5rem)] leading-snug text-ink"
             >
               <LinkedInIcon className="size-[0.9em] shrink-0 text-blue-ink" />
               <span className="min-w-0 link-line [overflow-wrap:anywhere]">

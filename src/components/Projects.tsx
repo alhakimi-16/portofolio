@@ -17,7 +17,7 @@ export function Projects({ content, t }: { content: SiteContent; t: Dictionary }
             <Pulse />
             {t.projects.status}
           </p>
-          <p className="mt-5 font-serif text-[clamp(1.625rem,2.8vw,2.25rem)] leading-tight text-ink italic">
+          <p className="mt-5 text-[clamp(1.625rem,2.8vw,2.25rem)] leading-tight font-light tracking-[-0.01em] text-ink italic">
             {t.projects.soonTitle}
           </p>
           <p className="mt-3 leading-[1.7] text-muted">{t.projects.soonText}</p>
