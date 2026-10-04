@@ -1,20 +1,14 @@
-"use client";
-
 import Link from "next/link";
 import { Fragment } from "react";
-import { useI18n } from "@/components/providers/I18nProvider";
-import { localeLabels, locales } from "@/i18n/config";
-import { cn } from "@/lib/utils";
+import { localeLabels, locales, type Locale } from "@/i18n/config";
 
-export function LangSwitch({ className }: { className?: string }) {
-  const { locale, t } = useI18n();
-
+export function LangSwitch({ locale, label }: { locale: Locale; label: string }) {
   return (
-    <div role="group" aria-label={t.header.language} className={cn("flex items-center gap-1.5 label", className)}>
+    <div role="group" aria-label={label} className="flex items-center gap-1.5 text-xs font-semibold tracking-[0.16em]">
       {locales.map((code, i) => (
         <Fragment key={code}>
           {i > 0 && (
-            <span aria-hidden className="text-faint">
+            <span aria-hidden className="text-line">
               /
             </span>
           )}
@@ -27,9 +21,8 @@ export function LangSwitch({ className }: { className?: string }) {
               href={`/${code}`}
               hrefLang={code}
               lang={code}
-              scroll={false}
               aria-label={localeLabels[code].long}
-              className="text-muted transition-colors hover:text-fg"
+              className="text-muted transition-colors hover:text-accent"
             >
               {localeLabels[code].short}
             </Link>

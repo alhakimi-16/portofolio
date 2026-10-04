@@ -1,26 +1,18 @@
-import { Archivo, Instrument_Serif, JetBrains_Mono } from "next/font/google";
+import { Geist, Newsreader } from "next/font/google";
 
 // Fonts are downloaded at build time and served from this site,
 // so visitors' browsers never contact Google (GDPR-friendly).
-export const archivo = Archivo({
+export const newsreader = Newsreader({
   subsets: ["latin"],
-  axes: ["wdth"],
-  variable: "--font-archivo",
+  axes: ["opsz"],
+  variable: "--font-newsreader",
   display: "swap",
 });
 
-export const instrumentSerif = Instrument_Serif({
+export const geist = Geist({
   subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
-  variable: "--font-instrument",
+  variable: "--font-geist",
   display: "swap",
 });
 
-export const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-jetbrains",
-  display: "swap",
-});
-
-export const fontVariables = `${archivo.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`;
+export const fontVariables = `${newsreader.variable} ${geist.variable}`;

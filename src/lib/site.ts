@@ -6,7 +6,7 @@ export const siteUrl = (
     : "http://localhost:3000")
 ).replace(/\/$/, "");
 
-/** Page sections, in order. Used for the navigation and the command menu. */
-export const sectionIds = ["about", "work", "experience", "skills", "education", "contact"] as const;
+/** Page sections, in order. Used for the navigation. */
+export const sectionIds = ["about", "experience", "education", "skills", "certificates", "contact"] as const;
 
 export type SectionId = (typeof sectionIds)[number];
