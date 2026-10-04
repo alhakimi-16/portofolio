@@ -4,12 +4,13 @@
  *  Sources: my CV (October 2026) and my own notes. Every text exists in
  *  English (`en`) and German (`de`).
  *
- *  • In the about text, ==words== get a coloured marker highlight and {age}
+ *  • In the about texts, ==words== get a coloured marker highlight and {age}
  *    is replaced with `person.age`.
  *  • Update `person.age` after each birthday (it is also one of the numbers).
+ *  • Projects and online courses: add them at the end of this file.
  * ─────────────────────────────────────────────────────────────────────────────
  */
-import type { Hue, IconName, L, Language, Role, Skill, Stat, Stop } from "./types";
+import type { Country, Course, Hue, IconName, L, Language, Project, Role, Skill, Stat } from "./types";
 
 export const person = {
   firstName: "Mugahed",
@@ -42,33 +43,57 @@ export const stickers: { text: L; hue: Hue }[] = [
   { text: { en: "Java", de: "Java" }, hue: "violet" },
   { text: { en: "SQL", de: "SQL" }, hue: "blue" },
   { text: { en: "GDPR", de: "DSGVO" }, hue: "mint" },
-  { text: { en: "4 languages", de: "4 Sprachen" }, hue: "sun" },
+  { text: { en: "Excel", de: "Excel" }, hue: "sun" },
 ];
 
 /** Keywords on the scrolling ribbon below the hero. */
 export const marquee: { text: L; hue: Hue }[] = [
   { text: { en: "Java", de: "Java" }, hue: "violet" },
   { text: { en: "SQL", de: "SQL" }, hue: "blue" },
-  { text: { en: "Information systems", de: "Informationssysteme" }, hue: "sun" },
-  { text: { en: "Data quality", de: "Datenqualität" }, hue: "violet" },
+  { text: { en: "Statistics", de: "Statistik" }, hue: "sun" },
+  { text: { en: "Information systems", de: "Informationssysteme" }, hue: "violet" },
+  { text: { en: "Data quality", de: "Datenqualität" }, hue: "blue" },
   { text: { en: "GDPR", de: "DSGVO" }, hue: "mint" },
-  { text: { en: "Business administration", de: "BWL" }, hue: "blue" },
-  { text: { en: "Financial reports", de: "Finanzberichte" }, hue: "sun" },
-  { text: { en: "Teamwork", de: "Teamarbeit" }, hue: "violet" },
-  { text: { en: "Time management", de: "Zeitmanagement" }, hue: "blue" },
+  { text: { en: "Business administration", de: "BWL" }, hue: "sun" },
+  { text: { en: "Financial reports", de: "Finanzberichte" }, hue: "violet" },
+  { text: { en: "Teamwork", de: "Teamarbeit" }, hue: "blue" },
+  { text: { en: "Time management", de: "Zeitmanagement" }, hue: "sun" },
 ];
 
 /** The numbers below the hero; they count up when they appear. */
 export const stats: Stat[] = [
   { value: person.age, label: { en: "Years old", de: "Jahre alt" }, hue: "blue" },
   { value: 3, label: { en: "Countries I've lived in", de: "Länder, in denen ich gelebt habe" }, hue: "sun" },
-  { value: 4, label: { en: "Languages I speak", de: "Sprachen, die ich spreche" }, hue: "violet" },
+  {
+    value: 3,
+    label: { en: "Languages, with Turkish on the way", de: "Sprachen, Türkisch ist in Arbeit" },
+    hue: "violet",
+  },
   { value: 2, label: { en: "Roles alongside my studies", de: "Tätigkeiten neben dem Studium" }, hue: "blue" },
 ];
 
-export const about: L = {
-  en: "I'm Mugahed, a {age}-year-old from ==Yemen==. So far I've lived in three countries with three very different cultures: Yemen, ==Malaysia== and ==Germany==. Today I study ==Business Informatics== at HAW Hamburg, right where business and IT meet. Alongside my studies I check and maintain customer data as a working student at Nect, where ==accuracy and care with sensitive data== count every day, and I volunteer as finance officer for the VJSD, the association of Yemeni students in Germany. My next step: a ==working student position== where I can put what I learn into practice.",
-  de: "Ich bin Mugahed, {age} Jahre alt und komme aus dem ==Jemen==. Bisher habe ich in drei Ländern mit drei ganz unterschiedlichen Kulturen gelebt: im Jemen, in ==Malaysia== und in ==Deutschland==. Heute studiere ich ==Wirtschaftsinformatik== an der HAW Hamburg, genau dort, wo BWL und IT zusammenkommen. Neben dem Studium prüfe und pflege ich als Werkstudent bei Nect Kundendaten, wo es jeden Tag auf ==Genauigkeit und einen sorgfältigen Umgang mit sensiblen Daten== ankommt, und engagiere mich ehrenamtlich als Finanzverantwortlicher beim VJSD (Verein jemenitischer Studierende Deutschland). Mein nächster Schritt: eine ==Werkstudentenstelle==, in der ich Gelerntes in der Praxis anwenden kann.",
+/** "Über mich": a short intro, the three countries as passport stamps, then the rest. */
+export const about: { intro: L; body: L } = {
+  intro: {
+    en: "I'm Mugahed, {age}, from ==Yemen==. I've already lived in ==three countries==, Yemen, Malaysia and Germany, and every move meant a new culture, new people and a new way of doing things.",
+    de: "Ich bin Mugahed, {age}, und komme aus dem ==Jemen==. Gelebt habe ich bereits in ==drei Ländern==, im Jemen, in Malaysia und in Deutschland, und jeder Umzug bedeutete eine neue Kultur, neue Menschen und eine neue Art, Dinge anzugehen.",
+  },
+  body: {
+    en: "Today I study ==Business Informatics== at HAW Hamburg, right where business and IT meet. As a working student at Nect, ==accuracy with sensitive data== is part of every day, and as a volunteer I look after the finances of the VJSD. Alongside that I work on my own ==projects== and keep learning with ==online courses==. Next up: a working student position where I can put all of this into practice.",
+    de: "Heute studiere ich ==Wirtschaftsinformatik== an der HAW Hamburg, genau dort, wo BWL und IT zusammenkommen. Als Werkstudent bei Nect gehört ==Genauigkeit im Umgang mit sensiblen Daten== zu meinem Alltag, und ehrenamtlich kümmere ich mich um die Finanzen des VJSD. Daneben arbeite ich an eigenen ==Projekten== und bilde mich mit ==Online-Kursen== weiter. Als Nächstes: eine Werkstudentenstelle, in der ich all das in der Praxis einsetzen kann.",
+  },
+};
+
+/** Shown as passport stamps, in the order I lived there. */
+export const countries: Country[] = [
+  { name: { en: "Yemen", de: "Jemen" }, hue: "sun" },
+  { name: { en: "Malaysia", de: "Malaysia" }, hue: "violet" },
+  { name: { en: "Germany", de: "Deutschland" }, hue: "blue" },
+];
+
+export const adaptLine: L = {
+  en: "Three countries, three cultures, one constant: I adapt fast.",
+  de: "Drei Länder, drei Kulturen, eine Konstante: Ich passe mich schnell an.",
 };
 
 /** Quick facts next to the about text. */
@@ -92,37 +117,6 @@ export const facts: { label: L; value: L; icon: IconName }[] = [
     label: { en: "Looking for", de: "Gesucht" },
     value: { en: "A working student position", de: "Eine Werkstudentenstelle" },
     icon: "search",
-  },
-];
-
-/** Three countries, three cultures, in the order I lived in them. */
-export const path: Stop[] = [
-  {
-    label: { en: "Where I'm from", de: "Herkunft" },
-    title: { en: "Yemen", de: "Jemen" },
-    detail: {
-      en: "My home country and my roots. Arabic is my native language.",
-      de: "Mein Heimatland und meine Wurzeln. Arabisch ist meine Muttersprache.",
-    },
-    hue: "sun",
-  },
-  {
-    label: { en: "A new culture", de: "Eine neue Kultur" },
-    title: { en: "Malaysia", de: "Malaysia" },
-    detail: {
-      en: "Southeast Asia: a whole new culture, in a country where many cultures meet.",
-      de: "Südostasien: eine ganz neue Kultur, in einem Land, in dem viele Kulturen aufeinandertreffen.",
-    },
-    hue: "violet",
-  },
-  {
-    label: { en: "Today", de: "Heute" },
-    title: { en: "Germany", de: "Deutschland" },
-    detail: {
-      en: "Business Informatics at HAW Hamburg, my job at Nect and volunteering for the VJSD.",
-      de: "Wirtschaftsinformatik an der HAW Hamburg, mein Job bei Nect und mein Ehrenamt beim VJSD.",
-    },
-    hue: "blue",
   },
 ];
 
@@ -178,13 +172,44 @@ export const experience: Role[] = [
   },
 ];
 
+/** Technical skills come with a short note on where or how I use them. */
 export const skills: { technical: Skill[]; personal: Skill[] } = {
   technical: [
-    { name: { en: "SQL", de: "SQL" }, icon: "database" },
-    { name: { en: "Java", de: "Java" }, icon: "cup" },
-    { name: { en: "Business administration", de: "Betriebswirtschaftslehre (BWL)" }, icon: "chart" },
-    { name: { en: "Information systems", de: "Informationssysteme" }, icon: "network" },
-    { name: { en: "Data verification & GDPR", de: "Datenprüfung & DSGVO" }, icon: "shield" },
+    {
+      name: { en: "SQL", de: "SQL" },
+      note: { en: "Querying and managing data", de: "Daten abfragen und verwalten" },
+      icon: "database",
+    },
+    {
+      name: { en: "Java", de: "Java" },
+      note: { en: "Object-oriented programming", de: "Objektorientierte Programmierung" },
+      icon: "cup",
+    },
+    {
+      name: { en: "Statistics", de: "Statistik" },
+      note: { en: "Analysing and interpreting data", de: "Daten auswerten und interpretieren" },
+      icon: "sigma",
+    },
+    {
+      name: { en: "Information systems", de: "Informationssysteme" },
+      note: { en: "Organising data and processes", de: "Daten und Prozesse organisieren" },
+      icon: "network",
+    },
+    {
+      name: { en: "Business administration", de: "Betriebswirtschaftslehre (BWL)" },
+      note: { en: "Applied to the VJSD's finances", de: "Im Einsatz für die Finanzen des VJSD" },
+      icon: "business",
+    },
+    {
+      name: { en: "Financial reporting", de: "Finanzberichte" },
+      note: { en: "Reports and updates for the VJSD", de: "Berichte und Updates für den VJSD" },
+      icon: "report",
+    },
+    {
+      name: { en: "Data verification & GDPR", de: "Datenprüfung & DSGVO" },
+      note: { en: "Every day at Nect", de: "Täglich bei Nect" },
+      icon: "shield",
+    },
     {
       name: { en: "Microsoft Office", de: "Microsoft Office" },
       note: { en: "Word, Excel, PowerPoint", de: "Word, Excel, PowerPoint" },
@@ -202,37 +227,41 @@ export const skills: { technical: Skill[]; personal: Skill[] } = {
 };
 
 export const languages: Language[] = [
-  {
-    name: { en: "Arabic", de: "Arabisch" },
-    level: { en: "Native", de: "Muttersprache" },
-    value: 1,
-    hello: "مرحبا",
-    lang: "ar",
-    dir: "rtl",
-    hue: "sun",
-  },
-  {
-    name: { en: "German", de: "Deutsch" },
-    level: { en: "Fluent", de: "Fließend" },
-    value: 0.85,
-    hello: "Hallo",
-    lang: "de",
-    hue: "blue",
-  },
+  { name: { en: "Arabic", de: "Arabisch" }, level: { en: "Native", de: "Muttersprache" }, hue: "sun" },
+  { name: { en: "German", de: "Deutsch" }, level: { en: "Fluent", de: "Fließend" }, hue: "blue" },
   {
     name: { en: "English", de: "Englisch" },
     level: { en: "Business fluent", de: "Verhandlungssicher" },
-    value: 0.85,
-    hello: "Hello",
-    lang: "en",
     hue: "violet",
   },
-  {
-    name: { en: "Turkish", de: "Türkisch" },
-    level: { en: "Beginner", de: "Anfänger" },
-    value: 0.2,
-    hello: "Merhaba",
-    lang: "tr",
-    hue: "mint",
-  },
+  { name: { en: "Turkish", de: "Türkisch" }, level: { en: "Learning", de: "Lerne ich gerade" }, hue: "mint" },
 ];
+
+/**
+ * Projects, newest first. While this list is empty the site shows an "in progress" card.
+ * Example entry:
+ *   {
+ *     title: { en: "Project name", de: "Projektname" },
+ *     description: { en: "One or two sentences.", de: "Ein bis zwei Sätze." },
+ *     status: { en: "In progress", de: "In Arbeit" },   // optional
+ *     tech: ["Java", "SQL"],
+ *     repo: "https://github.com/…",                     // optional
+ *     link: "https://…",                                // optional
+ *     year: "2026",                                     // optional
+ *   },
+ */
+export const projects: Project[] = [];
+
+/**
+ * Online courses, newest first. While this list is empty the site shows a "coming soon" card.
+ * Example entry:
+ *   {
+ *     title: { en: "Course name", de: "Kursname" },
+ *     provider: "Coursera",
+ *     year: "2026",                                          // optional
+ *     certificate: "https://…",                              // optional
+ *     topics: { en: ["SQL", "Data analysis"], de: ["SQL", "Datenanalyse"] },  // optional
+ *     inProgress: true,                                      // optional
+ *   },
+ */
+export const courses: Course[] = [];

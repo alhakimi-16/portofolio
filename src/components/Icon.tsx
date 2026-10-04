@@ -1,10 +1,11 @@
 import {
   Briefcase,
+  BriefcaseBusiness,
   BriefcaseMedical,
-  ChartColumn,
   Clock,
   Coffee,
   Database,
+  FileChartColumn,
   FileText,
   Flag,
   GraduationCap,
@@ -14,6 +15,7 @@ import {
   Network,
   Search,
   ShieldCheck,
+  Sigma,
   Users,
   type LucideIcon,
 } from "lucide-react";
@@ -22,8 +24,10 @@ import type { IconName } from "@/content/types";
 const icons: Record<IconName, LucideIcon> = {
   database: Database,
   cup: Coffee,
-  chart: ChartColumn,
+  sigma: Sigma,
+  business: BriefcaseBusiness,
   network: Network,
+  report: FileChartColumn,
   shield: ShieldCheck,
   document: FileText,
   users: Users,

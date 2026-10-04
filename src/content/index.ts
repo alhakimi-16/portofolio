@@ -45,17 +45,16 @@ export function getContent(locale: Locale) {
       label: stat.label[locale],
       hue: stat.hue,
     })),
-    about: data.about[locale].replaceAll("{age}", String(person.age)),
+    about: {
+      intro: data.about.intro[locale].replaceAll("{age}", String(person.age)),
+      body: data.about.body[locale].replaceAll("{age}", String(person.age)),
+    },
+    countries: data.countries.map((country) => ({ name: country.name[locale], hue: country.hue })),
+    adaptLine: data.adaptLine[locale],
     facts: data.facts.map((fact) => ({
       label: fact.label[locale],
       value: soft(keepDots(fact.value[locale])),
       icon: fact.icon,
-    })),
-    path: data.path.map((stop) => ({
-      label: stop.label[locale],
-      title: stop.title[locale],
-      detail: soft(stop.detail[locale]),
-      hue: stop.hue,
     })),
     experience: data.experience.map((role) => ({
       title: soft(role.title[locale]),
@@ -82,11 +81,24 @@ export function getContent(locale: Locale) {
     languages: data.languages.map((language) => ({
       name: language.name[locale],
       level: language.level[locale],
-      value: language.value,
-      hello: language.hello,
-      lang: language.lang,
-      dir: language.dir,
       hue: language.hue,
+    })),
+    projects: data.projects.map((project) => ({
+      title: project.title[locale],
+      description: project.description[locale],
+      status: project.status?.[locale],
+      tech: project.tech,
+      link: project.link,
+      repo: project.repo,
+      year: project.year,
+    })),
+    courses: data.courses.map((course) => ({
+      title: course.title[locale],
+      provider: course.provider,
+      year: course.year,
+      certificate: course.certificate,
+      topics: course.topics?.[locale] ?? [],
+      inProgress: course.inProgress ?? false,
     })),
   };
 }

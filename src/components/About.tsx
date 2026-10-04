@@ -1,16 +1,17 @@
+import { Plane } from "lucide-react";
 import type { SiteContent } from "@/content";
-import type { Dictionary } from "@/i18n/ui";
 import type { Hue } from "@/content/types";
+import type { Dictionary } from "@/i18n/ui";
 import { hues, vars } from "@/lib/utils";
 import { Icon } from "./Icon";
 import { Section } from "./Section";
 
-/** Marker colours in order: the three countries match their colours in "My path". */
+/** Marker colours in order. */
 const markers: Hue[] = ["sun", "violet", "blue"];
 
 /** Turns "==phrase==" into a marker highlight that sweeps in when the text appears. */
-function Highlights({ text }: { text: string }) {
-  let n = 0;
+function Highlights({ text, offset = 0 }: { text: string; offset?: number }) {
+  let n = offset;
   return text.split(/(==[^=]+==)/).map((part, i) => {
     if (!part.startsWith("==")) return part;
     const k = n++;
@@ -19,7 +20,7 @@ function Highlights({ text }: { text: string }) {
         key={i}
         className="marker"
         data-hue={markers[k % markers.length]}
-        style={vars({ "--d": `${450 + k * 200}ms` })}
+        style={vars({ "--d": `${450 + (k - offset) * 200}ms` })}
       >
         {part.slice(2, -2)}
       </mark>
@@ -27,13 +28,59 @@ function Highlights({ text }: { text: string }) {
   });
 }
 
+/** Tilt of each passport stamp. */
+const tilts = ["-7deg", "4deg", "-3deg"];
+
+/** The countries I have lived in, landing like passport stamps, with one line about adapting. */
+function Stamps({ countries, line }: { countries: SiteContent["countries"]; line: string }) {
+  const [lead, punch] = line.split(/:\s*/);
+  return (
+    <div data-reveal className="my-9">
+      <ol className="flex flex-wrap items-center gap-x-2.5 gap-y-3">
+        {countries.map((country, i) => (
+          <li key={country.name} className="flex items-center gap-2.5">
+            {i > 0 && <Plane aria-hidden className="hidden size-[1.1rem] rotate-45 text-muted sm:block" />}
+            <span
+              data-hue={country.hue}
+              className="stamp-in inline-block rounded-lg border-2 border-dashed border-hue bg-hue/10 px-2.5 py-1.5 font-display text-xs font-extrabold tracking-[0.14em] text-hue-ink uppercase outline-2 outline-offset-[3px] outline-hue/35 sm:px-4 sm:text-base"
+              style={{ rotate: tilts[i % tilts.length], ...vars({ "--d": `${250 + i * 280}ms` }) }}
+            >
+              {country.name}
+            </span>
+          </li>
+        ))}
+      </ol>
+      <p className="mt-5 font-display text-xl leading-snug font-bold tracking-tight text-fg sm:text-2xl">
+        {punch ? (
+          <>
+            {lead}:{" "}
+            <span data-hue="violet" className="whitespace-nowrap text-hue-ink">
+              {punch}
+            </span>
+          </>
+        ) : (
+          line
+        )}
+      </p>
+    </div>
+  );
+}
+
 export function About({ content, t }: { content: SiteContent; t: Dictionary }) {
+  const introMarks = (content.about.intro.match(/==/g)?.length ?? 0) / 2;
+
   return (
     <Section id="about" nav="about" hue="blue" {...t.sections.about}>
       <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:gap-16">
-        <p data-reveal className="text-xl leading-[1.75] sm:text-[1.375rem]">
-          <Highlights text={content.about} />
-        </p>
+        <div className="text-lg leading-[1.75] sm:text-xl">
+          <p data-reveal>
+            <Highlights text={content.about.intro} />
+          </p>
+          <Stamps countries={content.countries} line={content.adaptLine} />
+          <p data-reveal>
+            <Highlights text={content.about.body} offset={introMarks} />
+          </p>
+        </div>
         <ul className="grid content-start gap-3 sm:grid-cols-2 lg:grid-cols-1">
           {content.facts.map((fact, i) => (
             <li

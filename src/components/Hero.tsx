@@ -56,10 +56,10 @@ export function Hero({ content, t, children }: { content: SiteContent; t: Dictio
               </a>
             </Magnetic>
             <a
-              href="#path"
+              href="#skills"
               className="group/path inline-flex items-center gap-2 rounded-full border border-line bg-surface/70 px-6 py-3.5 font-semibold text-fg backdrop-blur transition-colors hover:border-fg"
             >
-              {t.hero.path}
+              {t.hero.skills}
               <ArrowDown aria-hidden className="size-4 transition-transform group-hover/path:translate-y-0.5" />
             </a>
           </div>

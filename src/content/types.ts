@@ -10,8 +10,10 @@ export type Hue = "blue" | "violet" | "sun" | "mint";
 export type IconName =
   | "database"
   | "cup"
-  | "chart"
+  | "sigma"
+  | "business"
   | "network"
+  | "report"
   | "shield"
   | "document"
   | "users"
@@ -40,14 +42,6 @@ export interface Role {
   art: "id-scan" | "report";
 }
 
-export interface Stop {
-  /** small label above the country, e.g. "Today" */
-  label: L;
-  title: L;
-  detail: L;
-  hue: Hue;
-}
-
 export interface Stat {
   value: number;
   decimals?: number;
@@ -65,11 +59,38 @@ export interface Skill {
 export interface Language {
   name: L;
   level: L;
-  /** 0–1, drives the bar */
-  value: number;
-  /** "hello" in that language */
-  hello: string;
-  lang: string;
-  dir?: "rtl";
   hue: Hue;
+}
+
+/** A country I have lived in (shown as a passport stamp in the about section). */
+export interface Country {
+  name: L;
+  hue: Hue;
+}
+
+export interface Project {
+  title: L;
+  description: L;
+  /** e.g. "In progress" / "In Arbeit" */
+  status?: L;
+  /** languages and tools, e.g. ["Java", "SQL"] */
+  tech: string[];
+  /** where the finished project can be tried out */
+  link?: string;
+  /** where the code is, e.g. a GitHub repository */
+  repo?: string;
+  year?: string;
+}
+
+export interface Course {
+  title: L;
+  /** e.g. "Coursera", "Udemy", "LinkedIn Learning" */
+  provider: string;
+  year?: string;
+  /** link to the certificate */
+  certificate?: string;
+  /** what the course covered */
+  topics?: L<string[]>;
+  /** still working through it */
+  inProgress?: boolean;
 }

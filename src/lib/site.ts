@@ -7,6 +7,6 @@ export const siteUrl = (
 ).replace(/\/$/, "");
 
 /** Sections linked from the header, in page order. */
-export const navIds = ["about", "path", "experience", "skills", "contact"] as const;
+export const navIds = ["about", "skills", "projects", "courses", "experience", "contact"] as const;
 
 export type NavId = (typeof navIds)[number];

@@ -126,12 +126,12 @@ export function Header({
             <span className="grid size-10 place-items-center rounded-full bg-fg font-display text-[0.8125rem] font-extrabold tracking-tight text-bg transition-transform duration-700 ease-(--ease) group-hover:rotate-[360deg]">
               {initials}
             </span>
-            <span className="hidden font-display text-[1.0625rem] font-bold tracking-tight text-fg lg:block">
+            <span className="hidden font-display text-[1.0625rem] font-bold tracking-tight text-fg xl:block">
               {name}
             </span>
           </a>
 
-          <nav aria-label={labels.sections} className="hidden md:block">
+          <nav aria-label={labels.sections} className="hidden lg:block">
             <div ref={navRef} className="relative">
               <span
                 ref={pillRef}
@@ -163,7 +163,7 @@ export function Header({
               type="button"
               popoverTarget="site-menu"
               aria-label={labels.menu}
-              className="grid size-10 place-items-center rounded-full text-fg transition-colors hover:bg-fg/[0.07] md:hidden"
+              className="grid size-10 place-items-center rounded-full text-fg transition-colors hover:bg-fg/[0.07] lg:hidden"
             >
               {menuOpen ? <X aria-hidden className="size-5" /> : <Menu aria-hidden className="size-5" />}
             </button>
@@ -175,7 +175,7 @@ export function Header({
         ref={menuRef}
         id="site-menu"
         popover="auto"
-        className="inset-x-3 top-[4.75rem] bottom-auto m-0 w-auto -translate-y-2 rounded-[1.75rem] border border-line bg-surface p-2 text-fg opacity-0 shadow-[var(--shadow)] transition-[opacity,translate,display,overlay] transition-discrete duration-300 ease-(--ease) open:translate-y-0 open:opacity-100 md:hidden starting:open:-translate-y-2 starting:open:opacity-0"
+        className="inset-x-3 top-[4.75rem] bottom-auto m-0 w-auto -translate-y-2 rounded-[1.75rem] border border-line bg-surface p-2 text-fg opacity-0 shadow-[var(--shadow)] transition-[opacity,translate,display,overlay] transition-discrete duration-300 ease-(--ease) open:translate-y-0 open:opacity-100 lg:hidden starting:open:-translate-y-2 starting:open:opacity-0"
       >
         <nav aria-label={labels.sections}>
           <ul className="grid">

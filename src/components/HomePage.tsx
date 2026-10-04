@@ -4,19 +4,26 @@ import { getDictionary } from "@/i18n/ui";
 import { navIds, siteUrl } from "@/lib/site";
 import { About } from "./About";
 import { Contact } from "./Contact";
+import { Courses } from "./Courses";
 import { Experience } from "./Experience";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 import { Hero } from "./Hero";
-import { Languages } from "./Languages";
 import { Marquee } from "./Marquee";
-import { Path } from "./Path";
+import { Projects } from "./Projects";
 import { SiteEffects } from "./SiteEffects";
 import { Skills } from "./Skills";
 import { Stats } from "./Stats";
 
 /** Colour of each header link (matches the section). */
-const navHues = { about: "blue", path: "sun", experience: "violet", skills: "blue", contact: "violet" } as const;
+const navHues = {
+  about: "blue",
+  skills: "violet",
+  projects: "sun",
+  courses: "blue",
+  experience: "violet",
+  contact: "sun",
+} as const;
 
 /** The whole page for one language (shared by the site and the in-chat preview). */
 export function HomePage({ locale }: { locale: Locale }) {
@@ -58,10 +65,10 @@ export function HomePage({ locale }: { locale: Locale }) {
         </Hero>
         <Marquee items={content.marquee} />
         <About content={content} t={t} />
-        <Path content={content} t={t} />
-        <Experience content={content} t={t} />
         <Skills content={content} t={t} />
-        <Languages content={content} t={t} />
+        <Projects content={content} t={t} />
+        <Courses content={content} t={t} />
+        <Experience content={content} t={t} />
         <Contact content={content} t={t} />
       </main>
       <Footer name={person.name} t={t} />

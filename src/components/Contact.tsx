@@ -20,7 +20,7 @@ export function Contact({ content, t }: { content: SiteContent; t: Dictionary })
     <section
       id="contact"
       data-nav="contact"
-      data-hue="violet"
+      data-hue="sun"
       aria-labelledby="contact-title"
       className="px-3 py-16 sm:px-5 sm:py-24"
     >
