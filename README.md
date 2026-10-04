@@ -1,7 +1,16 @@
 # Mugahed Al-Hakimi · Portfolio
 
-Personal website in **English and German** (`/en`, `/de`). Simple, calm design: a sidebar with name,
-photo and navigation, and a reading column with the CV content.
+Personal website in **English and German** (`/en`, `/de`), with light and dark mode. A clean one-page
+layout with four accent colours and playful details:
+
+- a "Hello!" that cycles through the four languages I speak, a colour ring with floating stickers;
+- numbers from the CV that count up, a keyword ribbon, marker highlights in the about text;
+- "My path" as a timeline with a little plane that travels along as you scroll;
+- an ID card being scanned and stamped "verified" (a nod to my job at Nect);
+- confetti when the email address is copied.
+
+All motion is switched off for visitors who ask their system for reduced motion, and every piece of
+content is visible without JavaScript.
 
 ## Run it locally
 
@@ -26,13 +35,15 @@ Open <http://localhost:3000>. It redirects to `/en` or `/de` based on the browse
 
 ## Edit the content
 
-**All content lives in [`src/content/profile.ts`](src/content/profile.ts)**: profile text, experience,
-education, skills, languages and certificates. Every text exists in English (`en`) and German (`de`).
-Labels such as section headings are in [`src/i18n/ui.ts`](src/i18n/ui.ts).
+**All content lives in [`src/content/profile.ts`](src/content/profile.ts)**: profile text, numbers,
+stickers, the keyword ribbon, my path, experience, skills, languages and certificates. Every text exists
+in English (`en`) and German (`de`). Labels such as section headings are in
+[`src/i18n/ui.ts`](src/i18n/ui.ts); there, `*word*` in a heading gets the coloured, underlined style.
 
 - **Photo:** put a square portrait in `public/`, e.g. `public/photo.jpg`, and set `photo: "/photo.jpg"`.
   Until then the initials are shown.
-- **Semester:** the profile text mentions the current semester; update it when it changes.
+- **Semester:** the profile text and the numbers (`stats`) mention the current semester; update both
+  when it changes.
 
 ## Deploy on Vercel
 
@@ -48,5 +59,6 @@ notice can stay short.
 
 ## Tech
 
-Next.js 16 (static pages) · React 19 · TypeScript · Tailwind CSS 4. Fonts: Newsreader and Geist,
-self-hosted via `next/font`.
+Next.js 16 (static pages) · React 19 · TypeScript · Tailwind CSS 4 · Lucide icons. Fonts: Bricolage
+Grotesque and Geist, self-hosted via `next/font`. Animations are plain CSS plus a few small client
+components; no animation library.

@@ -1,11 +1,10 @@
-import { Geist, Newsreader } from "next/font/google";
+import { Bricolage_Grotesque, Geist } from "next/font/google";
 
 // Fonts are downloaded at build time and served from this site,
 // so visitors' browsers never contact Google (GDPR-friendly).
-export const newsreader = Newsreader({
+export const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
-  axes: ["opsz"],
-  variable: "--font-newsreader",
+  variable: "--font-bricolage",
   display: "swap",
 });
 
@@ -15,4 +14,4 @@ export const geist = Geist({
   display: "swap",
 });
 
-export const fontVariables = `${newsreader.variable} ${geist.variable}`;
+export const fontVariables = `${bricolage.variable} ${geist.variable}`;

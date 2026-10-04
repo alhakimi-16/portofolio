@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
 import { fontVariables } from "./fonts";
+import { InlineScript } from "@/components/InlineScript";
 import { dictionaries } from "@/i18n/ui";
+import { bootScript } from "@/lib/boot";
 
 export const metadata: Metadata = {
   title: "404 · Mugahed Al-Hakimi",
@@ -12,24 +14,29 @@ export const metadata: Metadata = {
 export default function GlobalNotFound() {
   const en = dictionaries.en.notFound;
   const de = dictionaries.de.notFound;
+  const link =
+    "inline-flex items-center gap-2 rounded-full border border-line bg-surface px-5 py-3 font-semibold text-fg transition-colors hover:border-fg";
 
   return (
-    <html lang="en" className={fontVariables}>
+    <html lang="en" className={fontVariables} suppressHydrationWarning>
+      <head>
+        <InlineScript html={bootScript} />
+      </head>
       <body>
         <main className="mx-auto flex min-h-svh max-w-xl flex-col justify-center px-6 py-16">
-          <p className="text-xs font-semibold tracking-[0.18em] uppercase">404</p>
-          <h1 className="mt-4 font-serif text-5xl font-medium">{en.title}</h1>
-          <p className="mt-3" lang="de">
+          <p className="shimmer-text font-display text-[7rem] leading-none font-extrabold tracking-[-0.05em]">404</p>
+          <h1 className="mt-6 text-4xl font-extrabold tracking-tight">{en.title}</h1>
+          <p className="mt-1 text-lg" lang="de">
             {de.title}
           </p>
           <p className="mt-6">
             {en.text} <span lang="de">{de.text}</span>
           </p>
-          <div className="mt-10 flex flex-wrap gap-6 text-fg">
-            <Link href="/en" className="underline decoration-line underline-offset-4 hover:text-accent">
+          <div className="mt-10 flex flex-wrap gap-3">
+            <Link href="/en" className={link}>
               {en.back} →
             </Link>
-            <Link href="/de" lang="de" className="underline decoration-line underline-offset-4 hover:text-accent">
+            <Link href="/de" lang="de" className={link}>
               {de.back} →
             </Link>
           </div>

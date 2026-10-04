@@ -2,9 +2,11 @@ import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import "../globals.css";
 import { fontVariables } from "../fonts";
+import { InlineScript } from "@/components/InlineScript";
 import { getContent } from "@/content";
 import { hasLocale, localeLabels, locales, otherLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/ui";
+import { bootScript } from "@/lib/boot";
 import { siteUrl } from "@/lib/site";
 
 export const dynamicParams = false;
@@ -44,8 +46,8 @@ export async function generateMetadata({ params }: LayoutProps<"/[locale]">): Pr
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0e1218" },
+    { media: "(prefers-color-scheme: light)", color: "#f6f7fb" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b1022" },
   ],
 };
 
@@ -54,7 +56,11 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
   if (!hasLocale(locale)) notFound();
 
   return (
-    <html lang={locale} className={fontVariables}>
+    // The boot script sets data-theme / data-motion on <html> before React hydrates.
+    <html lang={locale} className={fontVariables} suppressHydrationWarning>
+      <head>
+        <InlineScript html={bootScript} />
+      </head>
       <body>{children}</body>
     </html>
   );

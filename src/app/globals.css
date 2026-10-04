@@ -1,44 +1,100 @@
 @import "tailwindcss";
 
-/* Layout: two columns on large screens. A quiet sticky sidebar (who I am, where to go)
-   and a reading column (what I have done). One column on phones.
-   Palette: white paper, ink text and the navy of the CV header as the only accent. */
+/* dark: follows the system unless a theme was picked with the toggle (data-theme on <html>) */
+@custom-variant dark {
+  &:where([data-theme="dark"], [data-theme="dark"] *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not([data-theme="light"]), :root:not([data-theme="light"]) *) {
+      @slot;
+    }
+  }
+}
+
+/* Layout: one column. A colourful hero, then sections that alternate cards and lists.
+   Palette: cool white paper and navy ink, with four friendly accents (blue, mint,
+   coral, sun) that each section picks one of. Light by default, navy at night. */
 :root {
-  --bg: #ffffff;
-  --surface: #f4f6f9;
-  --fg: #141a26;
-  --muted: #586172;
-  --line: #e3e7ee;
-  --accent: #23407a;
-  --accent-soft: rgb(35 64 122 / 0.07);
-  --ok: #1d7f53;
+  --bg: #f6f7fb;
+  --surface: #ffffff;
+  --fg: #121a33;
+  --muted: #535d77;
+  --line: #e2e6f0;
+  --blue: #3a5bf7;
+  --mint: #12b386;
+  --coral: #f2545b;
+  --sun: #f7a823;
+  --blue-ink: #2643c4;
+  --mint-ink: #0a7656;
+  --coral-ink: #c0363e;
+  --sun-ink: #925c00;
+  --panel: #121a33;
+  /* the rainbow name: deep enough to stay readable on the light background */
+  --grad: #3a5bf7, #0e956e, #b8760c, #d9454c, #3a5bf7;
+  --shadow: 0 1px 2px rgb(18 26 51 / 0.06), 0 8px 24px -12px rgb(18 26 51 / 0.18);
+  --ease: cubic-bezier(0.2, 0.75, 0.2, 1);
   color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0e1218;
-    --surface: #161c25;
-    --fg: #e7eaf0;
-    --muted: #9ba4b4;
-    --line: #242c38;
-    --accent: #9db8f2;
-    --accent-soft: rgb(157 184 242 / 0.08);
-    --ok: #4cc38a;
+    --bg: #0b1022;
+    --surface: #121935;
+    --fg: #edf0fb;
+    --muted: #a3acc6;
+    --line: #242d4f;
+    --blue: #7c95ff;
+    --mint: #3ddca8;
+    --coral: #ff7f86;
+    --sun: #ffc24d;
+    --blue-ink: #aebcff;
+    --mint-ink: #82edc9;
+    --coral-ink: #ffb0b5;
+    --sun-ink: #ffd98f;
+    --panel: #18214a;
+    --grad: #7c95ff, #3ddca8, #ffc24d, #ff7f86, #7c95ff;
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 32px -14px rgb(0 0 0 / 0.6);
     color-scheme: dark;
   }
 }
 
 :root[data-theme="dark"] {
-  --bg: #0e1218;
-  --surface: #161c25;
-  --fg: #e7eaf0;
-  --muted: #9ba4b4;
-  --line: #242c38;
-  --accent: #9db8f2;
-  --accent-soft: rgb(157 184 242 / 0.08);
-  --ok: #4cc38a;
+  --bg: #0b1022;
+  --surface: #121935;
+  --fg: #edf0fb;
+  --muted: #a3acc6;
+  --line: #242d4f;
+  --blue: #7c95ff;
+  --mint: #3ddca8;
+  --coral: #ff7f86;
+  --sun: #ffc24d;
+  --blue-ink: #aebcff;
+  --mint-ink: #82edc9;
+  --coral-ink: #ffb0b5;
+  --sun-ink: #ffd98f;
+  --panel: #18214a;
+  --grad: #7c95ff, #3ddca8, #ffc24d, #ff7f86, #7c95ff;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 32px -14px rgb(0 0 0 / 0.6);
   color-scheme: dark;
+}
+
+/* Any element can pick an accent with data-hue; children use --hue / --hue-ink. */
+[data-hue="blue"] {
+  --hue: var(--blue);
+  --hue-ink: var(--blue-ink);
+}
+[data-hue="mint"] {
+  --hue: var(--mint);
+  --hue-ink: var(--mint-ink);
+}
+[data-hue="coral"] {
+  --hue: var(--coral);
+  --hue-ink: var(--coral-ink);
+}
+[data-hue="sun"] {
+  --hue: var(--sun);
+  --hue-ink: var(--sun-ink);
 }
 
 @theme inline {
@@ -47,16 +103,21 @@
   --color-fg: var(--fg);
   --color-muted: var(--muted);
   --color-line: var(--line);
-  --color-accent: var(--accent);
-  --color-accent-soft: var(--accent-soft);
-  --color-ok: var(--ok);
-  --font-serif: var(--font-newsreader), ui-serif, Georgia, "Times New Roman", serif;
+  --color-blue: var(--blue);
+  --color-mint: var(--mint);
+  --color-coral: var(--coral);
+  --color-sun: var(--sun);
+  --color-hue: var(--hue);
+  --color-hue-ink: var(--hue-ink);
+  --color-panel: var(--panel);
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-geist), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -64,26 +125,34 @@
   body {
     background: var(--bg);
     color: var(--muted);
-    font-family: var(--font-sans);
+    font-family:
+      var(--font-geist),
+      ui-sans-serif,
+      system-ui,
+      -apple-system,
+      "Segoe UI",
+      sans-serif;
     font-size: 1rem;
     line-height: 1.65;
+    overflow-x: clip;
   }
 
   ::selection {
-    background: var(--accent);
-    color: var(--bg);
+    background: var(--blue);
+    color: #fff;
   }
 
   :focus-visible {
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--blue);
     outline-offset: 3px;
-    border-radius: 4px;
+    border-radius: 6px;
   }
 
   h1,
   h2,
   h3 {
     color: var(--fg);
+    font-family: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
     text-wrap: balance;
   }
 
@@ -91,27 +160,238 @@
   li {
     text-wrap: pretty;
   }
-}
 
-/* The sidebar stays in view while you read, as long as the screen is tall enough for it. */
-@media (min-width: 64rem) and (min-height: 48rem) {
-  .sidebar {
-    position: sticky;
-    top: 0;
-    height: 100vh;
+  /* long German compounds ("Betriebswirtschaftslehre") hyphenate instead of overflowing */
+  h3,
+  p,
+  li,
+  dt {
+    hyphens: auto;
+    overflow-wrap: break-word;
+  }
+
+  [lang="ar"] {
+    font-family: "Noto Sans Arabic", "Geeza Pro", "Segoe UI", Tahoma, sans-serif;
   }
 }
 
-/* A gentle entrance when the page loads. Pure CSS, so nothing ever stays hidden. */
+@utility emoji {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+}
+
+@utility card {
+  border: 1px solid var(--line);
+  border-radius: 1.5rem;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+/* ───────────────────────── Motion ─────────────────────────
+   Scroll reveals only hide things once JavaScript has marked the page as ready
+   (html[data-motion]); without it, or with reduced motion, everything is visible. */
+[data-reveal] {
+  transition:
+    opacity 0.9s var(--ease),
+    transform 0.9s var(--ease);
+  transition-delay: var(--d, 0ms);
+}
+
+html[data-motion] [data-reveal]:not([data-shown]) {
+  opacity: 0;
+  transform: translateY(36px);
+}
+
+html[data-motion] [data-reveal="scale"]:not([data-shown]) {
+  transform: scale(0.9);
+}
+
+/* hand-drawn underline under the emphasised word of a heading */
+.squiggle path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1.1s var(--ease) 0.35s;
+}
+
+html[data-motion] [data-reveal]:not([data-shown]) .squiggle path {
+  stroke-dashoffset: 1;
+}
+
+/* marker highlight sweeping over key phrases */
+.marker {
+  background-image: linear-gradient(
+    transparent 55%,
+    color-mix(in srgb, var(--hue) 38%, transparent) 55%,
+    color-mix(in srgb, var(--hue) 38%, transparent) 92%,
+    transparent 92%
+  );
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  color: var(--fg);
+  transition: background-size 1.2s var(--ease);
+  transition-delay: var(--d, 0ms);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+html[data-motion] [data-reveal]:not([data-shown]) .marker {
+  background-size: 0% 100%;
+}
+
+/* the route of "my path" draws itself */
+.route {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 2.4s var(--ease) 0.2s;
+}
+
+html[data-motion] [data-reveal]:not([data-shown]) .route {
+  stroke-dashoffset: 1;
+}
+
+/* language level bars fill up */
+.level {
+  width: calc(var(--v) * 100%);
+  transition: width 1.5s var(--ease);
+  transition-delay: var(--d, 0ms);
+}
+
+html[data-motion] [data-reveal]:not([data-shown]) .level {
+  width: 0;
+}
+
 @keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(22px);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--r, 0deg));
+  }
+  50% {
+    transform: translateY(-9px) rotate(var(--r, 0deg));
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(8%, -6%) scale(1.08);
+  }
+  66% {
+    transform: translate(-6%, 6%) scale(0.94);
+  }
+}
+
+@keyframes wave {
+  0%,
+  60%,
+  100% {
+    transform: rotate(0);
+  }
+  10%,
+  30% {
+    transform: rotate(16deg);
+  }
+  20% {
+    transform: rotate(-8deg);
+  }
+  40% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+}
+
+@keyframes ping {
+  75%,
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+@keyframes shimmer {
+  to {
+    background-position: 200% center;
+  }
+}
+
+@keyframes scan {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(var(--scan-distance, 96px));
+  }
+}
+
+@keyframes stamp {
+  0%,
+  45% {
+    transform: scale(0) rotate(-20deg);
+    opacity: 0;
+  }
+  55% {
+    transform: scale(1.18) rotate(-8deg);
+    opacity: 1;
+  }
+  62%,
+  90% {
+    transform: scale(1) rotate(-8deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.9) rotate(-8deg);
+    opacity: 0;
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes confetti {
+  to {
+    transform: translate(var(--dx), var(--dy)) rotate(var(--rot));
+    opacity: 0;
   }
 }
 
 @utility rise {
-  animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation: rise 1s var(--ease) both;
+  animation-delay: var(--d, 0ms);
+}
+
+@utility float {
+  animation: float 5s ease-in-out infinite;
+  animation-delay: var(--d, 0ms);
+}
+
+@utility shimmer-text {
+  background-image: linear-gradient(90deg, var(--grad));
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: shimmer 8s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
