@@ -25,8 +25,15 @@ export type IconName =
   | "aid"
   | "cap"
   | "briefcase"
-  | "handshake"
-  | "search";
+  | "globe";
+
+/** One of the three cards in "About me". */
+export interface Chapter {
+  title: L;
+  text: L;
+  icon: IconName;
+  hue: Hue;
+}
 
 export interface Role {
   title: L;

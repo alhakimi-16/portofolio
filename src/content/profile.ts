@@ -4,11 +4,11 @@
  *  Sources: my CV (October 2026) and my own notes. Every text exists in
  *  English (`en`) and German (`de`).
  *
- *  • In the about text, ==words== get a coloured marker highlight.
+ *  • In the about texts, ==words== get a coloured marker highlight.
  *  • Projects and online courses: add them at the end of this file.
  * ─────────────────────────────────────────────────────────────────────────────
  */
-import type { Course, Glance, Hue, IconName, L, Language, Project, Role, Skill } from "./types";
+import type { Chapter, Course, Glance, Hue, L, Language, Project, Role, Skill } from "./types";
 
 export const person = {
   firstName: "Mugahed",
@@ -80,43 +80,42 @@ export const atAGlance: Glance[] = [
   },
 ];
 
-/** "Über mich", one paragraph per entry: studies, practice, what shaped me. */
-export const about: L<string[]> = {
-  en: [
-    "I study ==Business Informatics== at HAW Hamburg because the ==bridge between business and IT== fascinates me: understanding how organisations work and how technology moves them forward. My studies cover both sides, from Java and SQL to statistics and business administration.",
-    "As a working student at Nect, I handle sensitive customer data every day, where ==accuracy and GDPR compliance== come first. As a volunteer, I organise the VJSD's finances and prepare reports and updates for the team. Since the team relies on them being right and on time, I coordinate closely and plan my time carefully alongside university and work, which has strengthened my ==teamwork and time management==.",
-    "Living in three countries has shaped me just as much: every move brought a new culture and new people. It taught me to ==adapt quickly to new environments== and to stay calm under pressure. Right now I'm building my own projects, learning through online courses and looking for a ==working student position== to bring it all together.",
-  ],
-  de: [
-    "Ich studiere ==Wirtschaftsinformatik== an der HAW Hamburg, weil mich die ==Schnittstelle zwischen BWL und IT== begeistert: zu verstehen, wie Unternehmen funktionieren und wie Technologie sie voranbringt. Im Studium lerne ich beide Seiten kennen, von Java und SQL bis zu Statistik und Betriebswirtschaftslehre.",
-    "Als Werkstudent bei Nect arbeite ich täglich mit sensiblen Kundendaten, bei denen ==Genauigkeit und DSGVO-Konformität== an erster Stelle stehen. Ehrenamtlich organisiere ich die Finanzen des VJSD und erstelle Berichte und Updates für das Team. Weil sich das Team darauf verlässt, dass sie korrekt und pünktlich sind, stimme ich mich eng ab und plane meine Zeit neben Studium und Job genau, was meine ==Teamfähigkeit und mein Zeitmanagement== gestärkt hat.",
-    "Genauso geprägt hat mich das Leben in drei Ländern: Jeder Umzug brachte eine neue Kultur und neue Menschen mit sich. So habe ich gelernt, ==mich schnell auf neue Umgebungen einzustellen== und auch unter Druck ruhig zu bleiben. Aktuell arbeite ich an eigenen Projekten, bilde mich mit Online-Kursen weiter und suche eine ==Werkstudentenstelle==, in der ich all das einbringen kann.",
+/** "Über mich": one opening line, then three short cards. */
+export const about: { lead: L; chapters: Chapter[] } = {
+  lead: {
+    en: "I study Business Informatics at HAW Hamburg and I'm passionate about ==connecting business and IT==.",
+    de: "Ich studiere Wirtschaftsinformatik an der HAW Hamburg und begeistere mich für die ==Verbindung von BWL und IT==.",
+  },
+  chapters: [
+    {
+      title: { en: "Studies", de: "Studium" },
+      text: {
+        en: "I want to understand how organisations work and how technology moves them forward. My studies give me ==both sides==: Java and SQL on one, statistics and business administration on the other.",
+        de: "Ich will verstehen, wie Unternehmen funktionieren und wie Technologie sie voranbringt. Das Studium gibt mir ==beide Seiten==: Java und SQL auf der einen, Statistik und BWL auf der anderen.",
+      },
+      icon: "cap",
+      hue: "blue",
+    },
+    {
+      title: { en: "In practice", de: "Praxis" },
+      text: {
+        en: "At Nect, I work with sensitive customer data every day, where accuracy and GDPR compliance come first. For the VJSD, I organise the finances and prepare the reports the team relies on. Delivering them on time alongside university and work has sharpened my ==teamwork and time management==.",
+        de: "Bei Nect arbeite ich täglich mit sensiblen Kundendaten, bei denen Genauigkeit und DSGVO-Konformität zählen. Für den VJSD organisiere ich die Finanzen und erstelle die Berichte, auf die sich das Team verlässt. Sie neben Studium und Job pünktlich zu liefern, hat meine ==Teamfähigkeit und mein Zeitmanagement== geschärft.",
+      },
+      icon: "briefcase",
+      hue: "violet",
+    },
+    {
+      title: { en: "What shaped me", de: "Was mich prägt" },
+      text: {
+        en: "Living in three countries meant new cultures and new people, again and again. It taught me to ==adapt quickly and stay calm under pressure==. Next up: my own projects, online courses and a working student position.",
+        de: "Das Leben in drei Ländern bedeutete immer wieder neue Kulturen und neue Menschen. So habe ich gelernt, ==mich schnell einzustellen und unter Druck ruhig zu bleiben==. Als Nächstes: eigene Projekte, Online-Kurse und eine Werkstudentenstelle.",
+      },
+      icon: "globe",
+      hue: "sun",
+    },
   ],
 };
-
-/** Quick facts next to the about text. */
-export const facts: { label: L; value: L; icon: IconName }[] = [
-  {
-    label: { en: "Studying", de: "Studium" },
-    value: { en: "B.Sc. Business Informatics, HAW Hamburg", de: "B.Sc. Wirtschaftsinformatik, HAW Hamburg" },
-    icon: "cap",
-  },
-  {
-    label: { en: "Working", de: "Job" },
-    value: { en: "Working student, data maintenance · Nect GmbH", de: "Werkstudent, Datenpflege · Nect GmbH" },
-    icon: "briefcase",
-  },
-  {
-    label: { en: "Volunteering", de: "Ehrenamt" },
-    value: { en: "Finance officer · VJSD", de: "Finanzverantwortlicher · VJSD" },
-    icon: "handshake",
-  },
-  {
-    label: { en: "Looking for", de: "Gesucht" },
-    value: { en: "A working student position", de: "Eine Werkstudentenstelle" },
-    icon: "search",
-  },
-];
 
 export const experience: Role[] = [
   {

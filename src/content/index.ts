@@ -45,12 +45,15 @@ export function getContent(locale: Locale) {
       icon: item.icon,
       hue: item.hue,
     })),
-    about: data.about[locale],
-    facts: data.facts.map((fact) => ({
-      label: fact.label[locale],
-      value: soft(keepDots(fact.value[locale])),
-      icon: fact.icon,
-    })),
+    about: {
+      lead: data.about.lead[locale],
+      chapters: data.about.chapters.map((chapter) => ({
+        title: chapter.title[locale],
+        text: chapter.text[locale],
+        icon: chapter.icon,
+        hue: chapter.hue,
+      })),
+    },
     experience: data.experience.map((role) => ({
       title: soft(role.title[locale]),
       org: role.org,

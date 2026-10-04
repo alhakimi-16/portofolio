@@ -1,71 +1,60 @@
 import type { SiteContent } from "@/content";
 import type { Hue } from "@/content/types";
 import type { Dictionary } from "@/i18n/ui";
-import { hues, vars } from "@/lib/utils";
+import { vars } from "@/lib/utils";
 import { Icon } from "./Icon";
 import { Section } from "./Section";
 
-/** Marker colours, used in turn through the whole text. */
-const markers: Hue[] = ["sun", "violet", "blue"];
-
-/** Turns "==phrase==" into a marker highlight that sweeps in when the paragraph appears. */
-function Highlights({ text, first }: { text: string; first: number }) {
-  let n = first;
-  return text.split(/(==[^=]+==)/).map((part, i) => {
-    if (!part.startsWith("==")) return part;
-    const k = n++;
-    return (
-      <mark
-        key={i}
-        className="marker"
-        data-hue={markers[k % markers.length]}
-        style={vars({ "--d": `${450 + (k - first) * 200}ms` })}
-      >
+/** Turns "==phrase==" into a marker highlight that sweeps in when the text appears. */
+function Highlights({ text, hue, delay = 450 }: { text: string; hue: Hue; delay?: number }) {
+  return text.split(/(==[^=]+==)/).map((part, i) =>
+    part.startsWith("==") ? (
+      <mark key={i} className="marker" data-hue={hue} style={vars({ "--d": `${delay}ms` })}>
         {part.slice(2, -2)}
       </mark>
-    );
-  });
+    ) : (
+      part
+    ),
+  );
 }
 
-const countMarks = (text: string) => (text.match(/==/g)?.length ?? 0) / 2;
-
+/** "About me": one opening line, then three short cards (studies, practice, what shaped me). */
 export function About({ content, t }: { content: SiteContent; t: Dictionary }) {
-  // marker colours continue from one paragraph to the next
-  const firstMark = content.about.map((_, i) =>
-    content.about.slice(0, i).reduce((sum, paragraph) => sum + countMarks(paragraph), 0),
-  );
+  const { lead, chapters } = content.about;
 
   return (
     <Section id="about" nav="about" hue="blue" {...t.sections.about}>
-      <div className="grid gap-10 lg:grid-cols-[1.75fr_1fr] lg:gap-14">
-        <div className="grid content-start gap-6 text-lg leading-[1.75] sm:text-xl lg:text-[1.1875rem]">
-          {content.about.map((paragraph, i) => (
-            <p key={i} data-reveal>
-              <Highlights text={paragraph} first={firstMark[i]} />
-            </p>
-          ))}
-        </div>
-        <ul className="grid content-start gap-3 self-start sm:grid-cols-2 lg:sticky lg:top-28 lg:grid-cols-1">
-          {content.facts.map((fact, i) => (
-            <li
-              key={fact.label}
-              data-reveal
-              data-hue={hues[i % hues.length]}
-              style={vars({ "--d": `${120 + i * 90}ms` })}
-            >
-              <div className="flex h-full items-center gap-4 card p-4 transition-[translate,border-color] duration-300 hover:-translate-y-0.5 hover:border-hue">
-                <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-hue/15 text-hue-ink">
-                  <Icon name={fact.icon} />
+      <p
+        data-reveal
+        className="max-w-4xl font-display text-2xl leading-snug font-bold tracking-tight text-fg sm:text-[2rem] sm:leading-[1.3]"
+      >
+        <Highlights text={lead} hue="blue" delay={350} />
+      </p>
+
+      <ol className="mt-10 grid gap-4 sm:mt-12 lg:grid-cols-3">
+        {chapters.map((chapter, i) => (
+          <li key={chapter.title} data-reveal data-hue={chapter.hue} style={vars({ "--d": `${i * 110}ms` })}>
+            <article className="group relative h-full overflow-hidden card p-6 transition-[translate,border-color] duration-300 hover:-translate-y-1 hover:border-hue sm:p-7">
+              <span
+                aria-hidden
+                className="absolute -top-12 -right-12 size-32 rounded-full bg-hue/10 transition-transform duration-500 group-hover:scale-125"
+              />
+              <div className="relative flex items-center justify-between">
+                <span className="grid size-12 place-items-center rounded-2xl bg-hue/15 text-hue-ink transition-transform duration-300 group-hover:-rotate-6">
+                  <Icon name={chapter.icon} className="size-6" />
                 </span>
-                <div className="min-w-0">
-                  <p className="text-xs font-bold tracking-[0.12em] uppercase">{fact.label}</p>
-                  <p className="leading-snug font-medium text-fg">{fact.value}</p>
-                </div>
+                <span aria-hidden className="font-display text-4xl font-extrabold text-hue-ink/25 tabular-nums">
+                  0{i + 1}
+                </span>
               </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+              <h3 className="relative mt-5 text-xl font-extrabold tracking-tight">{chapter.title}</h3>
+              <p className="relative mt-2 leading-relaxed">
+                <Highlights text={chapter.text} hue={chapter.hue} delay={450 + i * 110} />
+              </p>
+            </article>
+          </li>
+        ))}
+      </ol>
     </Section>
   );
 }

@@ -8,13 +8,12 @@ import {
   FileChartColumn,
   FileText,
   Flag,
+  Globe,
   GraduationCap,
-  HeartHandshake,
   Languages,
   Lightbulb,
   ListChecks,
   Network,
-  Search,
   ShieldCheck,
   Sigma,
   Users,
@@ -40,8 +39,7 @@ const icons: Record<IconName, LucideIcon> = {
   aid: BriefcaseMedical,
   cap: GraduationCap,
   briefcase: Briefcase,
-  handshake: HeartHandshake,
-  search: Search,
+  globe: Globe,
 };
 
 /** The icons used by the content in profile.ts. */
