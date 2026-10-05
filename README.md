@@ -1,30 +1,25 @@
 # Mugahed Al-Hakimi · Portfolio
 
-Personal website in **English and German** (`/en`, `/de`), with light and dark mode, laid out like a
-magazine:
+Personal website in **English and German** (`/en`, `/de`), with light and dark mode. A clean one-page
+layout in blue, yellow and light purple (plus a little pastel green), with playful details:
 
-- the name set very large across the full width, a thin rule, the introduction and a numbered contents
-  list;
-- each section opens like a chapter: a rule, its number and label in a narrow column that stays in view,
-  and a large title with one word in light italic;
-- four colours used sparingly: blue for structure and links, a yellow highlighter for key phrases, light
-  purple for the italic words, and a little pastel green for "available now".
+- a "Hello!" that cycles through four languages, a colour ring with floating stickers;
+- three highlights below the hero, a keyword ribbon and marker highlights in the about text;
+- the focus sections: skills, projects and online courses;
+- an ID card being scanned and stamped "verified" (my job at Nect) and a finance report stamped "on time"
+  (my volunteer role at the VJSD);
+- confetti when the email address is copied.
 
-Motion is calm and never hides anything: sections settle in as they scroll into view, chapter numbers
-roll up, rules draw themselves, the highlighter sweeps over key phrases and "Hello" changes language. In
-"Work & volunteering" a timeline draws itself while you scroll, and each role has a small line drawing
-that animates (an ID card being scanned and checked; a financial report coming together on time). All motion is switched
-off for visitors who ask their system for reduced motion, and every piece of content is visible without
-JavaScript.
+All motion is switched off for visitors who ask their system for reduced motion, and every piece of
+content is visible without JavaScript.
 
-**Earlier designs** are kept as drafts, each on its own branch (and tag):
+**Other designs** that were tried are kept in the history of this repository; to look at one again,
+check out its commit (`git checkout <commit>`, and `git checkout -` to come back):
 
-| Design                                         | Branch            | Tag               |
-| ---------------------------------------------- | ----------------- | ----------------- |
-| Colourful (blue, yellow, light purple)         | `draft/colourful` | `draft-colourful` |
-| Spreadsheet workbook (formula bar, sheet tabs) | `draft/workbook`  | `draft-workbook`  |
-
-To look at one again: `git checkout draft/workbook` (and `git checkout -` to come back).
+| Design                                            | Commit    |
+| ------------------------------------------------- | --------- |
+| Spreadsheet workbook (formula bar, sheet tabs)    | `def8e32` |
+| Minimal editorial (large type, numbered chapters) | `ab899de` |
 
 ## Run it locally
 
@@ -50,17 +45,14 @@ Open <http://localhost:3000>. It redirects to `/en` or `/de` based on the browse
 ## Edit the content
 
 **All content lives in [`src/content/profile.ts`](src/content/profile.ts)**: profile text, highlights,
-keywords, experience, skills, languages, projects and online courses. Every text exists in English
-(`en`) and German (`de`); `==phrase==` in the about texts gets the yellow highlighter. Labels such as
-section headings are in [`src/i18n/ui.ts`](src/i18n/ui.ts); there, `*word*` in a heading is set in light
-italic.
+stickers, the keyword ribbon, experience, skills, languages, projects and online courses. Every text
+exists in English (`en`) and German (`de`). Labels such as section headings are in
+[`src/i18n/ui.ts`](src/i18n/ui.ts); there, `*word*` in a heading gets the coloured, underlined style.
 
-- **Photo:** put a portrait in `public/`, e.g. `public/photo.jpg`, and set `photo: "/photo.jpg"`. It
-  appears above the contents list (portrait format, 4:5, works best). Without a photo the page simply
-  leaves it out.
+- **Photo:** the portrait is `public/photo.jpg` (square, shown in the round frame). To change it,
+  replace that file; to show the initials instead, set `photo: undefined`.
 - **Projects and online courses:** add entries to `projects` and `courses` at the end of `profile.ts`
-  (there is an example above each list). While a list is empty, the site shows a short "coming soon"
-  note.
+  (there is an example above each list). While a list is empty, the site shows an "in progress" card.
 
 ## Deploy on Vercel
 
@@ -76,7 +68,6 @@ notice can stay short.
 
 ## Tech
 
-Next.js 16 (static pages) · React 19 · TypeScript · Tailwind CSS 4 · Lucide icons. One font family,
-Archivo, self-hosted via `next/font`: its width axis stretched wide gives the large uppercase type,
-lighter weights and its italic carry the rest. Animations are plain CSS plus a few small client
+Next.js 16 (static pages) · React 19 · TypeScript · Tailwind CSS 4 · Lucide icons. Fonts: Bricolage
+Grotesque and Geist, self-hosted via `next/font`. Animations are plain CSS plus a few small client
 components; no animation library.

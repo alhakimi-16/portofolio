@@ -1,15 +1,17 @@
-import { Archivo } from "next/font/google";
+import { Bricolage_Grotesque, Geist } from "next/font/google";
 
-// The fonts are downloaded at build time and served from this site,
+// Fonts are downloaded at build time and served from this site,
 // so visitors' browsers never contact Google (GDPR-friendly).
-// One family for everything: Archivo is a variable font with weight and width axes, so the same
-// face gives the wide uppercase headings, the light large text, the body text and its italics.
-export const archivo = Archivo({
+export const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
-  axes: ["wdth"],
-  style: ["normal", "italic"],
-  variable: "--font-archivo",
+  variable: "--font-bricolage",
   display: "swap",
 });
 
-export const fontVariables = archivo.variable;
+export const geist = Geist({
+  subsets: ["latin"],
+  variable: "--font-geist",
+  display: "swap",
+});
+
+export const fontVariables = `${bricolage.variable} ${geist.variable}`;

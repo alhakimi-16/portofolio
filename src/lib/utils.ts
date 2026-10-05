@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import type { Hue } from "@/content/types";
 
 export function cn(...classes: (string | false | null | undefined)[]): string {
   return classes.filter(Boolean).join(" ");
@@ -9,12 +10,9 @@ export function vars(values: Record<`--${string}`, string | number>): CSSPropert
   return values as CSSProperties;
 }
 
+/** The main accent colours, in the order lists cycle through them (mint is only used sparingly). */
+export const hues: readonly Hue[] = ["blue", "violet", "sun"];
+
 export function prefersReducedMotion(): boolean {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
-
-/** The page column: centred, with the side margins growing on larger screens. */
-export const wrap = "mx-auto w-full max-w-[84rem] px-4 sm:px-8 lg:px-12";
-
-/** 1 → "01" */
-export const pad = (n: number) => String(n).padStart(2, "0");

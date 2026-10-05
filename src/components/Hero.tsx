@@ -1,175 +1,86 @@
-import { ArrowDown, ArrowDownRight, ArrowRight } from "lucide-react";
-import Image from "next/image";
+import { ArrowDown, ArrowRight } from "lucide-react";
 import type { SiteContent } from "@/content";
-import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/ui";
-import { cn, pad, vars, wrap } from "@/lib/utils";
-import { Pulse } from "./Chapter";
-import { CountUp } from "./CountUp";
+import { vars } from "@/lib/utils";
+import { Blobs } from "./Blobs";
 import { Greeting } from "./Greeting";
+import { Magnetic } from "./Magnetic";
+import { Portrait } from "./Portrait";
 
-/** "{n} languages" with the number counting up. */
-function Value({ text, count, locale }: { text: string; count?: number; locale: Locale }) {
-  const [before, after] = text.split("{n}");
-  if (count === undefined || after === undefined) return text;
-  return (
-    <>
-      {before}
-      <CountUp value={count} decimals={0} suffix="" locale={locale} />
-      {after}
-    </>
-  );
-}
-
-/**
- * The opening page: the name set very large, a rule, the introduction and the contents.
- * Below it the three highlights and the keywords.
- */
-export function Hero({
-  content,
-  t,
-  locale,
-  items,
-}: {
-  content: SiteContent;
-  t: Dictionary;
-  locale: Locale;
-  items: { id: string; label: string }[];
-}) {
+export function Hero({ content, t, children }: { content: SiteContent; t: Dictionary; children?: React.ReactNode }) {
   const { person } = content;
 
   return (
-    <section id="top" aria-labelledby="hero-title" className={cn(wrap, "pt-8 pb-8 sm:pt-12 lg:pt-14")}>
-      <div className="@container">
-        <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 label text-muted">
-          <p>{t.hero.portfolio}</p>
-          <p className="inline-flex items-center gap-2.5 text-ink">
-            <Pulse />
+    <section id="top" aria-labelledby="hero-title" className="relative overflow-hidden">
+      <Blobs className="[mask-image:linear-gradient(black_55%,transparent)]" />
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-[radial-gradient(circle,var(--line)_1.3px,transparent_1.5px)] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_35%,black,transparent)] [background-size:26px_26px]"
+      />
+
+      <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-5 pt-32 pb-14 sm:px-8 md:grid-cols-[1.3fr_1fr] md:gap-10 md:pt-40 md:pb-20">
+        <div>
+          <p className="group flex rise items-center gap-3 font-display text-[1.75rem] leading-none font-bold sm:text-[2.125rem]">
+            <span
+              aria-hidden
+              className="inline-block origin-[70%_75%] animate-[wave_2.2s_ease-in-out_0.9s_2] emoji group-hover:animate-[wave_1.6s_ease-in-out]"
+            >
+              👋
+            </span>
+            <Greeting words={content.greetings} />
+          </p>
+
+          <h1
+            id="hero-title"
+            className="mt-5 rise text-[clamp(3rem,9vw,5.75rem)] leading-[0.98] font-extrabold tracking-[-0.035em]"
+            style={vars({ "--d": "120ms" })}
+          >
+            <span className="font-semibold text-muted">{t.hero.iam} </span>
+            {person.firstName}
+            <br />
+            <span className="inline-block shimmer-text pb-[0.08em]">{person.lastName}</span>
+          </h1>
+
+          <p className="mt-6 max-w-xl rise text-lg leading-relaxed text-fg sm:text-xl" style={vars({ "--d": "220ms" })}>
+            {person.intro}
+          </p>
+
+          <div className="mt-9 flex rise flex-wrap items-center gap-3" style={vars({ "--d": "320ms" })}>
+            <Magnetic>
+              <a
+                href="#contact"
+                className="group/cta inline-flex items-center gap-2 rounded-full bg-fg px-6 py-3.5 font-semibold text-bg shadow-[var(--shadow)] transition-[background-color,box-shadow] hover:bg-blue hover:shadow-lg"
+              >
+                {t.hero.cta}
+                <ArrowRight aria-hidden className="size-4 transition-transform group-hover/cta:translate-x-1" />
+              </a>
+            </Magnetic>
+            <a
+              href="#skills"
+              className="group/path inline-flex items-center gap-2 rounded-full border border-line bg-surface/70 px-6 py-3.5 font-semibold text-fg backdrop-blur transition-colors hover:border-fg"
+            >
+              {t.hero.skills}
+              <ArrowDown aria-hidden className="size-4 transition-transform group-hover/path:translate-y-0.5" />
+            </a>
+          </div>
+
+          <p
+            className="mt-8 inline-flex rise items-center gap-2.5 rounded-full border border-line bg-surface/70 py-1.5 pr-4 pl-3 text-sm font-medium text-fg backdrop-blur"
+            style={vars({ "--d": "420ms" })}
+          >
+            <span aria-hidden className="relative flex size-2.5" data-hue="mint">
+              <span className="absolute inset-0 animate-[ping_1.8s_cubic-bezier(0,0,0.2,1)_infinite] rounded-full bg-hue" />
+              <span className="relative size-2.5 rounded-full bg-hue" />
+            </span>
             {person.availability}
           </p>
         </div>
 
-        <p className="mt-10 text-[clamp(1.5rem,3.4cqi,2.5rem)] leading-none font-light tracking-[-0.01em] italic sm:mt-14">
-          <span className="text-violet-ink">
-            <Greeting words={content.greetings} />
-          </span>{" "}
-          <span className="text-muted">{t.hero.iam}</span>
-        </p>
-
-        {/* Both lines are set as one justified block: the font size makes the longer line's ink
-            span the column, the first line is tracked out to match, and the negative margins
-            put each line's first letter on the column edge (measured for Archivo at 115 %). */}
-        <h1
-          id="hero-title"
-          className="mt-3 display text-[length:16.43cqi] leading-[0.86] whitespace-nowrap text-ink sm:mt-4"
-        >
-          <span className="-ml-[0.0806em] block overflow-hidden pt-[0.04em] pb-[0.06em] tracking-[-0.0167em]">
-            {person.firstName}
-          </span>{" "}
-          <span className="-ml-[0.0151em] block overflow-hidden pt-[0.04em] pb-[0.06em]">{person.lastName}</span>
-        </h1>
-      </div>
-
-      <div aria-hidden className="mt-6 h-px origin-left animate-[draw_1.4s_var(--ease)_200ms_both] bg-ink sm:mt-8" />
-
-      <div className="mt-8 grid gap-12 md:grid-cols-12 md:gap-x-8 lg:mt-10">
-        <div className="md:col-span-6 lg:col-span-7">
-          <p
-            data-reveal
-            className="max-w-[32ch] text-[clamp(1.375rem,2.5vw,2.125rem)] leading-[1.3] font-light tracking-[-0.01em] text-ink"
-            style={vars({ "--d": "350ms" })}
-          >
-            {person.intro}
-          </p>
-          <div
-            data-reveal
-            className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4 lg:mt-10"
-            style={vars({ "--d": "450ms" })}
-          >
-            <a
-              href="#contact"
-              className="group inline-flex items-center gap-3 bg-ink px-5 py-3.5 label text-paper transition-colors hover:bg-blue-ink dark:hover:bg-blue"
-            >
-              {t.hero.cta}
-              <ArrowRight aria-hidden className="size-4 transition-transform group-hover:translate-x-1" />
-            </a>
-            <a href="#skills" className="group inline-flex items-center gap-2 py-2 label text-ink">
-              <span className="link-line pb-1">{t.hero.skills}</span>
-              <ArrowDown aria-hidden className="size-4 transition-transform group-hover:translate-y-0.5" />
-            </a>
-          </div>
-        </div>
-
-        <div className="md:col-span-6 lg:col-span-4 lg:col-start-9">
-          {person.photo && (
-            <figure data-reveal className="relative mb-8 aspect-[4/5] w-full max-w-xs overflow-hidden lg:max-w-none">
-              <Image
-                src={person.photo}
-                alt={person.name}
-                fill
-                priority
-                sizes="(min-width: 1024px) 24rem, 20rem"
-                className="object-cover"
-              />
-            </figure>
-          )}
-          <nav aria-labelledby="contents-title" data-reveal style={vars({ "--d": "550ms" })}>
-            <h2 id="contents-title" className="label text-muted">
-              {t.hero.contents}
-            </h2>
-            <ol className="mt-3 border-t border-rule">
-              {items.map((item, i) => (
-                <li key={item.id} className="border-b border-rule">
-                  <a href={`#${item.id}`} className="group flex items-baseline gap-4 py-3">
-                    <span className="label text-blue-ink tabular-nums">{pad(i + 1)}</span>
-                    <span className="sweep text-xl text-ink">{item.label}</span>
-                    <ArrowDownRight
-                      aria-hidden
-                      className="ml-auto size-4 self-center text-muted transition-[translate,color] duration-300 group-hover:translate-x-0.5 group-hover:translate-y-0.5 group-hover:text-ink"
-                    />
-                  </a>
-                </li>
-              ))}
-            </ol>
-          </nav>
+        <div className="rise" style={vars({ "--d": "260ms" })}>
+          <Portrait photo={person.photo} initials={person.initials} name={person.name} stickers={content.stickers} />
         </div>
       </div>
-
-      <ul aria-label={t.hero.glance} className="mt-16 grid border-y border-ink sm:grid-cols-3 lg:mt-24">
-        {content.atAGlance.map((item, i) => (
-          <li
-            key={item.label}
-            data-hue={item.hue}
-            data-reveal
-            style={vars({ "--d": `${i * 120}ms` })}
-            className="border-rule py-6 not-first:border-t sm:px-6 sm:py-8 sm:not-first:border-t-0 sm:not-first:border-l sm:first:pl-0 sm:last:pr-0"
-          >
-            <span aria-hidden className="draw-x block h-1 w-10 bg-hue" />
-            <p className="mt-5 text-[clamp(1.75rem,3vw,2.5rem)] leading-[1.1] font-light tracking-[-0.02em] text-ink">
-              <Value text={item.value} count={item.count} locale={locale} />
-            </p>
-            <p className="mt-3 label text-muted">{item.label}</p>
-          </li>
-        ))}
-      </ul>
-
-      <div data-reveal className="mt-6 flex flex-col gap-2 sm:flex-row sm:items-baseline sm:gap-8">
-        <p id="keywords-title" className="shrink-0 label text-muted">
-          {t.hero.keywords}
-        </p>
-        <ul aria-labelledby="keywords-title" className="flex flex-wrap gap-x-3 gap-y-1 text-muted italic">
-          {content.marquee.map((keyword, i) => (
-            <li key={keyword.text}>
-              {keyword.text}
-              {i < content.marquee.length - 1 && (
-                <span aria-hidden className="ml-3 text-muted/40 not-italic">
-                  /
-                </span>
-              )}
-            </li>
-          ))}
-        </ul>
-      </div>
+      {children}
     </section>
   );
 }

@@ -3,7 +3,6 @@ import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { getContent } from "@/content";
 import { hasLocale, locales } from "@/i18n/config";
-import { getDictionary } from "@/i18n/ui";
 
 // The preview card shown when the link is shared on LinkedIn, WhatsApp, Slack, …
 export const alt = "Mugahed Al-Hakimi";
@@ -17,35 +16,18 @@ export function generateStaticParams() {
 
 const font = (file: string) => readFile(join(process.cwd(), "node_modules/@fontsource", file));
 
-// light theme colours from globals.css
-const c = {
-  paper: "#fcfcfe",
-  ink: "#16152b",
-  muted: "#5d5c74",
-  rule: "#dedde8",
-  blue: "#3a5bf7",
-  blueInk: "#2643c4",
-  violet: "#a78bfa",
-  violetInk: "#7353e0",
-  sun: "#f9c22e",
-  mint: "#86d8b1",
-  mark: "rgba(249, 194, 46, 0.55)",
-};
-
-const label = { fontFamily: "Archivo Semi", fontSize: 20, letterSpacing: 2.8, textTransform: "uppercase" } as const;
+// the light-mode accent colours from globals.css
+const colors = { blue: "#3a5bf7", violet: "#a78bfa", sun: "#f9c22e", mint: "#86d8b1" };
+const inks = { blue: "#2643c4", violet: "#6a45d4", sun: "#865b00", mint: "#1b7650" };
+const tints = { blue: "#e3e8fd", violet: "#efe9fe", sun: "#fef6db", mint: "#e7f7ef" };
 
 export default async function Image({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const lang = hasLocale(locale) ? locale : "en";
-  const content = getContent(lang);
-  const { person } = content;
-  const t = getDictionary(lang);
-  const greeting = content.greetings.find((word) => word.lang === lang) ?? content.greetings[0];
-  const [display, semi, light, lightItalic] = await Promise.all([
-    font("archivo/files/archivo-latin-800-normal.woff"),
-    font("archivo/files/archivo-latin-600-normal.woff"),
-    font("archivo/files/archivo-latin-300-normal.woff"),
-    font("archivo/files/archivo-latin-300-italic.woff"),
+  const { person, stickers } = getContent(hasLocale(locale) ? locale : "en");
+  const [display, sans, sansSemi] = await Promise.all([
+    font("bricolage-grotesque/files/bricolage-grotesque-latin-800-normal.woff"),
+    font("geist-sans/files/geist-sans-latin-500-normal.woff"),
+    font("geist-sans/files/geist-sans-latin-600-normal.woff"),
   ]);
 
   return new ImageResponse(
@@ -54,88 +36,122 @@ export default async function Image({ params }: { params: Promise<{ locale: stri
         width: "100%",
         height: "100%",
         display: "flex",
-        flexDirection: "column",
-        padding: "56px 64px",
-        background: c.paper,
-        color: c.ink,
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: "0 88px",
+        background: "#f6f7fb",
+        fontFamily: "Geist",
+        color: "#121a33",
       }}
     >
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", ...label }}>
-        <span style={{ color: c.muted }}>{t.hero.portfolio}</span>
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <div style={{ width: 14, height: 14, borderRadius: 14, background: c.mint, marginRight: 14 }} />
+      <div style={{ display: "flex", flexDirection: "column", maxWidth: 700 }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            alignSelf: "flex-start",
+            gap: 12,
+            padding: "10px 22px 10px 18px",
+            borderRadius: 999,
+            background: "#ffffff",
+            border: "2px solid #e2e6f0",
+            fontSize: 24,
+            fontWeight: 600,
+          }}
+        >
+          <div style={{ width: 14, height: 14, borderRadius: 14, background: "#3dbf86" }} />
           {person.availability}
         </div>
-      </div>
-
-      <div
-        style={{
-          display: "flex",
-          marginTop: 44,
-          fontFamily: "Archivo Light Italic",
-          fontStyle: "italic",
-          fontWeight: 300,
-          fontSize: 44,
-          lineHeight: 1,
-        }}
-      >
-        <span style={{ color: c.violetInk }}>{`${greeting?.text ?? "Hello"}!`}</span>
-        <span style={{ color: c.muted, marginLeft: 14 }}>{t.hero.iam}</span>
-      </div>
-
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          marginTop: 18,
-          fontFamily: "Archivo",
-          fontSize: 148,
-          lineHeight: 0.9,
-          letterSpacing: -3,
-          textTransform: "uppercase",
-        }}
-      >
-        <span>{person.firstName}</span>
-        <span style={{ letterSpacing: -2.4 }}>{person.lastName}</span>
-      </div>
-
-      <div style={{ display: "flex", height: 2, background: c.ink, marginTop: 30 }} />
-
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginTop: 26,
-          fontFamily: "Archivo Light",
-          fontWeight: 300,
-          fontSize: 36,
-        }}
-      >
-        <div style={{ display: "flex" }}>
-          <span
-            style={{
-              backgroundImage: `linear-gradient(transparent 58%, ${c.mark} 58%, ${c.mark} 94%, transparent 94%)`,
-            }}
-          >
-            {person.headline}
-          </span>
-          <span style={{ color: c.muted, marginLeft: 14 }}>{`· ${person.school}`}</span>
+        <div
+          style={{
+            marginTop: 34,
+            fontFamily: "Bricolage",
+            fontSize: 96,
+            lineHeight: 0.98,
+            letterSpacing: -3,
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <span>{person.firstName}</span>
+          <span style={{ color: inks.blue }}>{person.lastName}</span>
         </div>
-        <div style={{ display: "flex" }}>
-          {[c.blue, c.sun, c.violet, c.mint].map((colour) => (
-            <div key={colour} style={{ width: 18, height: 18, background: colour, marginLeft: 10 }} />
-          ))}
+        <div style={{ marginTop: 30, display: "flex", flexDirection: "column", fontSize: 34, color: "#3b4460" }}>
+          <span style={{ fontWeight: 500 }}>{person.headline}</span>
+          <span style={{ marginTop: 4, fontWeight: 600, color: "#121a33" }}>{person.school}</span>
         </div>
+      </div>
+
+      <div style={{ position: "relative", width: 340, height: 340, display: "flex" }}>
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: 340,
+            height: 340,
+            borderRadius: 340,
+            display: "flex",
+            backgroundImage: `linear-gradient(135deg, ${colors.blue}, ${colors.violet} 50%, ${colors.sun})`,
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            top: 16,
+            left: 16,
+            width: 308,
+            height: 308,
+            borderRadius: 308,
+            background: "#121a33",
+            color: "#ffffff",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontFamily: "Bricolage",
+            fontSize: 120,
+            letterSpacing: -4,
+          }}
+        >
+          {person.initials}
+        </div>
+        {stickers.slice(0, 3).map((sticker, i) => {
+          const spots = [
+            { top: 6, left: -46, rotate: -8 },
+            { top: 150, right: -54, rotate: 6 },
+            { bottom: 0, left: -10, rotate: 5 },
+          ];
+          const { rotate, ...spot } = spots[i];
+          return (
+            <div
+              key={sticker.text}
+              style={{
+                position: "absolute",
+                ...spot,
+                display: "flex",
+                padding: "8px 18px",
+                borderRadius: 999,
+                border: `3px solid ${colors[sticker.hue]}`,
+                background: tints[sticker.hue],
+                color: inks[sticker.hue],
+                boxShadow: `4px 4px 0 ${colors[sticker.hue]}`,
+                fontFamily: "Bricolage",
+                fontSize: 28,
+                transform: `rotate(${rotate}deg)`,
+              }}
+            >
+              {sticker.text}
+            </div>
+          );
+        })}
       </div>
     </div>,
     {
       ...size,
       fonts: [
-        { name: "Archivo", data: display, weight: 800, style: "normal" },
-        { name: "Archivo Semi", data: semi, weight: 600, style: "normal" },
-        { name: "Archivo Light", data: light, weight: 300, style: "normal" },
-        { name: "Archivo Light Italic", data: lightItalic, weight: 300, style: "italic" },
+        { name: "Bricolage", data: display, weight: 800, style: "normal" },
+        { name: "Geist", data: sans, weight: 500, style: "normal" },
+        { name: "Geist", data: sansSemi, weight: 600, style: "normal" },
       ],
     },
   );

@@ -23,8 +23,8 @@ export const person = {
   availability: { en: "Open to working student positions", de: "Offen für Werkstudentenstellen" } satisfies L,
   email: "hakimi.mujahed@gmail.com",
   linkedin: "https://www.linkedin.com/in/mugahed-al-hakimi-36a2122bb/",
-  /** Portrait in /public, e.g. "/photo.jpg" (square works best). Until then the initials are shown. */
-  photo: undefined as string | undefined,
+  /** Portrait in /public (square works best). Without one, the initials are shown instead. */
+  photo: "/photo.jpg" as string | undefined,
 };
 
 /** "Hello" in the four languages I speak; the hero cycles through them. */
@@ -35,7 +35,15 @@ export const greetings: { text: string; lang: string; dir?: "rtl"; hue: Hue }[] 
   { text: "Merhaba", lang: "tr", hue: "mint" },
 ];
 
-/** Keywords listed below the three highlights. */
+/** Little labels floating around the portrait. */
+export const stickers: { text: L; hue: Hue }[] = [
+  { text: { en: "Java", de: "Java" }, hue: "violet" },
+  { text: { en: "SQL", de: "SQL" }, hue: "blue" },
+  { text: { en: "GDPR", de: "DSGVO" }, hue: "mint" },
+  { text: { en: "Excel", de: "Excel" }, hue: "sun" },
+];
+
+/** Keywords on the scrolling ribbon below the hero. */
 export const marquee: { text: L; hue: Hue }[] = [
   { text: { en: "Java", de: "Java" }, hue: "violet" },
   { text: { en: "SQL", de: "SQL" }, hue: "blue" },

@@ -1,78 +1,89 @@
+import { Check } from "lucide-react";
 import type { SiteContent } from "@/content";
 import type { Dictionary } from "@/i18n/ui";
-import { vars } from "@/lib/utils";
-import { Chapter, Pulse } from "./Chapter";
-import { RoleArt } from "./RoleArt";
+import { cn } from "@/lib/utils";
+import { IdScan } from "./IdScan";
+import { ReportArt } from "./ReportArt";
+import { Section } from "./Section";
 
-/**
- * The roles on a timeline: a green dot for each (both are current), joined by a line that draws
- * itself while you scroll, and a small line drawing of what the job is about.
- */
 export function Experience({ content, t }: { content: SiteContent; t: Dictionary }) {
-  const roles = content.experience;
-
   return (
-    <Chapter id="experience" {...t.sections.experience}>
-      <ol className="border-t border-ink">
-        {roles.map((role, i) => (
-          <li
-            key={`${role.org}-${role.title}`}
-            data-reveal="group"
-            className="relative grid gap-x-8 gap-y-6 border-b border-rule py-10 pl-7 md:grid-cols-[12rem_minmax(0,1fr)] md:pl-0 lg:py-14"
-          >
-            <span aria-hidden className="absolute top-[calc(2.5rem+0.4rem)] left-0 lg:top-[calc(3.5rem+0.4rem)]">
-              <Pulse />
-            </span>
-            {i < roles.length - 1 && (
-              <span
-                aria-hidden
-                className="absolute top-[calc(2.5rem+1.4rem)] -bottom-10 left-[3.5px] w-px bg-rule lg:top-[calc(3.5rem+1.4rem)] lg:-bottom-14"
-              >
-                <span className="timeline block size-full bg-blue" />
-              </span>
-            )}
+    <Section id="experience" nav="experience" hue="violet" {...t.sections.experience}>
+      <div className="grid gap-6">
+        {content.experience.map((role, i) => {
+          // every second card has its animation on the left (on wide screens)
+          const flip = i % 2 === 1;
+          return (
+            <article
+              key={`${role.org}-${role.title}`}
+              data-reveal
+              className={cn(
+                "grid overflow-hidden card",
+                flip ? "lg:grid-cols-[21rem_1fr]" : "lg:grid-cols-[1fr_21rem]",
+              )}
+            >
+              <div className="p-6 sm:p-10">
+                <div className="flex flex-wrap items-start justify-between gap-4">
+                  <div>
+                    <h3 className="text-2xl leading-tight font-extrabold tracking-tight sm:text-3xl">{role.title}</h3>
+                    <p className="mt-1.5 font-semibold text-fg">
+                      {role.org}
+                      {role.orgDetail && <span className="font-normal text-muted">&nbsp;· {role.orgDetail}</span>}
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {role.kind && (
+                      <span className="rounded-full border border-hue px-3 py-1 text-sm font-bold text-hue-ink">
+                        {role.kind}
+                      </span>
+                    )}
+                    <span className="inline-flex items-center gap-2 rounded-full bg-hue/15 px-3 py-1 text-sm font-bold text-hue-ink">
+                      <span aria-hidden className="relative flex size-2">
+                        <span className="absolute inset-0 animate-[ping_1.8s_cubic-bezier(0,0,0.2,1)_infinite] rounded-full bg-hue" />
+                        <span className="relative size-2 rounded-full bg-hue" />
+                      </span>
+                      {role.period}
+                    </span>
+                  </div>
+                </div>
 
-            <div className="flex items-start justify-between gap-6 md:flex-col md:justify-start md:pl-7">
-              <div className="flex flex-col gap-2">
-                <p className="label text-ink">{role.period}</p>
-                {role.kind && <p className="label text-violet-ink">{role.kind}</p>}
-              </div>
-              <RoleArt art={role.art} className="w-28 shrink-0 sm:w-32 md:mt-3 md:w-full md:max-w-[10rem]" />
-            </div>
-
-            <div className="min-w-0">
-              <h3 className="stagger text-[clamp(1.5rem,2.4vw,2rem)] leading-[1.15] font-bold text-ink">
-                {role.title}
-              </h3>
-              <p className="stagger mt-2 text-lg text-muted italic" style={vars({ "--i": 1 })}>
-                {role.org}
-                {role.orgDetail && <>&nbsp;· {role.orgDetail}</>}
-              </p>
-              <ul className="mt-6 space-y-3" style={vars({ "--d": "250ms", "--step": "110ms" })}>
-                {role.bullets.map((bullet, k) => (
-                  <li key={bullet} className="stagger flex gap-4 leading-[1.7] text-ink" style={vars({ "--i": k })}>
-                    <span aria-hidden className="draw-x mt-[0.85em] h-px w-4 shrink-0 bg-blue" />
-                    <span>{bullet}</span>
-                  </li>
-                ))}
-              </ul>
-              {role.tags.length > 0 && (
-                <ul className="mt-7 flex flex-wrap gap-2" style={vars({ "--d": "700ms", "--step": "70ms" })}>
-                  {role.tags.map((tag, k) => (
-                    <li
-                      key={tag}
-                      className="stagger border border-rule px-2.5 py-1 label text-muted"
-                      style={vars({ "--i": k })}
-                    >
-                      {tag}
+                <ul className="mt-7 grid gap-3.5">
+                  {role.bullets.map((bullet) => (
+                    <li key={bullet} className="flex gap-3 leading-relaxed">
+                      <span
+                        aria-hidden
+                        data-hue="mint"
+                        className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-hue/25 text-hue-ink"
+                      >
+                        <Check className="size-3.5" strokeWidth={3} />
+                      </span>
+                      <span>{bullet}</span>
                     </li>
                   ))}
                 </ul>
-              )}
-            </div>
-          </li>
-        ))}
-      </ol>
-    </Chapter>
+
+                {role.tags.length > 0 && (
+                  <ul className="mt-7 flex flex-wrap gap-2">
+                    {role.tags.map((tag) => (
+                      <li key={tag} className="rounded-full border border-line px-3 py-1 text-sm font-semibold text-fg">
+                        <span className="text-hue-ink">#</span>
+                        {tag}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+              <div className={cn(flip && "lg:order-first")}>
+                {role.art === "id-scan" ? (
+                  <IdScan scan={t.experience.scan} verified={t.experience.verified} />
+                ) : (
+                  <ReportArt caption={t.experience.report} stamp={t.experience.onTime} />
+                )}
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </Section>
   );
 }

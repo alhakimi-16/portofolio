@@ -1,67 +1,38 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import type { Hue } from "@/content/types";
 import { prefersReducedMotion } from "@/lib/utils";
 
-type Word = { text: string; lang: string; dir?: "rtl" };
+type Word = { text: string; lang: string; dir?: "rtl"; hue: Hue };
 
-/**
- * "Hello!" in the four languages, one after another. The words share one grid cell and
- * cross-fade; the cell's width follows the visible word, so the text after it glides along.
- */
+/** "Hello!" cycling through the languages I speak. */
 export function Greeting({ words }: { words: Word[] }) {
   const [index, setIndex] = useState(0);
-  // the first word is simply there; the following ones fade in
-  const [cycling, setCycling] = useState(false);
-  const [widths, setWidths] = useState<number[]>([]);
-  const refs = useRef<(HTMLSpanElement | null)[]>([]);
 
   useEffect(() => {
-    if (prefersReducedMotion() || words.length < 2) return;
-    const timer = window.setInterval(() => {
-      setCycling(true);
-      setIndex((i) => (i + 1) % words.length);
-    }, 2800);
+    if (prefersReducedMotion()) return;
+    const timer = window.setInterval(() => setIndex((i) => (i + 1) % words.length), 2600);
     return () => window.clearInterval(timer);
-  }, [words]);
+  }, [words.length]);
 
-  // measure every word (again whenever the font size changes)
-  useEffect(() => {
-    const items = refs.current.filter((el): el is HTMLSpanElement => el !== null);
-    const measure = () => setWidths(refs.current.map((el) => el?.getBoundingClientRect().width ?? 0));
-    const observer = new ResizeObserver(measure);
-    items.forEach((item) => observer.observe(item));
-    return () => observer.disconnect();
-  }, [words]);
+  const previous = (index - 1 + words.length) % words.length;
 
-  const first = words[0];
-  if (!first) return null;
   return (
-    <>
-      <span className="sr-only" lang={first.lang}>
-        {first.text}!
-      </span>
-      <span
-        aria-hidden
-        className="inline-grid justify-items-start transition-[width] duration-700 ease-[var(--ease)]"
-        style={widths[index] ? { width: widths[index] } : undefined}
-      >
-        {words.map((word, i) => (
-          <span
-            key={word.text}
-            ref={(el) => {
-              refs.current[i] = el;
-            }}
-            lang={word.lang}
-            dir={word.dir}
-            data-on={i === index || undefined}
-            data-cycling={cycling || undefined}
-            className="invisible whitespace-nowrap [grid-area:1/1] data-on:visible data-on:data-cycling:animate-[greet-in_0.8s_var(--ease)_both]"
-          >
-            {word.text}!
-          </span>
-        ))}
-      </span>
-    </>
+    <span className="inline-grid">
+      {words.map((word, i) => (
+        <span
+          key={word.lang}
+          lang={word.lang}
+          dir={word.dir}
+          data-hue={word.hue}
+          data-state={i === index ? "in" : i === previous ? "out" : "next"}
+          aria-hidden={i !== index || undefined}
+          className="col-start-1 row-start-1 justify-self-start text-hue-ink transition-[opacity,translate] duration-700 ease-(--ease) data-[state=next]:translate-y-[0.55em] data-[state=next]:opacity-0 data-[state=out]:-translate-y-[0.55em] data-[state=out]:opacity-0"
+        >
+          {word.text}!
+        </span>
+      ))}
+    </span>
   );
 }

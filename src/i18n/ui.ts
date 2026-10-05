@@ -22,10 +22,6 @@ const en = {
     iam: "I'm",
     cta: "Get in touch",
     skills: "See my skills",
-    portfolio: "Portfolio",
-    contents: "Contents",
-    glance: "At a glance",
-    keywords: "Keywords",
   },
   sections: {
     about: { eyebrow: "About me", title: "A quick *hello*" },
@@ -54,12 +50,18 @@ const en = {
     certificate: "Certificate",
     inProgress: "In progress",
   },
+  experience: {
+    scan: "ID check",
+    verified: "Verified",
+    report: "Financial report",
+    onTime: "On time",
+  },
   contact: {
     text: "I'm looking for a working student position. The easiest way to reach me is by email.",
-    email: "Email",
     copy: "Copy email",
     copied: "Copied!",
     linkedin: "LinkedIn",
+    write: "Write an email",
   },
   header: {
     sections: "Sections",
@@ -99,10 +101,6 @@ const de: Dictionary = {
     iam: "Ich bin",
     cta: "Kontakt aufnehmen",
     skills: "Meine Kenntnisse",
-    portfolio: "Portfolio",
-    contents: "Inhalt",
-    glance: "Auf einen Blick",
-    keywords: "Stichworte",
   },
   sections: {
     about: { eyebrow: "Über mich", title: "Kurz *vorgestellt*" },
@@ -131,12 +129,18 @@ const de: Dictionary = {
     certificate: "Zertifikat",
     inProgress: "Läuft gerade",
   },
+  experience: {
+    scan: "Ausweisprüfung",
+    verified: "Geprüft",
+    report: "Finanzbericht",
+    onTime: "Pünktlich",
+  },
   contact: {
     text: "Ich suche eine Werkstudentenstelle. Am einfachsten erreichen Sie mich per E-Mail.",
-    email: "E-Mail",
     copy: "E-Mail kopieren",
     copied: "Kopiert!",
     linkedin: "LinkedIn",
+    write: "E-Mail schreiben",
   },
   header: {
     sections: "Abschnitte",

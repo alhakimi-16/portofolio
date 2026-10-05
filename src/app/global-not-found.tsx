@@ -14,7 +14,8 @@ export const metadata: Metadata = {
 export default function GlobalNotFound() {
   const en = dictionaries.en.notFound;
   const de = dictionaries.de.notFound;
-  const link = "border-b border-ink pb-1 label text-ink transition-colors hover:border-blue hover:text-blue-ink";
+  const link =
+    "inline-flex items-center gap-2 rounded-full border border-line bg-surface px-5 py-3 font-semibold text-fg transition-colors hover:border-fg";
 
   return (
     <html lang="en" className={fontVariables} suppressHydrationWarning>
@@ -22,18 +23,16 @@ export default function GlobalNotFound() {
         <InlineScript html={bootScript} />
       </head>
       <body>
-        <main className="mx-auto flex min-h-svh max-w-3xl flex-col justify-center px-6 py-16">
-          <p className="label text-muted">Error</p>
-          <p className="mt-4 display text-[clamp(6rem,24vw,12rem)] leading-[0.85] text-ink">404</p>
-          <div className="mt-8 h-px bg-ink" />
-          <h1 className="mt-8 text-4xl font-light text-ink">{en.title}</h1>
-          <p className="mt-1 text-2xl font-light text-violet-ink italic" lang="de">
+        <main className="mx-auto flex min-h-svh max-w-xl flex-col justify-center px-6 py-16">
+          <p className="shimmer-text font-display text-[7rem] leading-none font-extrabold tracking-[-0.05em]">404</p>
+          <h1 className="mt-6 text-4xl font-extrabold tracking-tight">{en.title}</h1>
+          <p className="mt-1 text-lg" lang="de">
             {de.title}
           </p>
-          <p className="mt-6 text-muted">
+          <p className="mt-6">
             {en.text} <span lang="de">{de.text}</span>
           </p>
-          <div className="mt-10 flex flex-wrap gap-8">
+          <div className="mt-10 flex flex-wrap gap-3">
             <Link href="/en" className={link}>
               {en.back} →
             </Link>
